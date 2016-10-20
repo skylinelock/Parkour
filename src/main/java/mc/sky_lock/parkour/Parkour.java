@@ -22,6 +22,7 @@ public class Parkour extends JavaPlugin {
         getCommand("parkour").setExecutor(new CommandHandler(this));
         
         config.saveParkours(test());
+        
         manager.setParkours(config.getParkours());
     }
     

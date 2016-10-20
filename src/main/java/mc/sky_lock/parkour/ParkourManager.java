@@ -39,7 +39,7 @@ public class ParkourManager {
     }
     
     public void setParkours(List<ParkourObj> parkours) {
-        this.parkours.forEach(parkour -> parkours.add(parkour) );
+        parkours.forEach(parkour -> this.parkours.add(parkour) );
     }
     
     public List<ParkourObj> getParkours() {

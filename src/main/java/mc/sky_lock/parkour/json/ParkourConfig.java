@@ -33,8 +33,9 @@ public class ParkourConfig {
     }
     
     public void saveParkours(List<ParkourObj> parkours) {
+        Type type = new TypeToken<List<ParkourObj>>() {}.getType();
         try {
-            gsonConf.save(parkours, List.class);
+            gsonConf.save(parkours, type);
         } catch (IOException | RuntimeException ex) {
             ex.printStackTrace();
         }      
