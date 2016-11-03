@@ -1,49 +1,77 @@
 package mc.sky_lock.parkour;
 
+import mc.sky_lock.parkour.listener.MoveListener;
+import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import mc.sky_lock.parkour.listener.MoveListener;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
  * @author sky_lock
  */
 public class ParkourManager {
-    private final JavaPlugin plugin;
-    private final List<ParkourObj> parkours;
-    private final Map<ParkourPlayer, Long> times = new HashMap<>(); 
-    
-    public ParkourManager(JavaPlugin plugin) {
+
+    private final ParkourPlugin plugin;
+    private List<Parkour> parkours = new ArrayList<>();
+    private Map<Player, Long> times = new HashMap<>();
+
+    public ParkourManager(ParkourPlugin plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(new MoveListener(this), plugin);
-        
-        parkours = new ArrayList<>();
     }
-    
-    public JavaPlugin getPlugin() {
-        return plugin;
-    }
-    
-    public void start(ParkourPlayer player) {
+
+    public void start(Player player) {
+        if (times.containsKey(player)) {
+
+        }
         times.put(player, System.currentTimeMillis());
     }
-    
-    public long stop(ParkourPlayer player) {
-       if (!times.containsKey(player)) {
-           return -1;
-       }
-       return System.currentTimeMillis() - times.get(player);
+
+    public long stop(Player player) {
+        if (!times.containsKey(player)) {
+            return -1;
+        }
+        long time = System.currentTimeMillis() - times.get(player);
+        times.remove(player);
+        return time;
     }
     
-    public void setParkours(List<ParkourObj> parkours) {
-        parkours.forEach(parkour -> this.parkours.add(parkour) );
+    public void addParkour(String id) {
+        Parkour parkour = new Parkour(id);
+        parkours.add(parkour);
     }
     
-    public List<ParkourObj> getParkours() {
+    public boolean removeParkour(String id) {
+        for (Parkour parkour : parkours) {
+            if (parkour.getId().equals(id)) {
+                parkours.remove(parkour);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setParkours(List<Parkour> parkours) {
+        this.parkours = parkours;
+    }
+
+    public List<Parkour> getParkours() {
         return parkours;
     }
-    
+
+    public void removeAllTimes() {
+        times = null;
+    }
+
+    public void removeParkours() {
+        parkours = null;
+    }
+
+    public Map<Player, Long> getTimes() {
+        return times;
+    }
+
 }

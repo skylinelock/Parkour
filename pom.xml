@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <bukkit.plugin.main>mc.sky_lock.parkour.Parkour</bukkit.plugin.main>
+        <bukkit.plugin.main>mc.sky_lock.parkour.ParkourPlugin</bukkit.plugin.main>
         <bukkit.plugin.authors>sky_lock</bukkit.plugin.authors>
     </properties>
     

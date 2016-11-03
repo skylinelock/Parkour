@@ -3,30 +3,27 @@ package mc.sky_lock.parkour;
 import org.bukkit.entity.Player;
 
 /**
- *
  * @author sky_lock
  */
+
 public class ParkourPlayer {
     private final Player player;
-    private final ParkourObj parkour;
+    private final Parkour parkour;
     private final long startTime;
-    
-    public ParkourPlayer(Player player, ParkourObj parkour) {
+
+    public ParkourPlayer(Player player, Parkour parkour) {
         this.player = player;
         this.parkour = parkour;
-        startTime = System.currentTimeMillis();
+        this.startTime = System.currentTimeMillis();
     }
-    
+
     public long getTime() {
-        long endTime = System.currentTimeMillis();
-        return endTime - startTime;
+        return System.currentTimeMillis() - startTime;
     }
-    
-    public ParkourObj getParkour() {
+
+    public Parkour getParkour() {
         return parkour;
     }
-    
-    public Player getPlayer() {
-        return player;
-    }
+
+
 }
