@@ -22,7 +22,6 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void moveListener(PlayerMoveEvent event) {
         ParkourManager manager = new ParkourManager(plugin, event);
-
         manager.respawn();
 
         Location to = event.getTo();

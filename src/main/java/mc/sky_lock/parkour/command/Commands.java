@@ -43,18 +43,22 @@ public class Commands implements CommandExecutor {
                 break;
 
             case "setname":
+            case "sn":
                 cmd = new SetNameCommand(plugin);
                 break;
 
             case "setstart":
+            case "ss":
                 cmd = new SetStartCommand(plugin);
                 break;
 
             case "setend":
+            case "se":
                 cmd = new SetEndCommand(plugin);
                 break;
 
             case "setpre":
+            case "sp":
                 cmd = new SetPreCommand(plugin);
                 break;
 
