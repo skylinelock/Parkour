@@ -1,46 +1,42 @@
 package mc.sky_lock.parkour;
 
-import mc.sky_lock.parkour.command.CommandHandler;
+import mc.sky_lock.parkour.command.Commands;
 import mc.sky_lock.parkour.json.ParkourConfig;
+import mc.sky_lock.parkour.listener.PlayerListener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
 
 /**
  *
  * @author sky_lock
  */
 public class ParkourPlugin extends JavaPlugin {
-
-    private ParkourManager manager;
     private ParkourConfig config;
+    private List<Parkour> parkours;
     
     @Override
     public void onEnable() {
-        this.manager = new ParkourManager(this);
         config = new ParkourConfig(this.getDataFolder());
+        parkours = config.getParkours();
         
-        getCommand("parkour").setExecutor(new CommandHandler(this));
-        
-        manager.setParkours(config.getParkours());
+        getCommand("parkour").setExecutor(new Commands(this));
+        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+
     }
     
     @Override
     public void onDisable() {
-        //ファイルに保存
-        config.saveParkours(manager.getParkours());
-
-        //メモリ解放
-        manager.removeParkours();
-        manager.removeAllTimes();
-
-        manager = null;
-    }
-    
-    public ParkourManager getParkourManager() {
-        return manager;
+        config.saveParkours(parkours);
     }
     
     public ParkourConfig getParkourConfig() {
         return config;
     }
+
+    public List<Parkour> getParkours() {
+        return parkours;
+    }
+
     
 }
