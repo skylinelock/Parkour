@@ -8,7 +8,7 @@ import javax.xml.stream.Location;
  * @author sky_lock
  */
 
-public class Util {
+public class FormatUtils {
 
     public static String NOT_ENOUGH_MESSAGE = ChatColor.RED + "Not enough arguments";
 

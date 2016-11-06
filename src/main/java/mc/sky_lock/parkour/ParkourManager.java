@@ -6,7 +6,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,30 +19,32 @@ public class ParkourManager {
     private final Player player;
     private final Location location;
 
-    private final List<Parkour> parkours;
+    private final Map<Player, Long> timeMap;
+    private final Map<Player, Parkour> parkourMap;
 
-    private Map<Player, Long> timeMap = new HashMap<>();
-    private Map<Player, Parkour> parkourMap = new HashMap<>();
-
-    public ParkourManager(ParkourPlugin plugin, PlayerMoveEvent event) {
+    public ParkourManager(ParkourPlugin plugin, PlayerMoveEvent event, Map<Player, Long> timeMap, Map<Player, Parkour> parkourMap) {
         this.plugin = plugin;
+
         this.event = event;
         this.player = event.getPlayer();
-        this.location = player.getLocation();
+        this.location = event.getTo();
 
-        this.parkours = plugin.getParkours();
+        this.timeMap = timeMap;
+        this.parkourMap = parkourMap;
     }
 
     public void start() {
+        List<Parkour> parkours = plugin.getParkours();
         for (Parkour parkour : parkours) {
             Location startPoint = parkour.getStartPoint();
-            if (startPoint == null || compareLocation(startPoint, location)) {
+            if (!compareLocation(location, startPoint)) {
+                continue;
+            }
+            if (!parkour.isActive()) {
                 return;
             }
-            if (parkourMap.containsKey(player) && parkourMap.get(player).equals(parkour)) {
-                sendFailedContent(player, parkour);
-                timeMap.remove(player);
-                parkourMap.remove(player);
+            if (timeMap.containsKey(player) && parkourMap.containsKey(player) && !parkourMap.get(player).equals(parkour)) {
+                sendFailedContent(player, parkourMap.get(player));
             }
             timeMap.put(player, System.currentTimeMillis());
             parkourMap.put(player, parkour);
@@ -52,38 +53,52 @@ public class ParkourManager {
             player.sendMessage(ChatColor.GOLD + "[Parkour] " + ChatColor.YELLOW + parkour.getName() + " Parkour challenge started!");
             player.sendMessage("");
 
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1.0F, 1.0F);
         }
     }
 
     public void stop() {
+        List<Parkour> parkours = plugin.getParkours();
         for (Parkour parkour : parkours) {
             Location endPoint = parkour.getEndPoint();
-            if (endPoint == null || compareLocation(endPoint, location)) {
+            if (!compareLocation(location, endPoint)) {
+                continue;
+            }
+            if (!timeMap.containsKey(player)) {
                 return;
             }
-            if (timeMap.containsKey(player) && parkourMap.containsKey(player)) {
-                continue;
+            if (!parkourMap.containsKey(player)) {
+                return;
             }
             if (!parkourMap.get(player).equals(parkour)) {
-                continue;
+                return;
             }
             player.sendMessage("");
             player.sendMessage(ChatColor.GOLD + "[Parkour] " + ChatColor.YELLOW + parkour.getName() + " Parkour challenge succeeded!");
+            player.sendMessage(ChatColor.GOLD + "[Parkour] " + ChatColor.YELLOW + "Total Time: " + timeMap.get(player));
             player.sendMessage("");
 
-            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+
+            timeMap.remove(player);
+            parkourMap.remove(player);
         }
     }
 
     public void respawn() {
-        if (location.getBlockY() > 0) {
+        if (!parkourMap.containsKey(player)) {
             return;
         }
-        if (timeMap.get(player) == null && parkourMap.get(player) == null) {
+        if (!timeMap.containsKey(player)) {
             return;
         }
-        sendFailedContent(player, parkourMap.get(player));
+        if (location.getBlockY() > -25) {
+            return;
+        }
+        Parkour parkour = parkourMap.get(player);
+        player.teleport(parkour.getRespawnPoint());
+
+        sendFailedContent(player, parkour);
 
         timeMap.remove(player);
         parkourMap.remove(player);
@@ -98,7 +113,7 @@ public class ParkourManager {
 
     private void sendFailedContent(Player player, Parkour parkour) {
         player.sendMessage(ChatColor.GOLD + "[Parkour] " + ChatColor.RED + parkour.getName() + " Parkour challenge failed!");
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 1, 1);
+        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 1.0F, 0.0F);
     }
 
 }

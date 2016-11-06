@@ -2,7 +2,7 @@ package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
-import mc.sky_lock.parkour.Util;
+import mc.sky_lock.parkour.FormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
@@ -24,7 +24,7 @@ public class SetNameCommand implements ICommand {
     @Override
     public void execute(Player player, Command command, String label, String[] args) {
         if (args.length < 3) {
-            player.sendMessage(Util.NOT_ENOUGH_MESSAGE);
+            player.sendMessage(FormatUtils.NOT_ENOUGH_MESSAGE);
             return;
         }
         String enterId = args[1];
@@ -34,7 +34,7 @@ public class SetNameCommand implements ICommand {
             if (!parkour.getId().equals(enterId)) {
                 continue;
             }
-            String name = Util.buildString(2, args);
+            String name = FormatUtils.buildString(2, args);
             parkour.setName(name);
             player.sendMessage(ChatColor.GREEN + "Parkour name updated");
             return;

@@ -1,7 +1,7 @@
 package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourPlugin;
-import mc.sky_lock.parkour.Util;
+import mc.sky_lock.parkour.FormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,7 +23,7 @@ public class Commands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 1) {
-            sender.sendMessage(Util.NOT_ENOUGH_MESSAGE);
+            sender.sendMessage(FormatUtils.NOT_ENOUGH_MESSAGE);
             return false;
         }
 
