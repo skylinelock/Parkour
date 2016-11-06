@@ -37,6 +37,5 @@ public class ParkourPlugin extends JavaPlugin {
     public List<Parkour> getParkours() {
         return parkours;
     }
-
     
 }

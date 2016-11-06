@@ -51,6 +51,7 @@ public class ParkourConfig {
             parkours = gsonConf.load(List.class, type);
         } catch (IOException | RuntimeException ex) {
             ex.printStackTrace();
+            return null;
         }
         return parkours;
     }

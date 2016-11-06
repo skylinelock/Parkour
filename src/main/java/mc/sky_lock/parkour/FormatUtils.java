@@ -30,5 +30,6 @@ public class FormatUtils {
     public static boolean isBoolean(String string) {
         return Boolean.valueOf(string);
     }
+
 }
 

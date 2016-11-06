@@ -1,7 +1,6 @@
 package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourPlugin;
-import mc.sky_lock.parkour.FormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,20 +21,26 @@ public class Commands implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length < 1) {
-            sender.sendMessage(FormatUtils.NOT_ENOUGH_MESSAGE);
+        if (!(sender instanceof Player)) {
+            if (args.length < 1) {
+                sender.sendMessage(ChatColor.GREEN + "/parkour reload");
+                return true;
+            }
+            if (args[0].equalsIgnoreCase("reload")) {
+                saveParkours();
+                sender.sendMessage(ChatColor.GREEN + "Reload successful");
+                return true;
+            }
+            sender.sendMessage(ChatColor.RED + "You must be a player to use this command");
             return false;
         }
-
-        if (!(sender instanceof Player)) {
-            if (!args[0].equals("reload")) {
-                sender.sendMessage(ChatColor.RED + "You must be a player to use this command");
-                return false;
-            }
-            //reload
-        }
         Player player = (Player) sender;
-        ICommand cmd = new ListCommand(plugin);
+        ICommand cmd = new UsageCommand();
+
+        if (args.length < 1) {
+            cmd.execute(player, command, label, args);
+            return true;
+        }
 
         switch (args[0].toLowerCase()) {
             case "add":
@@ -73,10 +78,26 @@ public class Commands implements CommandExecutor {
             case "info":
                 cmd = new InfoCommand(plugin);
                 break;
+
+            case "list":
+                cmd = new ListCommand(plugin);
+                break;
+
+            case "reload":
+                saveParkours();
+                player.sendMessage(ChatColor.GREEN + "Reload successful");
+                return true;
+
+            default:
+                break;
         }
 
         cmd.execute(player, command, label, args);
         return true;
+    }
+
+    private void saveParkours() {
+        plugin.getParkourConfig().saveParkours(plugin.getParkours());
     }
 
 }
