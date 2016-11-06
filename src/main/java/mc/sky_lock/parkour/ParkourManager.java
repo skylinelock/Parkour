@@ -36,7 +36,7 @@ public class ParkourManager {
 
     public void start() {
         for (Parkour parkour : parkours) {
-            Location startPoint = parkour.getStartLocation();
+            Location startPoint = parkour.getStartPoint();
             if (startPoint == null || compareLocation(startPoint, location)) {
                 return;
             }
@@ -58,7 +58,7 @@ public class ParkourManager {
 
     public void stop() {
         for (Parkour parkour : parkours) {
-            Location endPoint = parkour.getEndLocation();
+            Location endPoint = parkour.getEndPoint();
             if (endPoint == null || compareLocation(endPoint, location)) {
                 return;
             }

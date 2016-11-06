@@ -32,7 +32,7 @@ public class SetPreCommand implements ICommand {
 
         for (Parkour parkour : parkours) {
             if (parkour.getId().equals(enterId)) {
-                parkour.setRespawnLocation(player.getLocation());
+                parkour.setRespawnPoint(player.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Set pre successful");
                 return;
             }

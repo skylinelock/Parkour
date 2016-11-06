@@ -32,7 +32,7 @@ public class SetStartCommand implements ICommand {
 
         for (Parkour parkour : parkours) {
             if (parkour.getId().equals(enterId)) {
-                parkour.setStartLocation(player.getLocation());
+                parkour.setStartPoint(player.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Set start successful");
                 return;
             }

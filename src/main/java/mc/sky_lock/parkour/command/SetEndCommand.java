@@ -32,7 +32,7 @@ public class SetEndCommand implements ICommand {
 
         for (Parkour parkour : parkours) {
             if (parkour.getId().equals(enterId)) {
-                parkour.setEndLocation(player.getLocation());
+                parkour.setEndPoint(player.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Set end successful");
                 return;
             }

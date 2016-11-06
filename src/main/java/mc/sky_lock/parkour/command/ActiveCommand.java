@@ -35,7 +35,7 @@ public class ActiveCommand implements ICommand {
                 continue;
             }
             if (!parkour.isActive()) {
-                if (parkour.getStartLocation() == null || parkour.getEndLocation() == null || parkour.getRespawnLocation() == null || parkour.getName() == null) {
+                if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getRespawnPoint() == null || parkour.getName() == null) {
                     break;
                 }
                 parkour.setActive(true);

@@ -21,15 +21,15 @@ public class Parkour {
         this.name = name;
     }
 
-    public void setStartLocation(Location loc) {
+    public void setStartPoint(Location loc) {
         startLocation = loc;
     }
 
-    public void setEndLocation(Location loc) {
+    public void setEndPoint(Location loc) {
         endLocation = loc;
     }
 
-    public void setRespawnLocation(Location loc) {
+    public void setRespawnPoint(Location loc) {
         respawnLocation = loc;
     }
 
@@ -37,15 +37,15 @@ public class Parkour {
         return name;
     }
 
-    public Location getStartLocation() {
+    public Location getStartPoint() {
         return startLocation;
     }
 
-    public Location getEndLocation() {
+    public Location getEndPoint() {
         return endLocation;
     }
 
-    public Location getRespawnLocation() {
+    public Location getRespawnPoint() {
         return respawnLocation;
     }
 

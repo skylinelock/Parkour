@@ -36,9 +36,9 @@ public class InfoCommand implements ICommand {
                 continue;
             }
 
-            Location startLoc = parkour.getStartLocation();
-            Location endLoc = parkour.getEndLocation();
-            Location preLoc = parkour.getRespawnLocation();
+            Location startLoc = parkour.getStartPoint();
+            Location endLoc = parkour.getEndPoint();
+            Location preLoc = parkour.getRespawnPoint();
 
             player.sendMessage(ChatColor.GREEN + "Id: " + ChatColor.RESET + parkour.getId());
             player.sendMessage(ChatColor.GREEN + "Name: " + ChatColor.RESET + parkour.getName());
