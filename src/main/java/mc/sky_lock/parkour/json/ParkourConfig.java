@@ -6,7 +6,6 @@ import mc.sky_lock.parkour.Parkour;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,16 +16,12 @@ public class ParkourConfig {
 
     private final GsonConfig gsonConf;
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public ParkourConfig(File dir) {
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
+        dir.mkdirs();
         File file = new File(dir, "parkours.json");
         try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+            file.createNewFile();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -46,12 +41,11 @@ public class ParkourConfig {
     public List<Parkour> getParkours() {
         Type type = new TypeToken<List<Parkour>>() {
         }.getType();
-        List<Parkour> parkours = new ArrayList<>();
+        List<Parkour> parkours = null;
         try {
             parkours = gsonConf.load(List.class, type);
         } catch (IOException | RuntimeException ex) {
             ex.printStackTrace();
-            return null;
         }
         return parkours;
     }

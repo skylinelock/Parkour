@@ -12,11 +12,11 @@ import java.util.List;
  * @author sky_lock
  */
 
-public class ListCommand implements ICommand {
+class ListCommand implements ICommand {
 
     private final ParkourPlugin plugin;
 
-    public ListCommand(ParkourPlugin plugin) {
+    ListCommand(ParkourPlugin plugin) {
         this.plugin = plugin;
     }
 

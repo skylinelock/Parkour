@@ -43,7 +43,6 @@ public class ParkourManager {
                 blockType != Material.STONE_PLATE) {
             return;
         }
-
         start();
         stop();
     }
@@ -81,9 +80,6 @@ public class ParkourManager {
         List<Parkour> parkours = plugin.getParkours();
         for (Parkour parkour : parkours) {
             Location endPoint = parkour.getEndPoint();
-            if (!parkour.isActive()) {
-                continue;
-            }
             if (!compareLocation(location, endPoint)) {
                 continue;
             }
@@ -130,10 +126,7 @@ public class ParkourManager {
     }
 
     private boolean compareLocation(Location location1, Location location2) {
-        if (location1.getBlockX() != location2.getBlockX() || location1.getBlockY() != location2.getBlockY() || location1.getBlockZ() != location2.getBlockZ()) {
-            return false;
-        }
-        return true;
+        return location1.getBlockX() == location2.getBlockX() && location1.getBlockY() == location2.getBlockY() && location1.getBlockZ() == location2.getBlockZ();
     }
 
     private void sendFailedContent(Player player, Parkour parkour) {

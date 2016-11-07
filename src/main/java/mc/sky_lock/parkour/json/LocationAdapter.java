@@ -1,23 +1,17 @@
 package mc.sky_lock.parkour.json;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import java.lang.reflect.Type;
+import com.google.gson.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+
+import java.lang.reflect.Type;
 
 /**
  *
  * @author sky_lock
  */
-public class LocationAdapter implements JsonSerializer<Location>, JsonDeserializer<Location> {
+class LocationAdapter implements JsonSerializer<Location>, JsonDeserializer<Location> {
 
     @Override
     public JsonElement serialize(Location location, Type type, JsonSerializationContext jsonSerializationContext) {

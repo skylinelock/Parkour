@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
  * @author sky_lock
  */
 
-public class UsageCommand implements ICommand {
+class UsageCommand implements ICommand {
 
     @Override
     public void execute(Player player, Command command, String label, String[] args) {

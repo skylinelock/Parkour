@@ -13,11 +13,11 @@ import java.util.List;
  * @author sky_lock
  */
 
-public class AddCommand implements ICommand {
+class AddCommand implements ICommand {
 
     private final ParkourPlugin plugin;
 
-    public AddCommand(ParkourPlugin plugin) {
+    AddCommand(ParkourPlugin plugin) {
         this.plugin = plugin;
     }
 

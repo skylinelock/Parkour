@@ -13,11 +13,11 @@ import java.util.List;
  * @author sky_lock
  */
 
-public class RemoveCommand implements ICommand {
+class RemoveCommand implements ICommand {
 
     private final ParkourPlugin plugin;
 
-    public RemoveCommand(ParkourPlugin plugin) {
+    RemoveCommand(ParkourPlugin plugin) {
         this.plugin = plugin;
     }
 
