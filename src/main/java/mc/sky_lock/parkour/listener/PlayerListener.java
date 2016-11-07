@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 @SuppressWarnings("unused")
 public class PlayerListener implements Listener {
 
-
     private final ParkourPlugin plugin;
     private final ParkourManager manager;
 
@@ -23,7 +22,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void moveListener(PlayerMoveEvent event) {
+    public void playerMove(PlayerMoveEvent event) {
         manager.startMeasure(event);
     }
 

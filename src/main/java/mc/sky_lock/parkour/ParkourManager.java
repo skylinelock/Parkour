@@ -7,10 +7,11 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static mc.sky_lock.parkour.FormatUtils.timeFormat;
 
 /**
  * @author sky_lock
@@ -22,6 +23,7 @@ public class ParkourManager {
     private final Map<Player, Parkour> parkourMap = new HashMap<>();
 
     private PlayerMoveEvent event;
+    private Player player;
 
     public ParkourManager(ParkourPlugin plugin) {
         this.plugin = plugin;
@@ -29,6 +31,7 @@ public class ParkourManager {
 
     public void startMeasure(PlayerMoveEvent event) {
         this.event = event;
+        this.player = event.getPlayer();
 
         respawn();
         Location to = event.getTo();
@@ -48,7 +51,6 @@ public class ParkourManager {
     }
 
     private void start() {
-        Player player = event.getPlayer();
         Location location = event.getTo();
         List<Parkour> parkours = plugin.getParkours();
 
@@ -75,7 +77,6 @@ public class ParkourManager {
     }
 
     private void stop() {
-        Player player = event.getPlayer();
         Location location = event.getTo();
         List<Parkour> parkours = plugin.getParkours();
         for (Parkour parkour : parkours) {
@@ -107,18 +108,15 @@ public class ParkourManager {
     private void respawn() {
         Player player = event.getPlayer();
         Location location = event.getTo();
-        if (!parkourMap.containsKey(player)) {
-            return;
-        }
-        if (!timeMap.containsKey(player)) {
-            return;
-        }
         if (location.getBlockY() > -25) {
+            return;
+        }
+        if (!parkourMap.containsKey(player) || !timeMap.containsKey(player)) {
+            player.teleport(player.getWorld().getSpawnLocation());
             return;
         }
         Parkour parkour = parkourMap.get(player);
         player.teleport(parkour.getRespawnPoint());
-
         sendFailedContent(player, parkour);
 
         timeMap.remove(player);
@@ -134,9 +132,8 @@ public class ParkourManager {
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 1.0F, 0.0F);
     }
 
-    private String timeFormat(Long time) {
-        SimpleDateFormat timeformat = new SimpleDateFormat("mm:ss.SSS");
-        return timeformat.format(time);
+    public Map<Player, Parkour> getParkourMap() {
+        return parkourMap;
     }
 
 }
