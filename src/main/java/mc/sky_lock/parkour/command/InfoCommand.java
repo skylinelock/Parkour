@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour.command;
 
+import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
 import mc.sky_lock.parkour.FormatUtils;
@@ -18,7 +19,7 @@ class InfoCommand implements ICommand {
 
     private final ParkourPlugin plugin;
 
-    InfoCommand(ParkourPlugin plugin) {
+    InfoCommand(@NonNull ParkourPlugin plugin) {
         this.plugin = plugin;
     }
 

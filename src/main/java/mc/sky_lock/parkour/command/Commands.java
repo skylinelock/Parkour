@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour.command;
 
+import lombok.NonNull;
 import mc.sky_lock.parkour.ParkourPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,7 +16,7 @@ public class Commands implements CommandExecutor {
 
     private final ParkourPlugin plugin;
 
-    public Commands(ParkourPlugin plugin) {
+    public Commands(@NonNull ParkourPlugin plugin) {
         this.plugin = plugin;
     }
 

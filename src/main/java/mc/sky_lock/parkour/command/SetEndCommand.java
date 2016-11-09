@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour.command;
 
+import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
 import mc.sky_lock.parkour.FormatUtils;
@@ -17,7 +18,7 @@ class SetEndCommand implements ICommand {
 
     private final ParkourPlugin plugin;
 
-    SetEndCommand(ParkourPlugin plugin) {
+    SetEndCommand(@NonNull ParkourPlugin plugin) {
         this.plugin = plugin;
     }
 

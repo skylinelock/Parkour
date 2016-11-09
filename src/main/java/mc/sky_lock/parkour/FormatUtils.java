@@ -23,7 +23,7 @@ public class FormatUtils {
         return sb.toString();
     }
 
-    public static String timeFormat(Long time) {
+    static String timeFormat(Long time) {
         SimpleDateFormat timeformat = new SimpleDateFormat("mm:ss.SSS");
         return timeformat.format(time);
     }

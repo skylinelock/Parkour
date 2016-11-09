@@ -1,9 +1,12 @@
 package mc.sky_lock.parkour;
 
+import lombok.Getter;
 import mc.sky_lock.parkour.command.Commands;
+import mc.sky_lock.parkour.command.tabcomplete.ParkourTabCompleter;
 import mc.sky_lock.parkour.json.ParkourConfig;
 import mc.sky_lock.parkour.listener.EntityListener;
 import mc.sky_lock.parkour.listener.PlayerListener;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -13,15 +16,20 @@ import java.util.List;
  * @author sky_lock
  */
 public class ParkourPlugin extends JavaPlugin {
-    private ParkourConfig config;
+
+    @Getter
+    private ParkourConfig parkourConfig;
+    @Getter
     private List<Parkour> parkours;
     
     @Override
     public void onEnable() {
-        config = new ParkourConfig(this.getDataFolder());
-        parkours = config.getParkours();
+        parkourConfig = new ParkourConfig(this.getDataFolder());
+        parkours = parkourConfig.getParkours();
         
-        getCommand("parkour").setExecutor(new Commands(this));
+        PluginCommand parkourCommand = getCommand("parkour");
+        parkourCommand.setExecutor(new Commands(this));
+        parkourCommand.setTabCompleter(new ParkourTabCompleter(this));
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
@@ -30,15 +38,6 @@ public class ParkourPlugin extends JavaPlugin {
     
     @Override
     public void onDisable() {
-        config.saveParkours(parkours);
+        parkourConfig.saveParkours(parkours);
     }
-    
-    public ParkourConfig getParkourConfig() {
-        return config;
-    }
-
-    public List<Parkour> getParkours() {
-        return parkours;
-    }
-    
 }

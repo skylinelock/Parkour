@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import lombok.NonNull;
 import org.bukkit.Location;
 
 import java.io.*;
@@ -18,7 +19,7 @@ class GsonConfig {
     private final Gson gson;
     private final File file;
 
-    GsonConfig(File file) {
+    GsonConfig(@NonNull File file) {
         this.file = file;
         this.gson = new GsonBuilder()
                 .serializeNulls()

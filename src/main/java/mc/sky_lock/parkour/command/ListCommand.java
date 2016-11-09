@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour.command;
 
+import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
 import org.bukkit.ChatColor;
@@ -16,7 +17,7 @@ class ListCommand implements ICommand {
 
     private final ParkourPlugin plugin;
 
-    ListCommand(ParkourPlugin plugin) {
+    ListCommand(@NonNull ParkourPlugin plugin) {
         this.plugin = plugin;
     }
 

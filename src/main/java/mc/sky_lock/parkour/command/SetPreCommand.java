@@ -1,8 +1,9 @@
 package mc.sky_lock.parkour.command;
 
+import lombok.NonNull;
+import mc.sky_lock.parkour.FormatUtils;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
-import mc.sky_lock.parkour.FormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
@@ -17,7 +18,7 @@ class SetPreCommand implements ICommand {
 
     private final ParkourPlugin plugin;
 
-    SetPreCommand(ParkourPlugin plugin) {
+    SetPreCommand(@NonNull ParkourPlugin plugin) {
         this.plugin = plugin;
     }
 

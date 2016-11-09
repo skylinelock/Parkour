@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour;
 
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,6 +21,7 @@ public class ParkourManager {
     private final ParkourPlugin plugin;
 
     private final Map<Player, Long> timeMap = new HashMap<>();
+    @Getter
     private final Map<Player, Parkour> parkourMap = new HashMap<>();
 
     private PlayerMoveEvent event;
@@ -130,10 +132,6 @@ public class ParkourManager {
     private void sendFailedContent(Player player, Parkour parkour) {
         player.sendMessage(ChatColor.GOLD + "[Parkour] " + ChatColor.RED + parkour.getName() + " Parkour challenge failed!");
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 1.0F, 0.0F);
-    }
-
-    public Map<Player, Parkour> getParkourMap() {
-        return parkourMap;
     }
 
 }
