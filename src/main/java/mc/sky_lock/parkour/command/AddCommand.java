@@ -28,16 +28,16 @@ class AddCommand implements ICommand {
             player.sendMessage(FormatUtils.NOT_ENOUGH_MESSAGE);
             return;
         }
-        String enterId = args[1];
+        String inputId = args[1];
         List<Parkour> parkours = plugin.getParkours();
 
         for (Parkour parkour : parkours) {
-            if (parkour.getId().equalsIgnoreCase(enterId)) {
+            if (parkour.getId().equalsIgnoreCase(inputId)) {
                 player.sendMessage(ChatColor.RED + "The ID already exists");
                 return;
             }
         }
-        Parkour newParkour = new Parkour(enterId);
+        Parkour newParkour = new Parkour(inputId);
         plugin.getParkours().add(newParkour);
         player.sendMessage(ChatColor.GREEN + "Add parkour successful");
     }

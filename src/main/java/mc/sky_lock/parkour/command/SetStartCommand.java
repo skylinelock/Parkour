@@ -28,11 +28,11 @@ class SetStartCommand implements ICommand {
             player.sendMessage(FormatUtils.NOT_ENOUGH_MESSAGE);
             return;
         }
-        String enterId = args[1];
+        String inputId = args[1];
         List<Parkour> parkours = plugin.getParkours();
 
         for (Parkour parkour : parkours) {
-            if (parkour.getId().equals(enterId)) {
+            if (parkour.getId().equals(inputId)) {
                 parkour.setStartPoint(player.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Set start successful");
                 return;

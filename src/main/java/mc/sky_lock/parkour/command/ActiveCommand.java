@@ -29,10 +29,10 @@ class ActiveCommand implements ICommand {
             return;
         }
         List<Parkour> parkours = plugin.getParkours();
-        String enterId = args[1];
+        String inputId = args[1];
 
         for (Parkour parkour : parkours) {
-            if (!parkour.getId().equals(enterId)) {
+            if (!parkour.getId().equals(inputId)) {
                 continue;
             }
             if (!parkour.isActive()) {

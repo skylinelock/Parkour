@@ -30,10 +30,10 @@ class RemoveCommand implements ICommand {
         }
 
         List<Parkour> parkours = plugin.getParkours();
-        String enterId = args[1];
+        String inputid = args[1];
 
         for (Parkour parkour : parkours) {
-            if (parkour.getId().equals(enterId)) {
+            if (parkour.getId().equals(inputid)) {
                 parkours.remove(parkour);
                 player.sendMessage(ChatColor.GREEN + "Remove successful");
                 return;
