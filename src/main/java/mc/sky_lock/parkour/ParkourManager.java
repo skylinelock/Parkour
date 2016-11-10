@@ -83,6 +83,9 @@ public class ParkourManager {
         List<Parkour> parkours = plugin.getParkours();
         for (Parkour parkour : parkours) {
             Location endPoint = parkour.getEndPoint();
+            if (!parkour.isActive()) {
+                continue;
+            }
             if (!compareLocation(location, endPoint)) {
                 continue;
             }

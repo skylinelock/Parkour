@@ -31,6 +31,7 @@ public class ParkourTabCompleter implements TabCompleter {
             return displayStrs;
         }
         if (args.length < 2) {
+            displayStrs.add("teleport");
             displayStrs.add("list");
             displayStrs.add("info");
             displayStrs.add("add");
@@ -56,6 +57,8 @@ public class ParkourTabCompleter implements TabCompleter {
             case "setpre":
             case "sp":
             case "remove":
+            case "teleport":
+            case "tp":
                 for (Parkour parkour : plugin.getParkours()) {
                     displayStrs.add(parkour.getId());
                 }

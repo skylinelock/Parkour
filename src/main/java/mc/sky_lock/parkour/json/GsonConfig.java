@@ -28,7 +28,7 @@ class GsonConfig {
     }
 
     @SuppressWarnings("unused")
-    <T> T load(Class<T> clazz, Type type) throws IOException, RuntimeException {
+    <T> T load(Type type) throws IOException, RuntimeException {
         JsonReader reader = null;
         try {
             reader = new JsonReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));

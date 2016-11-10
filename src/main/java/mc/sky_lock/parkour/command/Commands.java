@@ -47,48 +47,42 @@ public class Commands implements CommandExecutor {
             case "add":
                 cmd = new AddCommand(plugin);
                 break;
-
             case "setname":
             case "sn":
                 cmd = new SetNameCommand(plugin);
                 break;
-
             case "setstart":
             case "ss":
                 cmd = new SetStartCommand(plugin);
                 break;
-
             case "setend":
             case "se":
                 cmd = new SetEndCommand(plugin);
                 break;
-
             case "setpre":
             case "sp":
                 cmd = new SetPreCommand(plugin);
                 break;
-
             case "remove":
                 cmd = new RemoveCommand(plugin);
                 break;
-
             case "active":
                 cmd = new ActiveCommand(plugin);
                 break;
-
             case "info":
                 cmd = new InfoCommand(plugin);
                 break;
-
             case "list":
                 cmd = new ListCommand(plugin);
                 break;
-
+            case "teleport":
+            case "tp":
+                cmd = new TeleportCommand(plugin);
+                break;
             case "reload":
                 saveParkours();
                 player.sendMessage(ChatColor.GREEN + "Reload successful");
                 return true;
-
             default:
                 break;
         }

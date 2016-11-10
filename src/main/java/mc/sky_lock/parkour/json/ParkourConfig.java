@@ -43,7 +43,7 @@ public class ParkourConfig {
         }.getType();
         List<Parkour> parkours = null;
         try {
-            parkours = gsonConf.load(List.class, type);
+            parkours = gsonConf.load(type);
         } catch (IOException | RuntimeException ex) {
             ex.printStackTrace();
         }
