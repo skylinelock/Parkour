@@ -15,11 +15,11 @@ import java.util.List;
  * @author sky_lock
  */
 
-public class ParkourTabCompleter implements TabCompleter {
+public class ParkourTabComplete implements TabCompleter {
 
     private final ParkourPlugin plugin;
 
-    public ParkourTabCompleter(@NonNull ParkourPlugin plugin) {
+    public ParkourTabComplete(@NonNull ParkourPlugin plugin) {
         this.plugin = plugin;
     }
 

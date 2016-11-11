@@ -2,7 +2,7 @@ package mc.sky_lock.parkour;
 
 import lombok.Getter;
 import mc.sky_lock.parkour.command.Commands;
-import mc.sky_lock.parkour.command.tabcomplete.ParkourTabCompleter;
+import mc.sky_lock.parkour.command.tabcomplete.ParkourTabComplete;
 import mc.sky_lock.parkour.json.ParkourConfig;
 import mc.sky_lock.parkour.listener.EntityListener;
 import mc.sky_lock.parkour.listener.PlayerListener;
@@ -29,7 +29,7 @@ public class ParkourPlugin extends JavaPlugin {
         
         PluginCommand parkourCommand = getCommand("parkour");
         parkourCommand.setExecutor(new Commands(this));
-        parkourCommand.setTabCompleter(new ParkourTabCompleter(this));
+        parkourCommand.setTabCompleter(new ParkourTabComplete(this));
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
