@@ -18,7 +18,7 @@ import java.util.List;
 public class ParkourPlugin extends JavaPlugin {
 
     @Getter
-    private ParkourConfig parkourConfig;
+    private ParkourConfig parkourConfig = new ParkourConfig(this.getDataFolder());
     @Getter
     private List<Parkour> parkours;
     

@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static mc.sky_lock.parkour.FormatUtils.timeFormat;
+import static sun.audio.AudioPlayer.player;
 
 /**
  * @author sky_lock
@@ -20,8 +21,6 @@ public class ParkourManager {
     private final Set<ParkourPlayer> parkourPlayers = new HashSet<>();
 
     private PlayerMoveEvent event;
-    private Player player;
-    private Location toLocation;
 
     public ParkourManager(ParkourPlugin plugin) {
         this.plugin = plugin;
@@ -29,9 +28,9 @@ public class ParkourManager {
 
     public void startMeasure(PlayerMoveEvent event) {
         this.event = event;
-        this.player = event.getPlayer();
-        this.toLocation = event.getTo();
+        Player player = event.getPlayer();
 
+        Location toLocation = event.getTo();
         Location fromLocation = event.getFrom();
 
         respawn();
@@ -57,7 +56,11 @@ public class ParkourManager {
         if (!parkour.isActive()) {
             return;
         }
+        Location toLocation = event.getTo();
         Location startPoint = parkour.getStartPoint();
+
+        Player player = event.getPlayer();
+
         if (!compareLocation(toLocation, startPoint)) {
             return;
         }
@@ -81,10 +84,14 @@ public class ParkourManager {
     }
 
     private void stop(Parkour parkour) {
-        Location endPoint = parkour.getEndPoint();
         if (!parkour.isActive()) {
             return;
         }
+        Location toLocation = event.getTo();
+        Location endPoint = parkour.getEndPoint();
+
+        Player player = event.getPlayer();
+
         if (!compareLocation(toLocation, endPoint)) {
             return;
         }
