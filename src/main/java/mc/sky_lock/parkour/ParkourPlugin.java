@@ -40,4 +40,7 @@ public class ParkourPlugin extends JavaPlugin {
     public void onDisable() {
         parkourConfig.saveParkours(parkours);
     }
+
+    private void honya() {
+    }
 }

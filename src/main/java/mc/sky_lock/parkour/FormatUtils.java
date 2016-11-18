@@ -2,8 +2,6 @@ package mc.sky_lock.parkour;
 
 import org.bukkit.ChatColor;
 
-import java.text.SimpleDateFormat;
-
 /**
  * @author sky_lock
  */
@@ -21,11 +19,6 @@ public class FormatUtils {
             sb.append(args[i]);
         }
         return sb.toString();
-    }
-
-    static String timeFormat(Long time) {
-        SimpleDateFormat timeformat = new SimpleDateFormat("mm:ss.SSS");
-        return timeformat.format(time);
     }
 
 }

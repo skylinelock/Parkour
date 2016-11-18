@@ -30,7 +30,7 @@ public class ParkourTabComplete implements TabCompleter {
             displayStrs.add("reload");
             return displayStrs;
         }
-        if (args.length < 2) {
+        if (args.length == 1) {
             displayStrs.add("teleport");
             displayStrs.add("list");
             displayStrs.add("info");
