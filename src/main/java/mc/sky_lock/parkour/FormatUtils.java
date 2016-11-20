@@ -1,14 +1,10 @@
 package mc.sky_lock.parkour;
 
-import org.bukkit.ChatColor;
-
 /**
  * @author sky_lock
  */
 
 public class FormatUtils {
-
-    public static String NOT_ENOUGH_MESSAGE = ChatColor.RED + "Not enough arguments";
 
     public static String buildString(int startIndex, String[] args) {
         StringBuilder sb = new StringBuilder();
