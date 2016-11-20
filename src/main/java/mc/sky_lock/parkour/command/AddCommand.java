@@ -1,10 +1,10 @@
 package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
+import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
-import mc.sky_lock.parkour.FormatUtils;
-import org.bukkit.ChatColor;
+import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
@@ -25,7 +25,7 @@ class AddCommand implements ICommand {
     @Override
     public void execute(Player player, Command command, String label, String[] args) {
         if (args.length < 2) {
-            player.sendMessage(FormatUtils.NOT_ENOUGH_MESSAGE);
+            player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
         String inputId = args[1];
@@ -33,12 +33,12 @@ class AddCommand implements ICommand {
 
         for (Parkour parkour : parkours) {
             if (parkour.getId().equalsIgnoreCase(inputId)) {
-                player.sendMessage(ChatColor.RED + "The ID already exists");
+                player.sendMessage(FailedMessage.ID_EXISTS.getText());
                 return;
             }
         }
         Parkour newParkour = new Parkour(inputId);
         plugin.getParkours().add(newParkour);
-        player.sendMessage(ChatColor.GREEN + "Add parkour successful");
+        player.sendMessage(SuccessMessage.ADD.getText());
     }
 }

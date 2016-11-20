@@ -1,10 +1,10 @@
 package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
+import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
-import mc.sky_lock.parkour.FormatUtils;
-import org.bukkit.ChatColor;
+import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
@@ -25,7 +25,7 @@ class ActiveCommand implements ICommand {
     @Override
     public void execute(Player player, Command command, String label, String[] args) {
         if (args.length < 2) {
-            player.sendMessage(FormatUtils.NOT_ENOUGH_MESSAGE);
+            player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
         List<Parkour> parkours = plugin.getParkours();
@@ -35,18 +35,19 @@ class ActiveCommand implements ICommand {
             if (!parkour.getId().equals(inputId)) {
                 continue;
             }
+            String successMsg = SuccessMessage.ACTIVE.getText();
             if (!parkour.isActive()) {
                 if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getRespawnPoint() == null || parkour.getName() == null) {
                     break;
                 }
                 parkour.setActive(true);
-                player.sendMessage(ChatColor.GREEN + "Turn active successful");
+                player.sendMessage(successMsg);
                 return;
             }
             parkour.setActive(false);
-            player.sendMessage(ChatColor.GREEN + "Turn active successful");
+            player.sendMessage(successMsg);
             return;
         }
-        player.sendMessage(ChatColor.RED + "Set active failed");
+        player.sendMessage(FailedMessage.ACTIVE.getText());
     }
 }

@@ -1,9 +1,9 @@
 package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
+import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
-import mc.sky_lock.parkour.FormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -26,7 +26,7 @@ class InfoCommand implements ICommand {
     @Override
     public void execute(Player player, Command command, String label, String[] args) {
         if (args.length < 2) {
-            player.sendMessage(FormatUtils.NOT_ENOUGH_MESSAGE);
+            player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
         String inputId = args[1];
@@ -49,13 +49,10 @@ class InfoCommand implements ICommand {
             player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.RESET + Boolean.toString(parkour.isActive()));
             return;
         }
-        player.sendMessage(ChatColor.RED + "Info failed!");
+        player.sendMessage(FailedMessage.INFO.getText());
     }
 
-    private String locationToString(Location location) {
-        if (location == null) {
-            return null;
-        }
+    private String locationToString(@NonNull Location location) {
         return location.getBlockX() + " " + location.getBlockY() + " " + location.getBlockZ();
     }
 }

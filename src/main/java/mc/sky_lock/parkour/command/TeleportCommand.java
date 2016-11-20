@@ -3,7 +3,8 @@ package mc.sky_lock.parkour.command;
 import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
-import org.bukkit.ChatColor;
+import mc.sky_lock.parkour.message.FailedMessage;
+import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
@@ -25,10 +26,10 @@ public class TeleportCommand implements ICommand {
         for (Parkour parkour : plugin.getParkours()) {
             if (parkour.getId().equals(inputId)) {
                 player.teleport(parkour.getRespawnPoint());
-                player.sendMessage(ChatColor.GREEN + "Teleporterd");
+                player.sendMessage(SuccessMessage.TELEPORT.getText());
                 return;
             }
         }
-        player.sendMessage(ChatColor.RED + "Teleported failed");
+        player.sendMessage(FailedMessage.TELEPORT.getText());
     }
 }

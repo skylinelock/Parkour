@@ -2,7 +2,9 @@ package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
 import mc.sky_lock.parkour.ParkourPlugin;
-import org.bukkit.ChatColor;
+import mc.sky_lock.parkour.message.CommandUsage;
+import mc.sky_lock.parkour.message.FailedMessage;
+import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,15 +26,15 @@ public class Commands implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             if (args.length < 1) {
-                sender.sendMessage(ChatColor.GREEN + "/parkour reload");
+                sender.sendMessage(CommandUsage.RELOAD.getText());
                 return true;
             }
             if (args[0].equalsIgnoreCase("reload")) {
                 saveParkours();
-                sender.sendMessage(ChatColor.GREEN + "Reload successful");
+                sender.sendMessage(SuccessMessage.RELOAD.getText());
                 return true;
             }
-            sender.sendMessage(ChatColor.RED + "You must be a player to use this command");
+            sender.sendMessage(FailedMessage.NOT_PLAYER.getText());
             return false;
         }
         Player player = (Player) sender;
@@ -81,7 +83,7 @@ public class Commands implements CommandExecutor {
                 break;
             case "reload":
                 saveParkours();
-                player.sendMessage(ChatColor.GREEN + "Reload successful");
+                player.sendMessage(SuccessMessage.RELOAD.getText());
                 return true;
             default:
                 break;

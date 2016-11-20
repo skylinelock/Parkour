@@ -3,8 +3,8 @@ package mc.sky_lock.parkour.command;
 import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourPlugin;
-import mc.sky_lock.parkour.FormatUtils;
-import org.bukkit.ChatColor;
+import mc.sky_lock.parkour.message.FailedMessage;
+import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
@@ -25,7 +25,7 @@ class SetStartCommand implements ICommand {
     @Override
     public void execute(Player player, Command command, String label, String[] args) {
         if (args.length < 2) {
-            player.sendMessage(FormatUtils.NOT_ENOUGH_MESSAGE);
+            player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
         String inputId = args[1];
@@ -34,10 +34,10 @@ class SetStartCommand implements ICommand {
         for (Parkour parkour : parkours) {
             if (parkour.getId().equals(inputId)) {
                 parkour.setStartPoint(player.getLocation());
-                player.sendMessage(ChatColor.GREEN + "Set start successful");
+                player.sendMessage(SuccessMessage.SET_START.getText());
                 return;
             }
         }
-        player.sendMessage(ChatColor.RED + "Set start failed");
+        player.sendMessage(FailedMessage.SET_START.getText());
     }
 }
