@@ -3,7 +3,7 @@ package mc.sky_lock.parkour;
 import lombok.Getter;
 import mc.sky_lock.parkour.command.Commands;
 import mc.sky_lock.parkour.command.tabcomplete.ParkourTabComplete;
-import mc.sky_lock.parkour.json.ParkourConfig;
+import mc.sky_lock.parkour.json.ParkourFile;
 import mc.sky_lock.parkour.listener.EntityListener;
 import mc.sky_lock.parkour.listener.PlayerListener;
 import org.bukkit.command.PluginCommand;
@@ -18,13 +18,13 @@ import java.util.List;
 public class ParkourPlugin extends JavaPlugin {
 
     @Getter
-    private ParkourConfig parkourConfig = new ParkourConfig(this.getDataFolder());
+    private ParkourFile parkourConfig = new ParkourFile(this.getDataFolder());
     @Getter
     private List<Parkour> parkours;
     
     @Override
     public void onEnable() {
-        parkourConfig = new ParkourConfig(this.getDataFolder());
+        parkourConfig = new ParkourFile(this.getDataFolder());
         parkours = parkourConfig.getParkours();
         
         PluginCommand parkourCommand = getCommand("parkour");

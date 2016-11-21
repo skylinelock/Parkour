@@ -14,12 +14,12 @@ import java.lang.reflect.Type;
  *
  * @author sky_lock
  */
-class GsonConfig {
+class GsonFile {
 
     private final Gson gson;
     private final File file;
 
-    GsonConfig(@NonNull File file) {
+    GsonFile(@NonNull File file) {
         this.file = file;
         this.gson = new GsonBuilder()
                 .serializeNulls()

@@ -12,12 +12,12 @@ import java.util.List;
  *
  * @author sky_lock
  */
-public class ParkourConfig {
+public class ParkourFile {
 
-    private final GsonConfig gsonConf;
+    private final GsonFile gsonConf;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public ParkourConfig(File dir) {
+    public ParkourFile(File dir) {
         dir.mkdirs();
         File file = new File(dir, "parkours.json");
         try {
@@ -25,7 +25,7 @@ public class ParkourConfig {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        gsonConf = new GsonConfig(file);
+        gsonConf = new GsonFile(file);
     }
 
     public void saveParkours(List<Parkour> parkours) {
