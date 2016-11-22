@@ -1,9 +1,9 @@
 package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
-import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.Parkour;
-import mc.sky_lock.parkour.ParkourPlugin;
+import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
@@ -16,10 +16,10 @@ import java.util.List;
 
 class ActiveCommand implements ICommand {
 
-    private final ParkourPlugin plugin;
+    private final ParkourHandler handler;
 
-    ActiveCommand(@NonNull ParkourPlugin plugin) {
-        this.plugin = plugin;
+    public ActiveCommand(@NonNull ParkourHandler handler) {
+        this.handler = handler;
     }
 
     @Override
@@ -28,7 +28,7 @@ class ActiveCommand implements ICommand {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
-        List<Parkour> parkours = plugin.getParkours();
+        List<Parkour> parkours = handler.getParkours();
         String inputId = args[1];
 
         for (Parkour parkour : parkours) {

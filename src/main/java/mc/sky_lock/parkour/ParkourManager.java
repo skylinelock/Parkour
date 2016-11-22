@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour;
 
+import lombok.NonNull;
 import mc.sky_lock.parkour.config.ConfigElement;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
@@ -16,13 +17,13 @@ import java.util.Set;
  * @author sky_lock
  */
 public class ParkourManager {
-    private final ParkourPlugin plugin;
+    private final ParkourHandler handler;
     private final Set<ParkourPlayer> parkourPlayers = new HashSet<>();
 
     private PlayerMoveEvent event;
 
-    public ParkourManager(ParkourPlugin plugin) {
-        this.plugin = plugin;
+    public ParkourManager(@NonNull ParkourHandler handler) {
+        this.handler = handler;
     }
 
     public void startMeasure(PlayerMoveEvent event) {
@@ -45,7 +46,7 @@ public class ParkourManager {
             return;
         }
 
-        plugin.getParkours().forEach(parkour -> {
+        handler.getParkours().forEach(parkour -> {
             start(parkour);
             stop(parkour);
         });
@@ -115,7 +116,7 @@ public class ParkourManager {
     private void respawn() {
         Player player = event.getPlayer();
         Location location = event.getTo();
-        int respawnY = (int) plugin.getConfigFile().load(ConfigElement.RESPAWN_Y);
+        int respawnY = (int) handler.getConfigFile().load(ConfigElement.RESPAWN_Y);
         if (location.getBlockY() > respawnY) {
             return;
         }

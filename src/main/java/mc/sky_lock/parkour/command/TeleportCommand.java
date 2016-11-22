@@ -2,7 +2,7 @@ package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
-import mc.sky_lock.parkour.ParkourPlugin;
+import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
@@ -14,16 +14,16 @@ import org.bukkit.entity.Player;
 
 public class TeleportCommand implements ICommand {
 
-    private final ParkourPlugin plugin;
+    private final ParkourHandler handler;
 
-    public TeleportCommand(@NonNull ParkourPlugin plugin) {
-        this.plugin = plugin;
+    public TeleportCommand(@NonNull ParkourHandler handler) {
+        this.handler = handler;
     }
 
     @Override
     public void execute(Player player, Command command, String label, String[] args) {
         String inputId = args[1];
-        for (Parkour parkour : plugin.getParkours()) {
+        for (Parkour parkour : handler.getParkours()) {
             if (parkour.getId().equals(inputId)) {
                 player.teleport(parkour.getRespawnPoint());
                 player.sendMessage(SuccessMessage.TELEPORT.getText());

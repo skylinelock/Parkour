@@ -2,7 +2,7 @@ package mc.sky_lock.parkour.command.tabcomplete;
 
 import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
-import mc.sky_lock.parkour.ParkourPlugin;
+import mc.sky_lock.parkour.ParkourHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -18,10 +18,10 @@ import java.util.List;
 
 public class ParkourTabComplete implements TabCompleter {
 
-    private final ParkourPlugin plugin;
+    private final ParkourHandler handler;
 
-    public ParkourTabComplete(@NonNull ParkourPlugin plugin) {
-        this.plugin = plugin;
+    public ParkourTabComplete(@NonNull ParkourHandler handler) {
+        this.handler = handler;
     }
 
     @Override
@@ -47,12 +47,12 @@ public class ParkourTabComplete implements TabCompleter {
 
         if (args.length == 2) {
             if (args[1].equals("")) {
-                for (Parkour parkour : plugin.getParkours()) {
+                for (Parkour parkour : handler.getParkours()) {
                     displayStrs.add(parkour.getId());
                 }
                 return displayStrs;
             }
-            for (Parkour parkour : plugin.getParkours()) {
+            for (Parkour parkour : handler.getParkours()) {
                 if (parkour.getId().startsWith(args[1])) {
                     displayStrs.add(parkour.getId());
                 }

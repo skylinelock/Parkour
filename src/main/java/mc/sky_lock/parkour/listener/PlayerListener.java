@@ -1,8 +1,8 @@
 package mc.sky_lock.parkour.listener;
 
 import lombok.NonNull;
+import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.ParkourManager;
-import mc.sky_lock.parkour.ParkourPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -14,12 +14,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 @SuppressWarnings("unused")
 public class PlayerListener implements Listener {
 
-    private final ParkourPlugin plugin;
+    private final ParkourHandler handler;
     private final ParkourManager manager;
 
-    public PlayerListener(@NonNull ParkourPlugin plugin) {
-        this.plugin = plugin;
-        this.manager = new ParkourManager(plugin);
+    public PlayerListener(@NonNull ParkourHandler handler) {
+        this.handler = handler;
+        this.manager = new ParkourManager(handler);
     }
 
     @EventHandler

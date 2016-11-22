@@ -1,9 +1,9 @@
 package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
-import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.Parkour;
-import mc.sky_lock.parkour.ParkourPlugin;
+import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.message.FailedMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -17,10 +17,10 @@ import java.util.List;
 
 class InfoCommand implements ICommand {
 
-    private final ParkourPlugin plugin;
+    private final ParkourHandler handler;
 
-    InfoCommand(@NonNull ParkourPlugin plugin) {
-        this.plugin = plugin;
+    public InfoCommand(@NonNull ParkourHandler handler) {
+        this.handler = handler;
     }
 
     @Override
@@ -30,7 +30,7 @@ class InfoCommand implements ICommand {
             return;
         }
         String inputId = args[1];
-        List<Parkour> parkours = plugin.getParkours();
+        List<Parkour> parkours = handler.getParkours();
 
         for (Parkour parkour : parkours) {
             if (!parkour.getId().equals(inputId)) {

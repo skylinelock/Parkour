@@ -2,7 +2,7 @@ package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
-import mc.sky_lock.parkour.ParkourPlugin;
+import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
@@ -16,10 +16,10 @@ import java.util.List;
 
 class RemoveCommand implements ICommand {
 
-    private final ParkourPlugin plugin;
+    private final ParkourHandler handler;
 
-    RemoveCommand(@NonNull ParkourPlugin plugin) {
-        this.plugin = plugin;
+    public RemoveCommand(@NonNull ParkourHandler handler) {
+        this.handler = handler;
     }
 
     @Override
@@ -29,7 +29,7 @@ class RemoveCommand implements ICommand {
             return;
         }
 
-        List<Parkour> parkours = plugin.getParkours();
+        List<Parkour> parkours = handler.getParkours();
         String inputid = args[1];
 
         for (Parkour parkour : parkours) {

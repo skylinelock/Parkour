@@ -2,7 +2,7 @@ package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
-import mc.sky_lock.parkour.ParkourPlugin;
+import mc.sky_lock.parkour.ParkourHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
@@ -15,15 +15,15 @@ import java.util.List;
 
 class ListCommand implements ICommand {
 
-    private final ParkourPlugin plugin;
+    private final ParkourHandler handler;
 
-    ListCommand(@NonNull ParkourPlugin plugin) {
-        this.plugin = plugin;
+    public ListCommand(@NonNull ParkourHandler handler) {
+        this.handler = handler;
     }
 
     @Override
     public void execute(Player player, Command command, String label, String[] args) {
-        List<Parkour> parkours = plugin.getParkours();
+        List<Parkour> parkours = handler.getParkours();
 
         player.sendMessage(ChatColor.GREEN + "------  [Parkour List]  ------");
 
