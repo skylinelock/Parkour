@@ -32,28 +32,28 @@ public class ParkourTabComplete implements TabCompleter {
             displayStrs.add("reload");
             return displayStrs;
         }
-        List<String> commandList = Arrays.asList("active", "add", "info", "list", "remove", "setend", "setname", "setpre", "setstart", "teleport", "sn", "ss", "se", "sp", "tp");
+        List<String> allCommand = Arrays.asList("active", "add", "info", "list", "remove", "setend", "setname", "setpre", "setstart", "teleport", "sn", "ss", "se", "sp", "tp");
+        String firstArg = args[0];
         if (args.length == 1) {
-            if (args[0].equals("")) {
-                return commandList;
+            if (firstArg.equals("")) {
+                return allCommand;
             }
-            for (String commandName : commandList) {
-                if (commandName.toLowerCase().startsWith(args[0])) {
+            for (String commandName : allCommand) {
+                if (commandName.toLowerCase().startsWith(firstArg)) {
                     displayStrs.add(commandName);
                 }
             }
-            return displayStrs;
-        }
-
-        if (args.length == 2) {
-            if (args[1].equals("")) {
-                for (Parkour parkour : handler.getParkours()) {
-                    displayStrs.add(parkour.getId());
-                }
-                return displayStrs;
+        } else if (args.length == 2) {
+            String secondArg = args[1];
+            if (firstArg.equalsIgnoreCase("add") || firstArg.equalsIgnoreCase("list")) {
+                return null;
             }
             for (Parkour parkour : handler.getParkours()) {
-                if (parkour.getId().startsWith(args[1])) {
+                if (secondArg.equals("")) {
+                    displayStrs.add(parkour.getId());
+                    continue;
+                }
+                if (parkour.getId().startsWith(args[0])) {
                     displayStrs.add(parkour.getId());
                 }
             }
