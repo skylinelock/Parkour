@@ -2,7 +2,7 @@ package mc.sky_lock.parkour;
 
 import lombok.Getter;
 import mc.sky_lock.parkour.command.Commands;
-import mc.sky_lock.parkour.command.config.ConfigFile;
+import mc.sky_lock.parkour.config.ConfigFile;
 import mc.sky_lock.parkour.command.tabcomplete.ParkourTabComplete;
 import mc.sky_lock.parkour.json.ParkourFile;
 import mc.sky_lock.parkour.listener.EntityListener;

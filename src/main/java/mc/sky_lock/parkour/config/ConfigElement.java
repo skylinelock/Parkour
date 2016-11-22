@@ -1,4 +1,4 @@
-package mc.sky_lock.parkour.command.config;
+package mc.sky_lock.parkour.config;
 
 /**
  * @author sky_lock

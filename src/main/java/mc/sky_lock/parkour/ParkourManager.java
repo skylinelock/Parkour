@@ -1,6 +1,6 @@
 package mc.sky_lock.parkour;
 
-import mc.sky_lock.parkour.command.config.ConfigElement;
+import mc.sky_lock.parkour.config.ConfigElement;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
