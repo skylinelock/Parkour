@@ -2,7 +2,7 @@ package mc.sky_lock.parkour;
 
 import lombok.Getter;
 import lombok.NonNull;
-import mc.sky_lock.parkour.command.Commands;
+import mc.sky_lock.parkour.command.CommandHandler;
 import mc.sky_lock.parkour.command.tabcomplete.ParkourTabComplete;
 import mc.sky_lock.parkour.config.ConfigFile;
 import mc.sky_lock.parkour.json.ParkourFile;
@@ -52,7 +52,7 @@ public class ParkourHandler {
     }
 
     public void registerParkourCommands() {
-        parkourCommand.setExecutor(new Commands(this));
+        parkourCommand.setExecutor(new CommandHandler(this));
         parkourCommand.setTabCompleter(new ParkourTabComplete(this));
     }
 

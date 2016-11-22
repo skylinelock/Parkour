@@ -14,11 +14,11 @@ import org.bukkit.entity.Player;
  *
  * @author sky_lock
  */
-public class Commands implements CommandExecutor {
+public class CommandHandler implements CommandExecutor {
 
     private final ParkourHandler handler;
 
-    public Commands(@NonNull ParkourHandler handler) {
+    public CommandHandler(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 
