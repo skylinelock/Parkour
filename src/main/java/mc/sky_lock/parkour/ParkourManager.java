@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour;
 
+import mc.sky_lock.parkour.command.config.ConfigElement;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -114,7 +115,8 @@ public class ParkourManager {
     private void respawn() {
         Player player = event.getPlayer();
         Location location = event.getTo();
-        if (location.getBlockY() > -25) {
+        int respawnY = (int) plugin.getConfigFile().load(ConfigElement.RESPAWN_Y);
+        if (location.getBlockY() > respawnY) {
             return;
         }
         for (ParkourPlayer parkourPlayer : parkourPlayers) {
