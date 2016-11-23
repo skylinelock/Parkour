@@ -1,7 +1,7 @@
 package mc.sky_lock.parkour;
 
 import lombok.NonNull;
-import mc.sky_lock.parkour.api.PlayerParkourRespawnEvent;
+import mc.sky_lock.parkour.api.PlayerParkourFailedEvent;
 import mc.sky_lock.parkour.api.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.PlayerParkourSucceedEvent;
 import mc.sky_lock.parkour.config.ConfigElement;
@@ -31,12 +31,11 @@ public class ParkourManager {
 
     public void measure(PlayerMoveEvent event) {
         this.event = event;
-        Player player = event.getPlayer();
 
         Location toLocation = event.getTo();
         Location fromLocation = event.getFrom();
 
-        respawn();
+        failed();
 
         if (compareLocation(fromLocation, toLocation)) {
             return;
@@ -136,24 +135,24 @@ public class ParkourManager {
         }
     }
 
-    private void respawn() {
+    private void failed() {
         Player player = event.getPlayer();
         Location location = event.getTo();
-        int respawnY = (int) handler.getConfigFile().load(ConfigElement.RESPAWN_Y);
-        if (location.getBlockY() > respawnY) {
+        int teleportHeight = (int) handler.getConfigFile().load(ConfigElement.RESPAWN_Y);
+        if (location.getBlockY() > teleportHeight) {
             return;
         }
 
         for (ParkourPlayer parkourPlayer : parkourPlayers) {
             if (parkourPlayer.getPlayer().equals(player)) {
                 Parkour parkour = parkourPlayer.getParkour();
-                PlayerParkourRespawnEvent event = new PlayerParkourRespawnEvent(player, parkour);
+                PlayerParkourFailedEvent event = new PlayerParkourFailedEvent(player, parkour);
                 handler.getPluginManager().callEvent(event);
                 if (event.isCancelled()) {
                     return;
                 }
 
-                player.teleport(parkour.getRespawnPoint());
+                player.teleport(parkour.getPresetPoint());
                 parkourPlayers.remove(parkourPlayer);
                 sendFailedContent(player, parkour);
             }

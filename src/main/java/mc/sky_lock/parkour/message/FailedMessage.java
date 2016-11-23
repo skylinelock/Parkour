@@ -15,9 +15,9 @@ public enum FailedMessage {
     INFO(ChatColor.RED + "Info failed"),
     REMOVE(ChatColor.RED + "Remove failed"),
     SET_NAME(ChatColor.RED + "Set name failed"),
-    SET_START(ChatColor.RED + "Set start failed"),
-    SET_END(ChatColor.RED + "Set end failed"),
-    SET_PRE(ChatColor.RED + "Set pre failed"),
+    SET_START(ChatColor.RED + "Set startpoint failed"),
+    SET_END(ChatColor.RED + "Set endpoint failed"),
+    SET_PRE(ChatColor.RED + "Set prepoint failed"),
     TELEPORT(ChatColor.RED + "Teleport failed");
 
 

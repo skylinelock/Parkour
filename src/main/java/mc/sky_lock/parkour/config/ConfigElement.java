@@ -6,11 +6,11 @@ package mc.sky_lock.parkour.config;
 
 public enum ConfigElement {
 
-    RESPAWN_Y("respawnY");
+    TELEPORT_HEIGHT("teleportHeight");
 
     private final String element;
 
-    private ConfigElement(String element) {
+    ConfigElement(String element) {
         this.element = element;
     }
 

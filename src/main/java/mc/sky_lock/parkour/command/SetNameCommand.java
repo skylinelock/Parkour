@@ -19,7 +19,7 @@ class SetNameCommand implements ICommand {
 
     private final ParkourHandler handler;
 
-    public SetNameCommand(@NonNull ParkourHandler handler) {
+   SetNameCommand(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 

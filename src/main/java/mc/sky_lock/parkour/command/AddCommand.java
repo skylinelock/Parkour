@@ -18,7 +18,7 @@ class AddCommand implements ICommand {
 
     private final ParkourHandler handler;
 
-    public AddCommand(@NonNull ParkourHandler handler) {
+    AddCommand(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 

@@ -18,7 +18,7 @@ class ActiveCommand implements ICommand {
 
     private final ParkourHandler handler;
 
-    public ActiveCommand(@NonNull ParkourHandler handler) {
+    ActiveCommand(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -37,7 +37,7 @@ class ActiveCommand implements ICommand {
             }
             String successMsg = SuccessMessage.ACTIVE.getText();
             if (!parkour.isActive()) {
-                if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getRespawnPoint() == null || parkour.getName() == null) {
+                if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getPresetPoint() == null || parkour.getName() == null) {
                     break;
                 }
                 parkour.setActive(true);

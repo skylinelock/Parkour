@@ -18,7 +18,7 @@ public class TeleportCommand implements ICommand {
 
     private final ParkourHandler handler;
 
-    public TeleportCommand(@NonNull ParkourHandler handler) {
+    TeleportCommand(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -29,7 +29,7 @@ public class TeleportCommand implements ICommand {
 
         for (Parkour parkour : parkours) {
             if (parkour.getId().equals(inputId)) {
-                player.teleport(parkour.getRespawnPoint());
+                player.teleport(parkour.getPresetPoint());
                 player.sendMessage(SuccessMessage.TELEPORT.getText());
                 return;
             }

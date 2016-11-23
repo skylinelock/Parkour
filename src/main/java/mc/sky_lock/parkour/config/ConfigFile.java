@@ -37,7 +37,7 @@ public class ConfigFile {
 
     public Object load(@NonNull ConfigElement element) {
         String path = element.getElement();
-        if (element == ConfigElement.RESPAWN_Y) {
+        if (element == ConfigElement.TELEPORT_HEIGHT) {
             if (config.isInt(path)) {
                 return config.getInt(path);
             }

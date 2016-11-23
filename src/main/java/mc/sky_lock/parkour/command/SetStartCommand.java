@@ -18,7 +18,7 @@ class SetStartCommand implements ICommand {
 
     private final ParkourHandler handler;
 
-    public SetStartCommand(@NonNull ParkourHandler handler) {
+    SetStartCommand(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 

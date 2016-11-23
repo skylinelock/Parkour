@@ -37,7 +37,7 @@ public class ParkourHandler {
         this.parkourCommand = plugin.getCommand("parkour");
     }
 
-    public void onEnable() {
+    void onEnable() {
         configFile = new ConfigFile(plugin);
 
         parkourFile = new ParkourFile(plugin.getDataFolder());
@@ -48,20 +48,20 @@ public class ParkourHandler {
         registerParkourTabCompleter();
     }
 
-    public void onDisable() {
+    void onDisable() {
         parkourFile.saveParkours(parkours);
     }
 
-    public void registerParkourCommands() {
+    private void registerParkourCommands() {
         parkourCommand.setExecutor(new CommandHandler(this));
         parkourCommand.setTabCompleter(new ParkourTabComplete(this));
     }
 
-    public void registerParkourTabCompleter() {
+    private void registerParkourTabCompleter() {
         parkourCommand.setTabCompleter(new ParkourTabComplete(this));
     }
 
-    public void registerListeners() {
+    private void registerListeners() {
         pluginManager.registerEvents(new PlayerListener(this), plugin);
         pluginManager.registerEvents(new EntityListener(), plugin);
     }

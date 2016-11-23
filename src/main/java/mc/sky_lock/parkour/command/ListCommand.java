@@ -17,7 +17,7 @@ class ListCommand implements ICommand {
 
     private final ParkourHandler handler;
 
-    public ListCommand(@NonNull ParkourHandler handler) {
+    ListCommand(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 

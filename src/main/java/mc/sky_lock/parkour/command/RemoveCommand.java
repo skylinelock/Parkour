@@ -18,7 +18,7 @@ class RemoveCommand implements ICommand {
 
     private final ParkourHandler handler;
 
-    public RemoveCommand(@NonNull ParkourHandler handler) {
+    RemoveCommand(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 

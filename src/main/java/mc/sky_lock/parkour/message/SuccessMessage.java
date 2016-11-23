@@ -14,9 +14,9 @@ public enum SuccessMessage {
     INFO(ChatColor.GREEN + "Info succeeded"),
     REMOVE(ChatColor.GREEN + "Remove successful"),
     SET_NAME(ChatColor.GREEN + "Set name successful"),
-    SET_PRE(ChatColor.GREEN + "Set pre successful"),
-    SET_START(ChatColor.GREEN + "Set start successful"),
-    SET_END(ChatColor.GREEN + "Set end successful"),
+    SET_PRE(ChatColor.GREEN + "Set prepoint successful"),
+    SET_START(ChatColor.GREEN + "Set startpoint successful"),
+    SET_END(ChatColor.GREEN + "Set endpoint successful"),
     TELEPORT(ChatColor.GREEN + "Teleport successful");
 
     private final String text;

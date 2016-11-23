@@ -18,7 +18,7 @@ class SetEndCommand implements ICommand {
 
     private final ParkourHandler handler;
 
-    public SetEndCommand(@NonNull ParkourHandler handler) {
+    SetEndCommand(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 

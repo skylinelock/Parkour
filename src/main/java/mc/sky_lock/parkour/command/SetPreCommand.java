@@ -18,7 +18,7 @@ class SetPreCommand implements ICommand {
 
     private final ParkourHandler handler;
 
-    public SetPreCommand(@NonNull ParkourHandler handler) {
+    SetPreCommand(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -33,7 +33,7 @@ class SetPreCommand implements ICommand {
 
         for (Parkour parkour : parkours) {
             if (parkour.getId().equals(inputId)) {
-                parkour.setRespawnPoint(player.getLocation());
+                parkour.setPresetPoint(player.getLocation());
                 player.sendMessage(SuccessMessage.SET_PRE.getText());
                 return;
             }

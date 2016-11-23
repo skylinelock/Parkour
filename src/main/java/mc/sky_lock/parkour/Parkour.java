@@ -17,5 +17,5 @@ public class Parkour {
     private String name;
     private Location startPoint;
     private Location endPoint;
-    private Location respawnPoint;
+    private Location presetPoint;
 }
