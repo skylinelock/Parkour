@@ -50,7 +50,7 @@ public class ParkourFile {
      *
      * @return ParkourのList
      */
-    public List<Parkour> getParkours() {
+    public List<Parkour> loadParkours() {
         Type type = new TypeToken<List<Parkour>>() {
         }.getType();
         List<Parkour> parkours = null;

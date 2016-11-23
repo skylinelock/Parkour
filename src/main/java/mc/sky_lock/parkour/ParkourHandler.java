@@ -40,7 +40,7 @@ public class ParkourHandler {
         configFile = new ConfigFile(plugin);
 
         parkourFile = new ParkourFile(plugin.getDataFolder());
-        parkours = parkourFile.getParkours();
+        parkours = parkourFile.loadParkours();
 
         registerListeners();
         registerParkourCommands();
