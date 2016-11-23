@@ -21,6 +21,7 @@ public class ParkourHandler {
 
     @Getter
     private final ParkourPlugin plugin;
+    @Getter
     private final PluginManager pluginManager;
     private final PluginCommand parkourCommand;
     @Getter

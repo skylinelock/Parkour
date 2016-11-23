@@ -1,6 +1,9 @@
 package mc.sky_lock.parkour;
 
 import lombok.NonNull;
+import mc.sky_lock.parkour.api.PlayerParkourRespawnEvent;
+import mc.sky_lock.parkour.api.PlayerParkourStartEvent;
+import mc.sky_lock.parkour.api.PlayerParkourSucceedEvent;
 import mc.sky_lock.parkour.config.ConfigElement;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
@@ -68,6 +71,13 @@ public class ParkourManager {
         if (!compareLocation(toLocation, startPoint)) {
             return;
         }
+
+        PlayerParkourStartEvent event = new PlayerParkourStartEvent(player, parkour);
+        handler.getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
+            return;
+        }
+
         for (ParkourPlayer parkourPlayer : parkourPlayers) {
             if (parkourPlayer.getParkour().equals(parkour)) {
                 parkourPlayers.remove(parkourPlayer);
@@ -99,12 +109,21 @@ public class ParkourManager {
         if (!compareLocation(toLocation, endPoint)) {
             return;
         }
-        parkourPlayers.forEach(parkourPlayer -> {
+
+        for (ParkourPlayer parkourPlayer : parkourPlayers) {
             if (parkourPlayer.getPlayer().equals(player)) {
                 if (!parkourPlayer.getParkour().equals(parkour)) {
+                    continue;
+                }
+                long time_ms = parkourPlayer.getCurrentTime_ms();
+
+                PlayerParkourSucceedEvent event = new PlayerParkourSucceedEvent(player, parkour, time_ms);
+                handler.getPluginManager().callEvent(event);
+                if (event.isCancelled()) {
                     return;
                 }
-                String time = DurationFormatUtils.formatDurationHMS(parkourPlayer.getCurrentTime_ms());
+
+                String time = DurationFormatUtils.formatDurationHMS(time_ms);
                 player.sendMessage("");
                 player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge succeeded!");
                 player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + "Total Time: " + time);
@@ -114,7 +133,7 @@ public class ParkourManager {
 
                 parkourPlayers.remove(parkourPlayer);
             }
-        });
+        }
     }
 
     private void respawn() {
@@ -124,16 +143,21 @@ public class ParkourManager {
         if (location.getBlockY() > respawnY) {
             return;
         }
+
         for (ParkourPlayer parkourPlayer : parkourPlayers) {
             if (parkourPlayer.getPlayer().equals(player)) {
                 Parkour parkour = parkourPlayer.getParkour();
+                PlayerParkourRespawnEvent event = new PlayerParkourRespawnEvent(player, parkour);
+                handler.getPluginManager().callEvent(event);
+                if (event.isCancelled()) {
+                    return;
+                }
+
                 player.teleport(parkour.getRespawnPoint());
                 parkourPlayers.remove(parkourPlayer);
                 sendFailedContent(player, parkour);
-                return;
             }
         }
-        player.teleport(location.getWorld().getSpawnLocation());
     }
 
     private boolean compareLocation(Location location1, Location location2) {
