@@ -1,5 +1,7 @@
 package mc.sky_lock.parkour;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import lombok.Getter;
 import lombok.NonNull;
 import mc.sky_lock.parkour.command.CommandHandler;
@@ -30,6 +32,9 @@ public class ParkourHandler {
     private ParkourFile parkourFile;
     @Getter
     private List<Parkour> parkours;
+    private MongoClient dbClient;
+    @Getter
+    private MongoDatabase database;
 
     public ParkourHandler(@NonNull ParkourPlugin plugin) {
         this.plugin = plugin;
@@ -46,10 +51,13 @@ public class ParkourHandler {
         registerListeners();
         registerParkourCommands();
         registerParkourTabCompleter();
+
+        connectDB();
     }
 
     void onDisable() {
         parkourFile.saveParkours(parkours);
+        disconnectDB();
     }
 
     private void registerParkourCommands() {
@@ -64,6 +72,15 @@ public class ParkourHandler {
     private void registerListeners() {
         pluginManager.registerEvents(new PlayerListener(this), plugin);
         pluginManager.registerEvents(new EntityListener(), plugin);
+    }
+
+    private void connectDB() {
+        dbClient = new MongoClient("localhost", 27017);
+        this.database = dbClient.getDatabase("parkourRecords");
+    }
+
+    private void disconnectDB() {
+        dbClient.close();
     }
 
 }

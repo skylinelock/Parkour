@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+import static mc.sky_lock.parkour.message.FailedMessage.ACTIVE;
+
 /**
  * @author sky_lock
  */
@@ -48,6 +50,6 @@ class ActiveCommand implements ICommand {
             player.sendMessage(successMsg);
             return;
         }
-        player.sendMessage(FailedMessage.ACTIVE.getText());
+        player.sendMessage(ACTIVE.getText());
     }
 }

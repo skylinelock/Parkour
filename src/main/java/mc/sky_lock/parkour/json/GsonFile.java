@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import lombok.NonNull;
+import mc.sky_lock.parkour.exception.EmptyJsonException;
 import org.bukkit.Location;
 
 import java.io.*;
@@ -38,12 +39,12 @@ class GsonFile {
      * @throws RuntimeException
      */
     @SuppressWarnings("unused")
-    <T> T load(Type type) throws IOException, RuntimeException {
+    <T> T load(Type type) throws IOException, RuntimeException, EmptyJsonException {
         JsonReader reader = null;
         try {
             reader = new JsonReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             if (!reader.hasNext()) {
-                return null;
+                throw new EmptyJsonException();
             }
             return gson.fromJson(reader, type);
         } finally {
