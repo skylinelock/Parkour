@@ -6,6 +6,7 @@ import mc.sky_lock.parkour.Parkour;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class ParkourFile {
     public List<Parkour> getParkours() {
         Type type = new TypeToken<List<Parkour>>() {
         }.getType();
-        List<Parkour> parkours = null;
+        List<Parkour> parkours = new ArrayList<>();
         try {
             parkours = gsonConf.load(type);
         } catch (IOException | RuntimeException ex) {

@@ -32,6 +32,11 @@ class SetNameCommand implements ICommand {
         String inputId = args[1];
         List<Parkour> parkours = handler.getParkours();
 
+        if (parkours == null || parkours.isEmpty()) {
+            player.sendMessage(FailedMessage.SET_NAME.getText());
+            return;
+        }
+
         for (Parkour parkour : parkours) {
             if (!parkour.getId().equals(inputId)) {
                 continue;

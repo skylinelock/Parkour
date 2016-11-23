@@ -46,6 +46,10 @@ public class ParkourManager {
             return;
         }
 
+        if (handler.getParkours() == null) {
+            return;
+        }
+
         handler.getParkours().forEach(parkour -> {
             start(parkour);
             stop(parkour);

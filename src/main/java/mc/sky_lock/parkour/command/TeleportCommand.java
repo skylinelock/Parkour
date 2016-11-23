@@ -8,6 +8,8 @@ import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 /**
  * @author sky_lock
  */
@@ -23,7 +25,14 @@ public class TeleportCommand implements ICommand {
     @Override
     public void execute(Player player, Command command, String label, String[] args) {
         String inputId = args[1];
-        for (Parkour parkour : handler.getParkours()) {
+        List<Parkour> parkours = handler.getParkours();
+
+        if (parkours == null || parkours.isEmpty()) {
+            player.sendMessage(FailedMessage.TELEPORT.getText());
+            return;
+        }
+
+        for (Parkour parkour : parkours) {
             if (parkour.getId().equals(inputId)) {
                 player.teleport(parkour.getRespawnPoint());
                 player.sendMessage(SuccessMessage.TELEPORT.getText());
