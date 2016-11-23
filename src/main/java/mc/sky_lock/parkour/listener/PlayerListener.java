@@ -24,7 +24,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void playerMove(PlayerMoveEvent event) {
-        manager.startMeasure(event);
+        manager.measure(event);
     }
 
 }

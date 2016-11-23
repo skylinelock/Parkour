@@ -26,7 +26,7 @@ public class ParkourManager {
         this.handler = handler;
     }
 
-    public void startMeasure(PlayerMoveEvent event) {
+    public void measure(PlayerMoveEvent event) {
         this.event = event;
         Player player = event.getPlayer();
 

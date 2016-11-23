@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -46,13 +47,30 @@ class InfoCommand implements ICommand {
             player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.RESET + locationToString(startLoc));
             player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.RESET + locationToString(endLoc));
             player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.RESET + locationToString(preLoc));
-            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.RESET + Boolean.toString(parkour.isActive()));
+            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.RESET + boolString(parkour.isActive()));
             return;
         }
         player.sendMessage(FailedMessage.INFO.getText());
     }
 
-    private String locationToString(@NonNull Location location) {
-        return location.getBlockX() + " " + location.getBlockY() + " " + location.getBlockZ();
+    private String locationToString(Location location) {
+        if (location == null) {
+            return "null";
+        }
+        BigDecimal x = new BigDecimal(location.getX());
+        BigDecimal y = new BigDecimal(location.getY());
+        BigDecimal z = new BigDecimal(location.getZ());
+
+        String scaledX = x.setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+        String scaledY = y.setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+        String scaledZ = z.setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+        return scaledX + " " + scaledY + " " + scaledZ;
+    }
+
+    private String boolString(boolean bool) {
+        if (bool) {
+            return "Yes";
+        }
+        return "No";
     }
 }
