@@ -138,7 +138,7 @@ public class ParkourManager {
     private void failed() {
         Player player = event.getPlayer();
         Location location = event.getTo();
-        int teleportHeight = (int) handler.getConfigFile().load(ConfigElement.RESPAWN_Y);
+        int teleportHeight = (int) handler.getConfigFile().load(ConfigElement.TELEPORT_HEIGHT);
         if (location.getBlockY() > teleportHeight) {
             return;
         }
