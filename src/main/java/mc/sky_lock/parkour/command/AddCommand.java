@@ -31,13 +31,12 @@ class AddCommand implements ICommand {
         String inputId = args[1];
         List<Parkour> parkours = handler.getParkours();
 
-        if (parkours != null && parkours.isEmpty()) {
-            for (Parkour parkour : parkours) {
-                if (parkour.getId().equalsIgnoreCase(inputId)) {
-                    player.sendMessage(FailedMessage.ID_EXISTS.getText());
-                    return;
-                }
+        for (Parkour parkour : parkours) {
+            if (parkour.getId().equalsIgnoreCase(inputId)) {
+                player.sendMessage(FailedMessage.ID_EXISTS.getText());
+                return;
             }
+
         }
         Parkour newParkour = new Parkour(inputId);
         parkours.add(newParkour);

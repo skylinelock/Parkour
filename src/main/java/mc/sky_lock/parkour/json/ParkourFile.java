@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ParkourFile {
 
-    private final GsonFile gsonConf;
+    private final GsonFile gsonFile;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public ParkourFile(File dir) {
@@ -26,27 +26,41 @@ public class ParkourFile {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        gsonConf = new GsonFile(file);
+        gsonFile = new GsonFile(file);
     }
 
+    /**
+     * ParkourのListをJsonとしてFileに保存します。
+     *
+     * @param parkours ParkourのList
+     */
     public void saveParkours(List<Parkour> parkours) {
         Type type = new TypeToken<List<Parkour>>() {
         }.getType();
         try {
-            gsonConf.save(parkours, type);
+            gsonFile.save(parkours, type);
         } catch (IOException | RuntimeException ex) {
             ex.printStackTrace();
         }
     }
 
+    /**
+     * Jsonの記述されたFileからParkourのListを読み取ります。
+     * 何も記述のない場合、可変の空リストが返されます。
+     *
+     * @return ParkourのList
+     */
     public List<Parkour> getParkours() {
         Type type = new TypeToken<List<Parkour>>() {
         }.getType();
-        List<Parkour> parkours = new ArrayList<>();
+        List<Parkour> parkours = null;
         try {
-            parkours = gsonConf.load(type);
+            parkours = gsonFile.load(type);
         } catch (IOException | RuntimeException ex) {
             ex.printStackTrace();
+        }
+        if (parkours == null) {
+            return new ArrayList<>();
         }
         return parkours;
     }

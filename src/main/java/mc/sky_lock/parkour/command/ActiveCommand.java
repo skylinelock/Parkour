@@ -31,12 +31,8 @@ class ActiveCommand implements ICommand {
         List<Parkour> parkours = handler.getParkours();
         String inputId = args[1];
 
-        if (parkours == null || parkours.isEmpty()) {
-            player.sendMessage(FailedMessage.ACTIVE.getText());
-            return;
-        }
         for (Parkour parkour : parkours) {
-            if (!parkour.getId().equals(inputId)) {
+            if (!parkour.getId().equalsIgnoreCase(inputId)) {
                 continue;
             }
             String successMsg = SuccessMessage.ACTIVE.getText();

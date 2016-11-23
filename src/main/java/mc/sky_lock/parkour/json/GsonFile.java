@@ -27,6 +27,16 @@ class GsonFile {
                 .create();
     }
 
+    /**
+     * Fileから指定した型でJsonをロードします。
+     * Fileに何も記述がない場合、nullを返します。
+     *
+     * @param type ロード対象の型
+     * @param <T> 型
+     * @return Jsonから読み取られた型
+     * @throws IOException
+     * @throws RuntimeException
+     */
     @SuppressWarnings("unused")
     <T> T load(Type type) throws IOException, RuntimeException {
         JsonReader reader = null;
@@ -43,6 +53,15 @@ class GsonFile {
         }
     }
 
+    /**
+     * Fileに指定した型のオブジェクトをJsonとして保存します。
+     *
+     * @param obj 保存するインスタンス
+     * @param type 保存する型
+     * @param <T> 型
+     * @throws IOException
+     * @throws RuntimeException
+     */
     <T> void save(T obj, Type type) throws IOException, RuntimeException {
         JsonWriter writer = null;
         try {

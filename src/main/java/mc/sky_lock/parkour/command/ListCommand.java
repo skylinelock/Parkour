@@ -27,14 +27,12 @@ class ListCommand implements ICommand {
 
         player.sendMessage(ChatColor.GREEN + "------  [Parkour List]  ------");
 
-        if (parkours != null && !parkours.isEmpty()) {
-            for (Parkour parkour : parkours) {
-                if (!parkour.isActive()) {
-                    player.sendMessage(ChatColor.RED + "Id : " + parkour.getId() + " Name : " + parkour.getName());
-                    continue;
-                }
-                player.sendMessage(ChatColor.GREEN + "Id : " + parkour.getId() + " Name : " + parkour.getName());
+        for (Parkour parkour : parkours) {
+            if (!parkour.isActive()) {
+                player.sendMessage(ChatColor.RED + "Id : " + parkour.getId() + " Name : " + parkour.getName());
+                continue;
             }
+            player.sendMessage(ChatColor.GREEN + "Id : " + parkour.getId() + " Name : " + parkour.getName());
         }
 
         player.sendMessage(ChatColor.GREEN + "--------------------------");

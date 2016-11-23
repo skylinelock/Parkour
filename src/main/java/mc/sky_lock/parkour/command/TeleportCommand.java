@@ -27,11 +27,6 @@ public class TeleportCommand implements ICommand {
         String inputId = args[1];
         List<Parkour> parkours = handler.getParkours();
 
-        if (parkours == null || parkours.isEmpty()) {
-            player.sendMessage(FailedMessage.TELEPORT.getText());
-            return;
-        }
-
         for (Parkour parkour : parkours) {
             if (parkour.getId().equals(inputId)) {
                 player.teleport(parkour.getRespawnPoint());

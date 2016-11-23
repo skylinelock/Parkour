@@ -32,11 +32,6 @@ class RemoveCommand implements ICommand {
         List<Parkour> parkours = handler.getParkours();
         String inputid = args[1];
 
-        if (parkours == null || parkours.isEmpty()) {
-            player.sendMessage(FailedMessage.REMOVE.getText());
-            return;
-        }
-
         for (Parkour parkour : parkours) {
             if (parkour.getId().equals(inputid)) {
                 parkours.remove(parkour);

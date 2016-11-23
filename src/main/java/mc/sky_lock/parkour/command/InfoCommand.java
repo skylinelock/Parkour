@@ -32,11 +32,6 @@ class InfoCommand implements ICommand {
         String inputId = args[1];
         List<Parkour> parkours = handler.getParkours();
 
-        if (parkours == null || parkours.isEmpty()) {
-            player.sendMessage(FailedMessage.INFO.getText());
-            return;
-        }
-
         for (Parkour parkour : parkours) {
             if (!parkour.getId().equals(inputId)) {
                 continue;
