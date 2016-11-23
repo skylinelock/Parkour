@@ -35,14 +35,14 @@ public class ConfigFile {
         config.set(element.getElement(), value);
     }
 
-    public Object load(@NonNull ConfigElement element) {
+    public int loadTeleportInt(@NonNull ConfigElement element) {
         String path = element.getElement();
         if (element == ConfigElement.TELEPORT_HEIGHT) {
             if (config.isInt(path)) {
-                return config.getInt(path);
+                return config.getInt(element.getElement());
             }
         }
-        return config.get(path);
+        return 0;
     }
 
 
