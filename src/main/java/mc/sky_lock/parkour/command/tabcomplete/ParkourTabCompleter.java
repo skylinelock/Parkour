@@ -16,11 +16,11 @@ import java.util.List;
  * @author sky_lock
  */
 
-public class ParkourTabComplete implements TabCompleter {
+public class ParkourTabCompleter implements TabCompleter {
 
     private final ParkourHandler handler;
 
-    public ParkourTabComplete(@NonNull ParkourHandler handler) {
+    public ParkourTabCompleter(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 
