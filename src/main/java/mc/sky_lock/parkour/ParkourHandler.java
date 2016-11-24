@@ -9,8 +9,12 @@ import mc.sky_lock.parkour.json.ParkourFile;
 import mc.sky_lock.parkour.listener.EntityListener;
 import mc.sky_lock.parkour.listener.PlayerListener;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.craftbukkit.v1_11_R1.CraftServer;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -44,26 +48,35 @@ public class ParkourHandler {
         parkours = parkourFile.loadParkours();
 
         registerListeners();
-        registerParkourCommands();
-        registerParkourTabCompleter();
+        registerParkourCommand();
     }
 
     void onDisable() {
         parkourFile.saveParkours(parkours);
     }
 
-    private void registerParkourCommands() {
-        parkourCommand.setExecutor(new CommandHandler(this));
-        parkourCommand.setTabCompleter(new ParkourTabCompleter(this));
-    }
-
-    private void registerParkourTabCompleter() {
-        parkourCommand.setTabCompleter(new ParkourTabCompleter(this));
-    }
-
     private void registerListeners() {
         pluginManager.registerEvents(new PlayerListener(this), plugin);
         pluginManager.registerEvents(new EntityListener(), plugin);
+    }
+
+    private void registerParkourCommand() {
+        Constructor<?> constructor;
+        try {
+            constructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
+        } catch (NoSuchMethodException ex) {
+            return;
+        }
+        constructor.setAccessible(true);
+        PluginCommand parkourCmd;
+        try {
+            parkourCmd = (PluginCommand)constructor.newInstance("parkour", plugin);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException ex) {
+            return;
+        }
+        parkourCmd.setExecutor(new CommandHandler(this));
+        parkourCmd.setTabCompleter(new ParkourTabCompleter(this));
+        ((CraftServer)getPlugin().getServer()).getCommandMap().register("parkour", parkourCmd);
     }
 
 }

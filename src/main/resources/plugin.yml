@@ -3,8 +3,4 @@ name: ${project.name}
 version: ${project.version}
 author: ${bukkit.plugin.authors}
 description: ${project.description}
-
-commands:
-  parkour:
-    description: Parkour commands
     

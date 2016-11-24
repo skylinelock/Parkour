@@ -28,7 +28,6 @@ class RemoveCommand implements ICommand {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
-
         List<Parkour> parkours = handler.getParkours();
         String inputid = args[1];
 
