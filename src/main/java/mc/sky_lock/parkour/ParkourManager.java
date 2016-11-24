@@ -1,9 +1,9 @@
 package mc.sky_lock.parkour;
 
 import lombok.NonNull;
-import mc.sky_lock.parkour.api.PlayerParkourFailedEvent;
-import mc.sky_lock.parkour.api.PlayerParkourStartEvent;
-import mc.sky_lock.parkour.api.PlayerParkourSucceedEvent;
+import mc.sky_lock.parkour.api.event.PlayerParkourFailedEvent;
+import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
+import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
 import mc.sky_lock.parkour.config.ConfigElement;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;

@@ -1,4 +1,4 @@
-package mc.sky_lock.parkour.api;
+package mc.sky_lock.parkour.api.event;
 
 import mc.sky_lock.parkour.Parkour;
 import org.bukkit.entity.Player;
@@ -7,19 +7,17 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
 /**
- * @author sky_lock
+ * @author Shoya
  */
 
-public class PlayerParkourSucceedEvent extends PlayerEvent implements Cancellable {
+public class PlayerParkourFailedEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Parkour parkour;
-    private final long time_ms;
     private boolean cancelled = false;
 
-    public PlayerParkourSucceedEvent(Player player, Parkour parkour, long time_ms) {
+    public PlayerParkourFailedEvent(Player player, Parkour parkour) {
         super(player);
         this.parkour = parkour;
-        this.time_ms = time_ms;
     }
 
     public static HandlerList getHandlerList() {
@@ -39,9 +37,5 @@ public class PlayerParkourSucceedEvent extends PlayerEvent implements Cancellabl
     @Override
     public HandlerList getHandlers() {
         return handlers;
-    }
-
-    public long getTim_ms() {
-        return time_ms;
     }
 }
