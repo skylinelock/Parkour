@@ -10,8 +10,6 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-import static mc.sky_lock.parkour.message.FailedMessage.ACTIVE;
-
 /**
  * @author sky_lock
  */
@@ -38,18 +36,18 @@ class ActiveCommand implements ICommand {
                 continue;
             }
             String successMsg = SuccessMessage.ACTIVE.getText();
-            if (!parkour.isActive()) {
-                if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getPresetPoint() == null || parkour.getName() == null) {
-                    break;
-                }
-                parkour.setActive(true);
+            if (parkour.isActive()) {
+                parkour.setActive(false);
                 player.sendMessage(successMsg);
                 return;
             }
-            parkour.setActive(false);
+            if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getPresetPoint() == null || parkour.getName() == null) {
+                break;
+            }
+            parkour.setActive(true);
             player.sendMessage(successMsg);
             return;
         }
-        player.sendMessage(ACTIVE.getText());
+        player.sendMessage(FailedMessage.ACTIVE.getText());
     }
 }
