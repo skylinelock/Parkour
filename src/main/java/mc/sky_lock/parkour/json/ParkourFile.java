@@ -1,6 +1,6 @@
 package mc.sky_lock.parkour.json;
 
-import com.google.common.reflect.TypeToken;
+import com.google.gson.reflect.TypeToken;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.exception.EmptyJsonException;
 
@@ -36,8 +36,7 @@ public class ParkourFile {
      * @param parkours ParkourのList
      */
     public void saveParkours(List<Parkour> parkours) throws IOException {
-        Type type = new TypeToken<List<Parkour>>() {
-        }.getType();
+        Type type = new TypeToken<List<Parkour>>() {}.getType();
         gsonFile.save(parkours, type);
     }
 
@@ -49,8 +48,7 @@ public class ParkourFile {
      * @throws IOException
      */
     public List<Parkour> loadParkours() throws IOException {
-        Type type = new TypeToken<List<Parkour>>() {
-        }.getType();
+        Type type = new TypeToken<List<Parkour>>() {}.getType();
         List<Parkour> parkours;
         try {
             parkours = gsonFile.load(type);
