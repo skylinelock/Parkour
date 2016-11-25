@@ -39,7 +39,7 @@ class GsonFile {
      * @throws RuntimeException
      */
     @SuppressWarnings("unused")
-    <T> T load(Type type) throws IOException, RuntimeException, EmptyJsonException {
+    <T> T load(Type type) throws IOException, EmptyJsonException {
         JsonReader reader = null;
         try {
             reader = new JsonReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
@@ -63,7 +63,7 @@ class GsonFile {
      * @throws IOException
      * @throws RuntimeException
      */
-    <T> void save(T obj, Type type) throws IOException, RuntimeException {
+    <T> void save(T obj, Type type) throws IOException {
         JsonWriter writer = null;
         try {
             writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));

@@ -13,9 +13,12 @@ import org.bukkit.craftbukkit.v1_11_R1.CraftServer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * @author sky_lock
@@ -27,32 +30,42 @@ public class ParkourHandler {
     private final ParkourPlugin plugin;
     @Getter
     private final PluginManager pluginManager;
-    private final PluginCommand parkourCommand;
     @Getter
     private ConfigFile configFile;
     @Getter
     private ParkourFile parkourFile;
     @Getter
     private List<Parkour> parkours;
+    @Getter
+    private Logger logger;
 
     public ParkourHandler(@NonNull ParkourPlugin plugin) {
         this.plugin = plugin;
         this.pluginManager = plugin.getServer().getPluginManager();
-        this.parkourCommand = plugin.getCommand("parkour");
+        this.logger = plugin.getLogger();
     }
 
     void onEnable() {
         configFile = new ConfigFile(plugin);
 
         parkourFile = new ParkourFile(plugin.getDataFolder());
-        parkours = parkourFile.loadParkours();
+        try {
+            parkours = parkourFile.loadParkours();
+        } catch (IOException ex) {
+            logger.warning("An error occurred while loading parkours");
+            parkours = new ArrayList<>();
+        }
 
         registerListeners();
         registerParkourCommand();
     }
 
     void onDisable() {
-        parkourFile.saveParkours(parkours);
+        try {
+            parkourFile.saveParkours(parkours);
+        } catch (IOException ex) {
+            logger.warning("An error occurred while saving parkours");
+        }
     }
 
     private void registerListeners() {

@@ -10,6 +10,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.io.IOException;
+
 /**
  *
  * @author sky_lock
@@ -94,7 +96,11 @@ public class CommandHandler implements CommandExecutor {
     }
 
     private void saveParkours() {
-        handler.getParkourFile().saveParkours(handler.getParkours());
+        try {
+            handler.getParkourFile().saveParkours(handler.getParkours());
+        } catch (IOException ex) {
+            handler.getLogger().warning("An error occurred while saving parkours");
+        }
     }
 
 }

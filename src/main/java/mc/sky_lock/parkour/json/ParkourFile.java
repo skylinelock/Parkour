@@ -35,14 +35,10 @@ public class ParkourFile {
      *
      * @param parkours ParkourのList
      */
-    public void saveParkours(List<Parkour> parkours) {
+    public void saveParkours(List<Parkour> parkours) throws IOException {
         Type type = new TypeToken<List<Parkour>>() {
         }.getType();
-        try {
-            gsonFile.save(parkours, type);
-        } catch (IOException | RuntimeException ex) {
-
-        }
+        gsonFile.save(parkours, type);
     }
 
     /**
@@ -50,14 +46,15 @@ public class ParkourFile {
      * 何も記述のない場合、可変の空リストが返されます。
      *
      * @return ParkourのList
+     * @throws IOException
      */
-    public List<Parkour> loadParkours() {
+    public List<Parkour> loadParkours() throws IOException {
         Type type = new TypeToken<List<Parkour>>() {
         }.getType();
         List<Parkour> parkours;
         try {
             parkours = gsonFile.load(type);
-        } catch (IOException | RuntimeException | EmptyJsonException ex) {
+        } catch (EmptyJsonException ex) {
             parkours = new ArrayList<>();
         }
         return parkours;
