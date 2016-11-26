@@ -44,12 +44,12 @@ class InfoCommand implements ICommand, ConsoleCancellable {
             Location endLoc = parkour.getEndPoint();
             Location preLoc = parkour.getPresetPoint();
 
-            player.sendMessage(ChatColor.GREEN + "Id: " + ChatColor.RESET + parkour.getId());
-            player.sendMessage(ChatColor.GREEN + "Name: " + ChatColor.RESET + parkour.getName());
-            player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.RESET + locationToString(startLoc));
-            player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.RESET + locationToString(endLoc));
-            player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.RESET + locationToString(preLoc));
-            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.RESET + boolString(parkour.isActive()));
+            player.sendMessage(ChatColor.GREEN + "Id: " + ChatColor.WHITE + parkour.getId());
+            player.sendMessage(ChatColor.GREEN + "Name: " + ChatColor.WHITE + parkour.getName());
+            player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + locationToString(startLoc));
+            player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + locationToString(endLoc));
+            player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + locationToString(preLoc));
+            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + boolString(parkour.isActive()));
             return;
         }
         player.sendMessage(FailedMessage.INFO.getText());

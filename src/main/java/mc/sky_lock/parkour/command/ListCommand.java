@@ -31,10 +31,14 @@ class ListCommand implements ICommand, ConsoleCancellable {
 
         for (Parkour parkour : parkours) {
             if (parkour.isActive()) {
-                player.sendMessage(ChatColor.GREEN + "Id : " + parkour.getId() + " Name : " + parkour.getName());
+                player.sendMessage(
+                        ChatColor.GREEN + "Id : " + ChatColor.WHITE + parkour.getId() + ChatColor.GREEN + " Name : " + ChatColor.WHITE + parkour.getName()
+                );
                 continue;
             }
-            player.sendMessage(ChatColor.RED + "Id : " + parkour.getId() + " Name : " + parkour.getName());
+            player.sendMessage(
+                    ChatColor.RED + "Id : " + ChatColor.WHITE + parkour.getId() + ChatColor.RED + " Name : " + ChatColor.WHITE + parkour.getName()
+            );
 
         }
 
