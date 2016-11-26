@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
  * @author sky_lock
  */
 
-class ParkourPlayer {
+public class ParkourPlayer {
 
     @Getter
     private final Player player;
@@ -16,7 +16,7 @@ class ParkourPlayer {
     private final Parkour parkour;
     private final long startTime;
 
-    ParkourPlayer(@NonNull Player player, @NonNull Parkour parkour) {
+    public ParkourPlayer(@NonNull Player player, @NonNull Parkour parkour) {
         this.player = player;
         this.parkour = parkour;
 

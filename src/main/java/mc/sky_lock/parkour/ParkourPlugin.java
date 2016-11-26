@@ -3,9 +3,9 @@ package mc.sky_lock.parkour;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- *
  * @author sky_lock
  */
+
 public class ParkourPlugin extends JavaPlugin {
 
     private ParkourHandler handler;

@@ -6,6 +6,7 @@ import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author sky_lock
  */
 
-public class TeleportCommand implements ICommand {
+public class TeleportCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
@@ -23,7 +24,8 @@ public class TeleportCommand implements ICommand {
     }
 
     @Override
-    public void execute(Player player, Command command, String label, String[] args) {
+    public void execute(CommandSender sender, Command command, String label, String[] args) {
+        Player player = (Player)sender;
         String inputId = args[1];
         List<Parkour> parkours = handler.getParkours();
 

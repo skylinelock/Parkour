@@ -17,7 +17,9 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -37,6 +39,8 @@ public class ParkourHandler {
     @Getter
     private List<Parkour> parkours;
     @Getter
+    private Set<ParkourPlayer> parkourPlayers;
+    @Getter
     private Logger logger;
 
     public ParkourHandler(@NonNull ParkourPlugin plugin) {
@@ -46,8 +50,8 @@ public class ParkourHandler {
     }
 
     void onEnable() {
+        parkourPlayers = new HashSet<>();
         configFile = new ConfigFile(plugin);
-
         parkourFile = new ParkourFile(plugin.getDataFolder());
         try {
             parkours = parkourFile.loadParkours();
@@ -70,7 +74,7 @@ public class ParkourHandler {
 
     private void registerListeners() {
         pluginManager.registerEvents(new PlayerListener(this), plugin);
-        pluginManager.registerEvents(new EntityListener(), plugin);
+        pluginManager.registerEvents(new EntityListener(this), plugin);
     }
 
     private void registerParkourCommand() {

@@ -5,6 +5,7 @@ import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author sky_lock
  */
 
-class ListCommand implements ICommand {
+class ListCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
@@ -22,7 +23,8 @@ class ListCommand implements ICommand {
     }
 
     @Override
-    public void execute(Player player, Command command, String label, String[] args) {
+    public void execute(CommandSender sender, Command command, String label, String[] args) {
+        Player player = (Player)sender;
         List<Parkour> parkours = handler.getParkours();
 
         player.sendMessage(ChatColor.GREEN + "------  [Parkour List]  ------");

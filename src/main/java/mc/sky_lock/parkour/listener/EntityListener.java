@@ -1,5 +1,7 @@
 package mc.sky_lock.parkour.listener;
 
+import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.ParkourPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,17 +15,30 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 @SuppressWarnings("unused")
 public class EntityListener implements Listener {
+    private final ParkourHandler handler;
+
+    public EntityListener(ParkourHandler handler) {
+        this.handler = handler;
+    }
+
 
     @EventHandler
     public void playerDamage(EntityDamageEvent event) {
         EntityDamageEvent.DamageCause damageCause = event.getCause();
-        if (damageCause != EntityDamageEvent.DamageCause.VOID && damageCause != EntityDamageEvent.DamageCause.FALL) {
-            return;
+        Entity entity = event.getEntity();
+        if (damageCause == EntityDamageEvent.DamageCause.VOID) {
+            if (!(entity instanceof Player)) {
+                return;
+            }
+            Player player = (Player) entity;
+            for (ParkourPlayer parkourPlayer : handler.getParkourPlayers()) {
+                if (parkourPlayer.getPlayer().equals(player)) {
+                    event.setCancelled(true);
+                }
+            }
+        } else if (damageCause == EntityDamageEvent.DamageCause.FALL) {
+            event.setCancelled(true);
         }
-        if (!(event.getEntity() instanceof Player)) {
-            return;
-        }
-        event.setCancelled(true);
     }
 
     @EventHandler

@@ -13,18 +13,19 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author sky_lock
  */
+
 public class ParkourManager {
     private final ParkourHandler handler;
-    private final Set<ParkourPlayer> parkourPlayers = new HashSet<>();
+    private final Set<ParkourPlayer> parkourPlayers;
 
     public ParkourManager(@NonNull ParkourHandler handler) {
         this.handler = handler;
+        this.parkourPlayers = handler.getParkourPlayers();
     }
 
     public void measure(PlayerMoveEvent event) {

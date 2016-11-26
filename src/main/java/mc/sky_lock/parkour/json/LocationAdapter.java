@@ -8,9 +8,9 @@ import org.bukkit.World;
 import java.lang.reflect.Type;
 
 /**
- *
  * @author sky_lock
  */
+
 class LocationAdapter implements JsonSerializer<Location>, JsonDeserializer<Location> {
 
     @Override

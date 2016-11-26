@@ -2,20 +2,16 @@ package mc.sky_lock.parkour.command;
 
 import lombok.NonNull;
 import mc.sky_lock.parkour.ParkourHandler;
-import mc.sky_lock.parkour.message.CommandUsage;
 import mc.sky_lock.parkour.message.FailedMessage;
-import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.io.IOException;
-
 /**
- *
  * @author sky_lock
  */
+
 public class CommandHandler implements CommandExecutor {
 
     private final ParkourHandler handler;
@@ -26,24 +22,10 @@ public class CommandHandler implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            if (args.length < 1) {
-                sender.sendMessage(CommandUsage.RELOAD.getText());
-                return true;
-            }
-            if (args[0].equalsIgnoreCase("reload")) {
-                saveParkours();
-                sender.sendMessage(SuccessMessage.RELOAD.getText());
-                return true;
-            }
-            sender.sendMessage(FailedMessage.NOT_PLAYER.getText());
-            return false;
-        }
-        Player player = (Player) sender;
         ICommand cmd = new UsageCommand();
 
         if (args.length < 1) {
-            cmd.execute(player, command, label, args);
+            cmd.execute(sender, command, label, args);
             return true;
         }
 
@@ -84,23 +66,17 @@ public class CommandHandler implements CommandExecutor {
                 cmd = new TeleportCommand(handler);
                 break;
             case "reload":
-                saveParkours();
-                player.sendMessage(SuccessMessage.RELOAD.getText());
-                return true;
+                cmd = new ReloadCommand(handler);
+                break;
             default:
                 break;
         }
-
-        cmd.execute(player, command, label, args);
-        return true;
-    }
-
-    private void saveParkours() {
-        try {
-            handler.getParkourFile().saveParkours(handler.getParkours());
-        } catch (IOException ex) {
-            handler.getLogger().warning("An error occurred while saving parkours");
+        if (cmd instanceof ConsoleCancellable && !(sender instanceof Player)) {
+            sender.sendMessage(FailedMessage.NOT_PLAYER.getText());
+            return true;
         }
+        cmd.execute(sender, command, label, args);
+        return true;
     }
 
 }

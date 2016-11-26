@@ -1,7 +1,7 @@
 package mc.sky_lock.parkour.command;
 
 import org.bukkit.command.Command;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 /**
  * @author sky_lock
@@ -9,6 +9,6 @@ import org.bukkit.entity.Player;
 
 public interface ICommand {
 
-    void execute(Player player, Command command, String label, String args[]);
+    void execute(CommandSender sender, Command command, String label, String args[]);
 
 }

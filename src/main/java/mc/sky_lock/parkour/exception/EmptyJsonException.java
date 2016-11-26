@@ -1,7 +1,7 @@
 package mc.sky_lock.parkour.exception;
 
 /**
- * @author Shoya
+ * @author sky_lock
  */
 
 public class EmptyJsonException extends Exception {

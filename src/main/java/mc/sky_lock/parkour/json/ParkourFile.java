@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author sky_lock
  */
+
 public class ParkourFile {
 
     private final GsonFile gsonFile;

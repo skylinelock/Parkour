@@ -12,9 +12,9 @@ import java.io.*;
 import java.lang.reflect.Type;
 
 /**
- *
  * @author sky_lock
  */
+
 class GsonFile {
 
     private final Gson gson;

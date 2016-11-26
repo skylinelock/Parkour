@@ -7,6 +7,7 @@ import mc.sky_lock.parkour.message.FailedMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author sky_lock
  */
 
-class InfoCommand implements ICommand {
+class InfoCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
@@ -25,7 +26,8 @@ class InfoCommand implements ICommand {
     }
 
     @Override
-    public void execute(Player player, Command command, String label, String[] args) {
+    public void execute(CommandSender sender, Command command, String label, String[] args) {
+        Player player = (Player)sender;
         if (args.length < 2) {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;

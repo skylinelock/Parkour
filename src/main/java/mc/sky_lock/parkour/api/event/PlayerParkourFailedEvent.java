@@ -7,7 +7,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
 /**
- * @author Shoya
+ * @author sky_lock
  */
 
 public class PlayerParkourFailedEvent extends PlayerEvent implements Cancellable {
