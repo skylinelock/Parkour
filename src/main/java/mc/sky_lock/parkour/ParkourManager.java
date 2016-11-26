@@ -23,19 +23,16 @@ public class ParkourManager {
     private final ParkourHandler handler;
     private final Set<ParkourPlayer> parkourPlayers = new HashSet<>();
 
-    private PlayerMoveEvent event;
-
     public ParkourManager(@NonNull ParkourHandler handler) {
         this.handler = handler;
     }
 
     public void measure(PlayerMoveEvent event) {
-        this.event = event;
 
         Location toLocation = event.getTo();
         Location fromLocation = event.getFrom();
 
-        failed();
+        failed(event);
 
         if (compareLocation(fromLocation, toLocation)) {
             return;
@@ -53,12 +50,12 @@ public class ParkourManager {
         }
 
         handler.getParkours().forEach(parkour -> {
-            start(parkour);
-            stop(parkour);
+            start(event, parkour);
+            stop(event, parkour);
         });
     }
 
-    private void start(Parkour parkour) {
+    private void start(PlayerMoveEvent event, Parkour parkour) {
         if (!parkour.isActive()) {
             return;
         }
@@ -71,9 +68,9 @@ public class ParkourManager {
             return;
         }
 
-        PlayerParkourStartEvent event = new PlayerParkourStartEvent(player, parkour);
-        handler.getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
+        PlayerParkourStartEvent startEvent = new PlayerParkourStartEvent(player, parkour);
+        handler.getPluginManager().callEvent(startEvent);
+        if (startEvent.isCancelled()) {
             return;
         }
 
@@ -96,7 +93,7 @@ public class ParkourManager {
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1.0F, 1.0F);
     }
 
-    private void stop(Parkour parkour) {
+    private void stop(PlayerMoveEvent event, Parkour parkour) {
         if (!parkour.isActive()) {
             return;
         }
@@ -114,11 +111,11 @@ public class ParkourManager {
                 if (!parkourPlayer.getParkour().equals(parkour)) {
                     continue;
                 }
-                long time_ms = parkourPlayer.getCurrentTime_ms();
+                long time_ms = parkourPlayer.getCurrentTimeMillis();
 
-                PlayerParkourSucceedEvent event = new PlayerParkourSucceedEvent(player, parkour, time_ms);
-                handler.getPluginManager().callEvent(event);
-                if (event.isCancelled()) {
+                PlayerParkourSucceedEvent succeedEvent = new PlayerParkourSucceedEvent(player, parkour, time_ms);
+                handler.getPluginManager().callEvent(succeedEvent);
+                if (succeedEvent.isCancelled()) {
                     return;
                 }
 
@@ -135,7 +132,7 @@ public class ParkourManager {
         }
     }
 
-    private void failed() {
+    private void failed(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         Location location = event.getTo();
         int teleportHeight = handler.getConfigFile().loadTeleportInt(ConfigElement.TELEPORT_HEIGHT);
@@ -146,9 +143,9 @@ public class ParkourManager {
         for (ParkourPlayer parkourPlayer : parkourPlayers) {
             if (parkourPlayer.getPlayer().equals(player)) {
                 Parkour parkour = parkourPlayer.getParkour();
-                PlayerParkourFailedEvent event = new PlayerParkourFailedEvent(player, parkour);
-                handler.getPluginManager().callEvent(event);
-                if (event.isCancelled()) {
+                PlayerParkourFailedEvent failedEvent = new PlayerParkourFailedEvent(player, parkour);
+                handler.getPluginManager().callEvent(failedEvent);
+                if (failedEvent.isCancelled()) {
                     return;
                 }
 

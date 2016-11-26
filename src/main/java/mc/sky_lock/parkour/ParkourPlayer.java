@@ -23,7 +23,7 @@ class ParkourPlayer {
         this.startTime = System.currentTimeMillis();
     }
 
-    long getCurrentTime_ms() {
+    long getCurrentTimeMillis() {
         long currentTime = System.currentTimeMillis();
         return currentTime - startTime;
     }
