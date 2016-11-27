@@ -8,7 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 /**
  * @author sky_lock
@@ -24,7 +23,7 @@ public class EntityListener implements Listener {
 
 
     @EventHandler
-    public void playerDamage(EntityDamageEvent event) {
+    public void entityDamage(EntityDamageEvent event) {
         EntityDamageEvent.DamageCause damageCause = event.getCause();
         Entity entity = event.getEntity();
         if (damageCause == EntityDamageEvent.DamageCause.VOID) {
@@ -40,16 +39,5 @@ public class EntityListener implements Listener {
         } else if (damageCause == DamageCause.FALL) {
             event.setCancelled(true);
         }
-    }
-
-    @EventHandler
-    public void foodLevelChange(FoodLevelChangeEvent event) {
-        Entity entity = event.getEntity();
-        if (!(entity instanceof Player)) {
-            return;
-        }
-        Player player = (Player) event.getEntity();
-        player.setFoodLevel(20);
-        event.setCancelled(true);
     }
 }

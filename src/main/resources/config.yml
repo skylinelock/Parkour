@@ -1,1 +1,3 @@
-respawnY: -25
+teleport:
+  height:
+  spawn:
