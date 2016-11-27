@@ -1,7 +1,7 @@
 package mc.sky_lock.parkour;
 
 import lombok.NonNull;
-import mc.sky_lock.parkour.api.event.PlayerParkourFailedEvent;
+import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
 import mc.sky_lock.parkour.config.ConfigElement;
@@ -33,7 +33,7 @@ public class ParkourManager {
         Location toLocation = event.getTo();
         Location fromLocation = event.getFrom();
 
-        failed(event);
+        fail(event);
 
         if (compareLocation(fromLocation, toLocation)) {
             return;
@@ -133,7 +133,7 @@ public class ParkourManager {
         }
     }
 
-    private void failed(PlayerMoveEvent event) {
+    private void fail(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         Location location = event.getTo();
         int teleportHeight = handler.getConfigFile().loadTeleportInt(ConfigElement.TELEPORT_HEIGHT);
@@ -144,12 +144,11 @@ public class ParkourManager {
         for (ParkourPlayer parkourPlayer : parkourPlayers) {
             if (parkourPlayer.getPlayer().equals(player)) {
                 Parkour parkour = parkourPlayer.getParkour();
-                PlayerParkourFailedEvent failedEvent = new PlayerParkourFailedEvent(player, parkour);
-                handler.getPluginManager().callEvent(failedEvent);
-                if (failedEvent.isCancelled()) {
+                PlayerParkourFailEvent failEvent = new PlayerParkourFailEvent(player, parkour);
+                handler.getPluginManager().callEvent(failEvent);
+                if (failEvent.isCancelled()) {
                     return;
                 }
-
                 player.teleport(parkour.getPresetPoint());
                 parkourPlayers.remove(parkourPlayer);
                 sendFailedContent(player, parkour);

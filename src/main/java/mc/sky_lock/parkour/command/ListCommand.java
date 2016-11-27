@@ -27,7 +27,7 @@ class ListCommand implements ICommand, ConsoleCancellable {
         Player player = (Player)sender;
         List<Parkour> parkours = handler.getParkours();
 
-        player.sendMessage(ChatColor.GREEN + "------  [Parkour List]  ------");
+        player.sendMessage(ChatColor.GREEN + "------  [" + ChatColor.WHITE + "Parkour List" + ChatColor.GREEN + "]  ------");
 
         for (Parkour parkour : parkours) {
             if (parkour.isActive()) {

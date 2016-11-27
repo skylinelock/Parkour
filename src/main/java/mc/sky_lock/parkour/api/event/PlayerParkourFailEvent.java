@@ -10,12 +10,12 @@ import org.bukkit.event.player.PlayerEvent;
  * @author sky_lock
  */
 
-public class PlayerParkourFailedEvent extends PlayerEvent implements Cancellable {
+public class PlayerParkourFailEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Parkour parkour;
     private boolean cancelled = false;
 
-    public PlayerParkourFailedEvent(Player player, Parkour parkour) {
+    public PlayerParkourFailEvent(Player player, Parkour parkour) {
         super(player);
         this.parkour = parkour;
     }
