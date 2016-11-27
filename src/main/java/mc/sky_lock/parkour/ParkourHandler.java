@@ -1,7 +1,5 @@
 package mc.sky_lock.parkour;
 
-import lombok.Getter;
-import lombok.NonNull;
 import mc.sky_lock.parkour.command.CommandHandler;
 import mc.sky_lock.parkour.command.tabcomplete.ParkourTabCompleter;
 import mc.sky_lock.parkour.config.ConfigFile;
@@ -12,6 +10,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.craftbukkit.v1_10_R1.CraftServer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -28,22 +27,15 @@ import java.util.logging.Logger;
 
 public class ParkourHandler {
 
-    @Getter
     private final ParkourPlugin plugin;
-    @Getter
     private final PluginManager pluginManager;
-    @Getter
     private ConfigFile configFile;
-    @Getter
     private ParkourFile parkourFile;
-    @Getter
     private List<Parkour> parkours;
-    @Getter
     private Set<ParkourPlayer> parkourPlayers;
-    @Getter
     private Logger logger;
 
-    public ParkourHandler(@NonNull ParkourPlugin plugin) {
+    public ParkourHandler(@NotNull ParkourPlugin plugin) {
         this.plugin = plugin;
         this.pluginManager = plugin.getServer().getPluginManager();
         this.logger = plugin.getLogger();
@@ -95,7 +87,31 @@ public class ParkourHandler {
         }
         parkourCmd.setExecutor(new CommandHandler(this));
         parkourCmd.setTabCompleter(new ParkourTabCompleter(this));
-        ((CraftServer)getPlugin().getServer()).getCommandMap().register("parkour", parkourCmd);
+        ((CraftServer)plugin.getServer()).getCommandMap().register("parkour", parkourCmd);
+    }
+
+    public PluginManager getPluginManager() {
+        return pluginManager;
+    }
+
+    public ConfigFile getConfigFile() {
+        return configFile;
+    }
+
+    public ParkourFile getParkourFile() {
+        return parkourFile;
+    }
+
+    public List<Parkour> getParkours() {
+        return parkours;
+    }
+
+    public Set<ParkourPlayer> getParkourPlayers() {
+        return parkourPlayers;
+    }
+
+    public Logger getLogger() {
+        return logger;
     }
 
 }

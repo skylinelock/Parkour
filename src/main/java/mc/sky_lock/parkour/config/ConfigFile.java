@@ -1,8 +1,8 @@
 package mc.sky_lock.parkour.config;
 
-import lombok.NonNull;
 import mc.sky_lock.parkour.ParkourPlugin;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class ConfigFile {
     private final ParkourPlugin plugin;
     private final FileConfiguration config;
 
-    public ConfigFile(@NonNull ParkourPlugin plugin) {
+    public ConfigFile(@NotNull ParkourPlugin plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfig();
         config.options().copyDefaults(true);
@@ -31,11 +31,11 @@ public class ConfigFile {
         }
     }
 
-    public void save(@NonNull ConfigElement element, @NonNull String value) {
+    public void save(@NotNull ConfigElement element, @NotNull String value) {
         config.set(element.getElement(), value);
     }
 
-    public int loadTeleportInt(@NonNull ConfigElement element) {
+    public int loadTeleportInt(@NotNull ConfigElement element) {
         String path = element.getElement();
         if (element == ConfigElement.TELEPORT_HEIGHT) {
             if (config.isInt(path)) {

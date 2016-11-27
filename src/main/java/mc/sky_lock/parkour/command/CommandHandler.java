@@ -1,12 +1,12 @@
 package mc.sky_lock.parkour.command;
 
-import lombok.NonNull;
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.message.FailedMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author sky_lock
@@ -16,7 +16,7 @@ public class CommandHandler implements CommandExecutor {
 
     private final ParkourHandler handler;
 
-    public CommandHandler(@NonNull ParkourHandler handler) {
+    public CommandHandler(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 

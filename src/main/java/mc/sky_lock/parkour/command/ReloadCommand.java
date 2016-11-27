@@ -7,6 +7,7 @@ import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
 public class ReloadCommand implements ICommand {
     private final ParkourHandler handler;
 
-    public ReloadCommand(ParkourHandler handler) {
+    public ReloadCommand(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 

@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 /**
@@ -36,7 +37,7 @@ public class EntityListener implements Listener {
                     event.setCancelled(true);
                 }
             }
-        } else if (damageCause == EntityDamageEvent.DamageCause.FALL) {
+        } else if (damageCause == DamageCause.FALL) {
             event.setCancelled(true);
         }
     }

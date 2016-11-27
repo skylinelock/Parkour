@@ -1,6 +1,5 @@
 package mc.sky_lock.parkour;
 
-import lombok.NonNull;
 import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
@@ -12,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
@@ -23,7 +23,7 @@ public class ParkourManager {
     private final ParkourHandler handler;
     private final Set<ParkourPlayer> parkourPlayers;
 
-    public ParkourManager(@NonNull ParkourHandler handler) {
+    public ParkourManager(@NotNull ParkourHandler handler) {
         this.handler = handler;
         this.parkourPlayers = handler.getParkourPlayers();
     }

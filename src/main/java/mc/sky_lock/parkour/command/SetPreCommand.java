@@ -1,6 +1,5 @@
 package mc.sky_lock.parkour.command;
 
-import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.message.FailedMessage;
@@ -8,6 +7,7 @@ import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ class SetPreCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-    SetPreCommand(@NonNull ParkourHandler handler) {
+    SetPreCommand(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 

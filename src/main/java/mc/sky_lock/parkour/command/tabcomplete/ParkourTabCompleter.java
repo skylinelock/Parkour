@@ -1,12 +1,12 @@
 package mc.sky_lock.parkour.command.tabcomplete;
 
-import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +20,7 @@ public class ParkourTabCompleter implements TabCompleter {
 
     private final ParkourHandler handler;
 
-    public ParkourTabCompleter(@NonNull ParkourHandler handler) {
+    public ParkourTabCompleter(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 

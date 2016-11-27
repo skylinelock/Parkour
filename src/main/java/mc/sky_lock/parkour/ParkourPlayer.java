@@ -1,22 +1,18 @@
 package mc.sky_lock.parkour;
 
-import lombok.Getter;
-import lombok.NonNull;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author sky_lock
  */
 
 public class ParkourPlayer {
-
-    @Getter
     private final Player player;
-    @Getter
     private final Parkour parkour;
     private final long startTime;
 
-    public ParkourPlayer(@NonNull Player player, @NonNull Parkour parkour) {
+    public ParkourPlayer(@NotNull Player player, @NotNull Parkour parkour) {
         this.player = player;
         this.parkour = parkour;
 
@@ -26,6 +22,14 @@ public class ParkourPlayer {
     long getCurrentTimeMillis() {
         long currentTime = System.currentTimeMillis();
         return currentTime - startTime;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Parkour getParkour() {
+        return parkour;
     }
 
 }

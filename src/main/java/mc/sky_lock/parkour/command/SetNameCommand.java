@@ -1,6 +1,5 @@
 package mc.sky_lock.parkour.command;
 
-import lombok.NonNull;
 import mc.sky_lock.parkour.FormatUtils;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
@@ -9,6 +8,7 @@ import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ class SetNameCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-   SetNameCommand(@NonNull ParkourHandler handler) {
+   SetNameCommand(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 

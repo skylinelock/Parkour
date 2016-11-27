@@ -1,12 +1,12 @@
 package mc.sky_lock.parkour.command;
 
-import lombok.NonNull;
 import mc.sky_lock.parkour.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ class ListCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-    ListCommand(@NonNull ParkourHandler handler) {
+    ListCommand(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 
