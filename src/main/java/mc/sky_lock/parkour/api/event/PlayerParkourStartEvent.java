@@ -20,7 +20,17 @@ public class PlayerParkourStartEvent extends PlayerEvent implements Cancellable 
         this.parkour = parkour;
     }
 
+    @SuppressWarnings("unused")
     public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    public Parkour getParkour() {
+        return parkour;
+    }
+
+    @Override
+    public HandlerList getHandlers() {
         return handlers;
     }
 
@@ -34,8 +44,4 @@ public class PlayerParkourStartEvent extends PlayerEvent implements Cancellable 
         this.cancelled = cancelled;
     }
 
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
 }

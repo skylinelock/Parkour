@@ -13,16 +13,30 @@ import org.bukkit.event.player.PlayerEvent;
 public class PlayerParkourSucceedEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Parkour parkour;
-    private final long time_ms;
+    private final long timeMillis;
     private boolean cancelled = false;
 
-    public PlayerParkourSucceedEvent(Player player, Parkour parkour, long time_ms) {
+    public PlayerParkourSucceedEvent(Player player, Parkour parkour, long timeMillis) {
         super(player);
         this.parkour = parkour;
-        this.time_ms = time_ms;
+        this.timeMillis = timeMillis;
     }
 
+    @SuppressWarnings("unused")
     public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    public Parkour getParkour() {
+        return parkour;
+    }
+
+    public long getTimeMillis() {
+        return timeMillis;
+    }
+
+    @Override
+    public HandlerList getHandlers() {
         return handlers;
     }
 
@@ -34,14 +48,5 @@ public class PlayerParkourSucceedEvent extends PlayerEvent implements Cancellabl
     @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
-    }
-
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public long getTim_ms() {
-        return time_ms;
     }
 }
