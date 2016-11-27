@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class ReloadCommand implements ICommand {
     private final ParkourHandler handler;
 
-    public ReloadCommand(@NotNull ParkourHandler handler) {
+    ReloadCommand(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 

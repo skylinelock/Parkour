@@ -29,7 +29,7 @@ public class Parkour {
         return active;
     }
 
-    public void setActive(@Nullable boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
