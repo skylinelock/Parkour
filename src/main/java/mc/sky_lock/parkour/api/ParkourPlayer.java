@@ -1,6 +1,5 @@
-package mc.sky_lock.parkour;
+package mc.sky_lock.parkour.api;
 
-import mc.sky_lock.parkour.api.Parkour;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,10 +8,17 @@ import org.jetbrains.annotations.NotNull;
  */
 
 public class ParkourPlayer {
+
     private final Player player;
     private final Parkour parkour;
     private final long startTime;
 
+    /**
+     * 引数として渡されたPlayerとParkourを紐づけるParkourPlayerインスタンスを作成します。
+     *
+     * @param player Player
+     * @param parkour Parkour
+     */
     public ParkourPlayer(@NotNull Player player, @NotNull Parkour parkour) {
         this.player = player;
         this.parkour = parkour;
@@ -20,15 +26,30 @@ public class ParkourPlayer {
         this.startTime = System.currentTimeMillis();
     }
 
-    long getCurrentTimeMillis() {
+    /**
+     * 現在の計測タイムをミリ秒で返します。
+     *
+     * @return ミリ秒で表される現在の計測タイム
+     */
+    public long getCurrentTimeMillis() {
         long currentTime = System.currentTimeMillis();
         return currentTime - startTime;
     }
 
+    /**
+     * 紐づけられたPlayerを返します。
+     *
+     * @return Player
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * 紐づけられたParkourを返します。
+     *
+     * @return Parkour
+     */
     public Parkour getParkour() {
         return parkour;
     }
