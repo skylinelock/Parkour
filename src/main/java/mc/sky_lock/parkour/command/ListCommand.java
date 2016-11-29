@@ -1,6 +1,6 @@
 package mc.sky_lock.parkour.command;
 
-import mc.sky_lock.parkour.Parkour;
+import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

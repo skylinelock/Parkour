@@ -1,6 +1,6 @@
 package mc.sky_lock.parkour.command.tabcomplete;
 
-import mc.sky_lock.parkour.Parkour;
+import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

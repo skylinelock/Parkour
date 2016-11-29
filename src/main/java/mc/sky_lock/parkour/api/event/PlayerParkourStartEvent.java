@@ -1,6 +1,6 @@
 package mc.sky_lock.parkour.api.event;
 
-import mc.sky_lock.parkour.Parkour;
+import mc.sky_lock.parkour.api.Parkour;
 import org.bukkit.entity.Player;
 
 /**

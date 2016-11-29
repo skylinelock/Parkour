@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour;
 
+import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
@@ -43,10 +44,6 @@ public class ParkourManager {
                 blockType != Material.IRON_PLATE &&
                 blockType != Material.WOOD_PLATE &&
                 blockType != Material.STONE_PLATE) {
-            return;
-        }
-
-        if (handler.getParkours() == null) {
             return;
         }
 
@@ -144,8 +141,10 @@ public class ParkourManager {
         for (ParkourPlayer parkourPlayer : parkourPlayers) {
             if (parkourPlayer.getPlayer().equals(player)) {
                 Parkour parkour = parkourPlayer.getParkour();
+
                 PlayerParkourFailEvent failEvent = new PlayerParkourFailEvent(player, parkour);
                 handler.getPluginManager().callEvent(failEvent);
+
                 if (failEvent.isCancelled()) {
                     return;
                 }

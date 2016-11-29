@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour;
 
+import mc.sky_lock.parkour.api.Parkour;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

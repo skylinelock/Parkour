@@ -1,6 +1,6 @@
 package mc.sky_lock.parkour.command;
 
-import mc.sky_lock.parkour.Parkour;
+import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.message.FailedMessage;
 import org.bukkit.ChatColor;
@@ -58,7 +58,7 @@ class InfoCommand implements ICommand, ConsoleCancellable {
 
     private String locationToString(Location location) {
         if (location == null) {
-            return "null";
+            return null;
         }
         BigDecimal x = new BigDecimal(location.getX());
         BigDecimal y = new BigDecimal(location.getY());
