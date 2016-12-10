@@ -1,6 +1,7 @@
 package mc.sky_lock.parkour;
 
 import mc.sky_lock.parkour.api.Parkour;
+import mc.sky_lock.parkour.api.ParkourPlayer;
 import mc.sky_lock.parkour.command.CommandHandler;
 import mc.sky_lock.parkour.command.tabcomplete.ParkourTabCompleter;
 import mc.sky_lock.parkour.config.ConfigFile;

@@ -2,7 +2,7 @@ package mc.sky_lock.parkour.listener;
 
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.ParkourManager;
-import mc.sky_lock.parkour.ParkourPlayer;
+import mc.sky_lock.parkour.api.ParkourPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

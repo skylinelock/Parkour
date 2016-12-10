@@ -11,8 +11,8 @@ import org.jetbrains.annotations.Nullable;
 public class Parkour {
 
     private final String id;
-    private boolean active = false;
     private String name;
+    private boolean active = false;
     private Location startPoint;
     private Location endPoint;
     private Location presetPoint;
@@ -123,6 +123,16 @@ public class Parkour {
      */
     public void setPresetPoint(@Nullable Location presetPoint) {
         this.presetPoint = presetPoint;
+    }
+
+    /**
+     * このParkourを表すIDとName、アクティブ状態を連結させたStringオブジェクトを返します。
+     *
+     * @return IDとName、アクティブ状態が連結された文字列
+     */
+    @Override
+    public String toString() {
+        return "Parkour [id=" + id + ", name=" + name + ", active=" + active + "]";
     }
 
 

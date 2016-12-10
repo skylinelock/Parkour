@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public class ParkourTabCompleter implements TabCompleter {
         } else if (args.length == 2) {
             String secondArg = args[1];
             if (firstArg.equalsIgnoreCase("add") || firstArg.equalsIgnoreCase("list")) {
-                return null;
+                return Collections.emptyList();
             }
             for (Parkour parkour : handler.getParkours()) {
                 if (secondArg.equals("")) {

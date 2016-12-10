@@ -1,6 +1,7 @@
 package mc.sky_lock.parkour;
 
 import mc.sky_lock.parkour.api.Parkour;
+import mc.sky_lock.parkour.api.ParkourPlayer;
 import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
@@ -30,7 +31,6 @@ public class ParkourManager {
     }
 
     public void measure(PlayerMoveEvent event) {
-
         Location toLocation = event.getTo();
         Location fromLocation = event.getFrom();
 
@@ -95,9 +95,9 @@ public class ParkourManager {
         if (!parkour.isActive()) {
             return;
         }
+
         Location toLocation = event.getTo();
         Location endPoint = parkour.getEndPoint();
-
         Player player = event.getPlayer();
 
         if (!compareLocation(toLocation, endPoint)) {
@@ -144,10 +144,10 @@ public class ParkourManager {
 
                 PlayerParkourFailEvent failEvent = new PlayerParkourFailEvent(player, parkour);
                 handler.getPluginManager().callEvent(failEvent);
-
                 if (failEvent.isCancelled()) {
                     return;
                 }
+
                 player.teleport(parkour.getPresetPoint());
                 parkourPlayers.remove(parkourPlayer);
                 sendFailedContent(player, parkour);
