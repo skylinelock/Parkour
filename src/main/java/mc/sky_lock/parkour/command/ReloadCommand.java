@@ -26,8 +26,11 @@ public class ReloadCommand implements ICommand {
 
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
+        if (!sender.hasPermission("parkour.reload")) {
+            sender.sendMessage("");
+            return;
+        }
         Logger logger = handler.getLogger();
-
         ParkourFile parkourFile = handler.getParkourFile();
         try {
             parkourFile.saveParkours(handler.getParkours());

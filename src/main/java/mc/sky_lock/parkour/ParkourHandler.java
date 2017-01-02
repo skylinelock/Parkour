@@ -1,5 +1,7 @@
 package mc.sky_lock.parkour;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.api.ParkourPlayer;
 import mc.sky_lock.parkour.command.CommandHandler;
@@ -9,7 +11,7 @@ import mc.sky_lock.parkour.json.ParkourFile;
 import mc.sky_lock.parkour.listener.EntityListener;
 import mc.sky_lock.parkour.listener.PlayerListener;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.craftbukkit.v1_10_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_11_R1.CraftServer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +39,9 @@ public class ParkourHandler {
     private Set<ParkourPlayer> parkourPlayers;
     private Logger logger;
 
+    private MongoClient mongoClient;
+    private MongoDatabase database;
+
     public ParkourHandler(@NotNull ParkourPlugin plugin) {
         this.plugin = plugin;
         this.pluginManager = plugin.getServer().getPluginManager();
@@ -44,6 +49,8 @@ public class ParkourHandler {
     }
 
     void onEnable() {
+        connectDB();
+
         parkourPlayers = new HashSet<>();
         configFile = new ConfigFile(plugin);
         parkourFile = new ParkourFile(plugin.getDataFolder());
@@ -63,6 +70,19 @@ public class ParkourHandler {
             parkourFile.saveParkours(parkours);
         } catch (IOException ex) {
             logger.warning("An error occurred while saving parkours");
+        }
+
+        closeDB();
+    }
+
+    private void connectDB() {
+        mongoClient = new MongoClient();
+        database = mongoClient.getDatabase("parkour");
+    }
+
+    private void closeDB() {
+        if (mongoClient != null) {
+            mongoClient.close();
         }
     }
 
@@ -92,11 +112,11 @@ public class ParkourHandler {
         ((CraftServer)plugin.getServer()).getCommandMap().register("parkour", parkourCmd);
     }
 
-    public PluginManager getPluginManager() {
+    PluginManager getPluginManager() {
         return pluginManager;
     }
 
-    public ConfigFile getConfigFile() {
+    ConfigFile getConfigFile() {
         return configFile;
     }
 
@@ -114,6 +134,10 @@ public class ParkourHandler {
 
     public Logger getLogger() {
         return logger;
+    }
+
+    public MongoDatabase getDatabase() {
+        return database;
     }
 
 }

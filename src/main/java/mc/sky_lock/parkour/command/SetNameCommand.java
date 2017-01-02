@@ -20,13 +20,13 @@ class SetNameCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-   SetNameCommand(@NotNull ParkourHandler handler) {
+    SetNameCommand(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
-       Player player = (Player)sender;
+        Player player = (Player)sender;
         if (args.length < 3) {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;

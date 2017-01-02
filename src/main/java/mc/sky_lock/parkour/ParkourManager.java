@@ -31,11 +31,14 @@ public class ParkourManager {
     }
 
     public void measure(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        if (!player.hasPermission("parkour.measure")) {
+            return;
+        }
+
         Location toLocation = event.getTo();
         Location fromLocation = event.getFrom();
-
         fail(event);
-
         if (compareLocation(fromLocation, toLocation)) {
             return;
         }
@@ -54,13 +57,15 @@ public class ParkourManager {
     }
 
     private void start(PlayerMoveEvent event, Parkour parkour) {
+        Player player = event.getPlayer();
+        if (!player.hasPermission("parkour.measure.start")) {
+            return;
+        }
         if (!parkour.isActive()) {
             return;
         }
         Location toLocation = event.getTo();
         Location startPoint = parkour.getStartPoint();
-
-        Player player = event.getPlayer();
 
         if (!compareLocation(toLocation, startPoint)) {
             return;
@@ -92,18 +97,19 @@ public class ParkourManager {
     }
 
     private void stop(PlayerMoveEvent event, Parkour parkour) {
+        Player player = event.getPlayer();
+        if (!player.hasPermission("parkour.measure.stop")) {
+            return;
+        }
         if (!parkour.isActive()) {
             return;
         }
 
         Location toLocation = event.getTo();
         Location endPoint = parkour.getEndPoint();
-        Player player = event.getPlayer();
-
         if (!compareLocation(toLocation, endPoint)) {
             return;
         }
-
         for (ParkourPlayer parkourPlayer : parkourPlayers) {
             if (parkourPlayer.getPlayer().equals(player)) {
                 if (!parkourPlayer.getParkour().equals(parkour)) {
