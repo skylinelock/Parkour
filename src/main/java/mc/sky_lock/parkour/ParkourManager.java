@@ -32,12 +32,12 @@ public class ParkourManager {
 
     public void measure(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if (!player.hasPermission("parkour.measure")) {
+        if (!player.hasPermission("parkour.use")) {
             return;
         }
-
         Location toLocation = event.getTo();
         Location fromLocation = event.getFrom();
+
         fail(event);
         if (compareLocation(fromLocation, toLocation)) {
             return;
@@ -58,9 +58,6 @@ public class ParkourManager {
 
     private void start(PlayerMoveEvent event, Parkour parkour) {
         Player player = event.getPlayer();
-        if (!player.hasPermission("parkour.measure.start")) {
-            return;
-        }
         if (!parkour.isActive()) {
             return;
         }
@@ -98,9 +95,6 @@ public class ParkourManager {
 
     private void stop(PlayerMoveEvent event, Parkour parkour) {
         Player player = event.getPlayer();
-        if (!player.hasPermission("parkour.measure.stop")) {
-            return;
-        }
         if (!parkour.isActive()) {
             return;
         }

@@ -23,10 +23,6 @@ public class CommandHandler implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         ICommand cmd = new UsageCommand();
-        if (!sender.hasPermission("parkour.command")) {
-            sender.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
-            return true;
-        }
         if (args.length < 1) {
             cmd.execute(sender, command, label, args);
             return true;

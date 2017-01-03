@@ -34,6 +34,7 @@ public class ParkourFile {
      * ParkourのListをJsonとしてFileに保存します。
      *
      * @param parkours ParkourのList
+     * @throws IOException IOException
      */
     public void saveParkours(List<Parkour> parkours) throws IOException {
         Type type = new TypeToken<List<Parkour>>() {}.getType();
@@ -45,7 +46,7 @@ public class ParkourFile {
      * 何も記述のない場合、可変の空リストが返されます。
      *
      * @return ParkourのList
-     * @throws IOException
+     * @throws IOException IOException
      */
     public List<Parkour> loadParkours() throws IOException {
         Type type = new TypeToken<List<Parkour>>() {}.getType();

@@ -5,5 +5,3 @@ author: ${bukkit.plugin.authors}
 description: ${project.description}
 
 database: true
-
-    
