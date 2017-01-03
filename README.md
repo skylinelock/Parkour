@@ -16,7 +16,7 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 |/parkour info \<id>            |指定したParkourの情報を表示します。|parkour.command.info|
 |/parkour add \<id>             |IDが存在しない場合にそのIDのParkourを追加します。|parkour.command.add|
 |/parkour setstart \<id>        |指定したParkourのスタート地点を設定します。|parkour.command.setstart|
-|/parkour setend \<id>          |指定したParkourのゴール地点を設定します。|parkour.command.setend|
+|/parkour setend \<id>          |指定したParkourのゴール地点を設定します。|parkour.command.setend|__`**``**`__
 |/parkour setpre \<id>          |指定したParkourのプリセット地点を設定します。|parkour.command.setpre|
 |/parkour setname \<id> \<name> |指定したParkourの表示名を設定します。|parkour.command.setname|
 |/parkour active \<id>          |指定したParkourをプレイ可能の状態に変更します。|parkour.command.active|
@@ -43,9 +43,13 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 - PlayerParkourSucceedEvent  
 - PlayerParkourFailEvent  
 
+### License
+このBukkitプラグインはMITライセンスをもとに公開されています。ライセンス本文は[こちら][license]をご覧下さい。
+
 ***
 ## Contact
 バグ、質問等ございましたら下記Twitterまで。  
 Twitter : [@fon_sky_lock][twitter]
 
 [twitter]:https://twitter.com/fon_sky_lock
+[license]:https://opensource.org/licenses/mit-license.php
