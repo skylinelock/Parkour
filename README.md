@@ -43,7 +43,7 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 - PlayerParkourSucceedEvent  
 - PlayerParkourFailEvent  
 
-### License
+## License
 このBukkitプラグインはMITライセンスをもとに公開されています。ライセンス本文は[こちら][license]をご覧下さい。
 
 ***
