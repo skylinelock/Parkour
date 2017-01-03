@@ -11,18 +11,24 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 ### Commands
 |Usage|Description|Permission|
 |-----|:-----------|:-------|
-|/parkour                       | コマンドのリストを表示します。| None|
-|/parkour list                  | 現在登録されているParkourの一覧を取得します。| None |
-|/parkour info \<id>            | 指定したParkourの情報を表示します。| None |
-|/parkour add \<id>             | IDが存在しない場合にそのIDのParkourを追加します。| None |
-|/parkour setstart \<id>        | 指定したParkourのスタート地点を設定します。| None |
-|/parkour setend \<id>          | 指定したParkourのゴール地点を設定します。| None |
-|/parkour setpre \<id>          | 指定したParkourのプリセット地点を設定します。| None |
-|/parkour setname \<id> \<name> | 指定したParkourの表示名を設定します。| None |
-|/parkour active \<id>          | 指定したParkourをプレイ可能の状態に変更します。| None |
-|/parkour remove \<id>          | 指定したParkourの登録を解除（削除）します。| None |
-|/parkour teleport \<id>        | 指定したParkourのプリセット地点へテレポートします。| None |
-|/parkour reload                | parkours.jsonの再読み込み、プレイヤーの計測のリセット| None |
+|/parkour                       |コマンドのリストを表示します。|parkour.command.usage|
+|/parkour list                  |現在登録されているParkourの一覧を取得します。|parkour.command.list|
+|/parkour info \<id>            |指定したParkourの情報を表示します。|parkour.command.info|
+|/parkour add \<id>             |IDが存在しない場合にそのIDのParkourを追加します。|parkour.command.add|
+|/parkour setstart \<id>        |指定したParkourのスタート地点を設定します。|parkour.command.setstart|
+|/parkour setend \<id>          |指定したParkourのゴール地点を設定します。|parkour.command.setend|
+|/parkour setpre \<id>          |指定したParkourのプリセット地点を設定します。|parkour.command.setpre|
+|/parkour setname \<id> \<name> |指定したParkourの表示名を設定します。|parkour.command.setname|
+|/parkour active \<id>          |指定したParkourをプレイ可能の状態に変更します。|parkour.command.active|
+|/parkour remove \<id>          |指定したParkourの登録を解除（削除）します。|parkour.command.remove|
+|/parkour teleport \<id>        |指定したParkourのプリセット地点へテレポートします。|parkour.command.teleport|
+|/parkour reload                |parkours.jsonの再読み込み、プレイヤーの計測のリセット|parkour.command.reload|
+
+###Permissions
+|Permission|Description|
+|----------|-----------|
+|parkour.use      | Parkourの使用を許可します。|
+|parkour.command.*| プラグインの全てコマンドの仕様を許可します。|
 
 ### Plans
 - Permissionの実装
