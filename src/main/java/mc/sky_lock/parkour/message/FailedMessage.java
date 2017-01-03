@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 
 public enum FailedMessage {
 
+    DONT_HAVE_PERM(ChatColor.RED + "You don't enough have permissions to do this"),
     NOT_PLAYER(ChatColor.RED + "You must be a player to use this command"),
     NOT_ENOUGH_ARGS(ChatColor.RED + "Not enough arguments"),
     ID_EXISTS(ChatColor.RED + "The ID already exists"),

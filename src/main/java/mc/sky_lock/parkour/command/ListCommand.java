@@ -1,7 +1,8 @@
 package mc.sky_lock.parkour.command;
 
-import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.api.Parkour;
+import mc.sky_lock.parkour.message.FailedMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -24,7 +25,11 @@ class ListCommand implements ICommand, ConsoleCancellable {
 
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player)sender;
+        Player player = (Player) sender;
+        if (!player.hasPermission("parkour.command.list")) {
+            player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
+            return;
+        }
         List<Parkour> parkours = handler.getParkours();
 
         player.sendMessage(ChatColor.GREEN + "------  [" + ChatColor.WHITE + "Parkour List" + ChatColor.GREEN + "]  ------");
@@ -41,7 +46,6 @@ class ListCommand implements ICommand, ConsoleCancellable {
             );
 
         }
-
         player.sendMessage(ChatColor.GREEN + "--------------------------");
     }
 }

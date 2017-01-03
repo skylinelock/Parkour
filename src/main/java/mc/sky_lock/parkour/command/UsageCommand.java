@@ -1,6 +1,7 @@
 package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.message.CommandUsage;
+import mc.sky_lock.parkour.message.FailedMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,8 +14,12 @@ class UsageCommand implements ICommand {
 
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
+        if (!sender.hasPermission("parkour.command.usage")) {
+            sender.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
+            return;
+        }
         if (sender instanceof Player) {
-            Player player = (Player)sender;
+            Player player = (Player) sender;
             player.sendMessage(CommandUsage.LIST.getText());
             player.sendMessage(CommandUsage.INFO.getText());
             player.sendMessage(CommandUsage.ADD.getText());

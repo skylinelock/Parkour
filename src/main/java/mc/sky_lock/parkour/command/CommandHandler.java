@@ -2,7 +2,6 @@ package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.message.FailedMessage;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,7 +24,7 @@ public class CommandHandler implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         ICommand cmd = new UsageCommand();
         if (!sender.hasPermission("parkour.command")) {
-            sender.sendMessage(ChatColor.RED + "You don't have enough permissions");
+            sender.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
             return true;
         }
         if (args.length < 1) {

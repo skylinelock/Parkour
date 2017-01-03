@@ -25,7 +25,11 @@ public class TeleportCommand implements ICommand, ConsoleCancellable {
 
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player)sender;
+        Player player = (Player) sender;
+        if (!player.hasPermission("parkour.command.teleport")) {
+            player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
+            return;
+        }
         String inputId = args[1];
         List<Parkour> parkours = handler.getParkours();
 

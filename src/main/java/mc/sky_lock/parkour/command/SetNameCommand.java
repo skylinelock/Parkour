@@ -26,7 +26,11 @@ class SetNameCommand implements ICommand, ConsoleCancellable {
 
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player)sender;
+        Player player = (Player) sender;
+        if (!player.hasPermission("parkour.command.rename")) {
+            player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
+            return;
+        }
         if (args.length < 3) {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;

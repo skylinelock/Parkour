@@ -25,7 +25,11 @@ class ActiveCommand implements ICommand, ConsoleCancellable {
 
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player)sender;
+        Player player = (Player) sender;
+        if (!player.hasPermission("parkour.command.active")) {
+            player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
+            return;
+        }
         if (args.length < 2) {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
