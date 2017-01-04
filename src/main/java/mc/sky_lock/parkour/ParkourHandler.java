@@ -19,10 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -125,6 +122,12 @@ public class ParkourHandler {
 
     public List<Parkour> getParkours() {
         return parkours;
+    }
+
+    public Optional<Parkour> getParkour(String id) {
+        return parkours.stream()
+                .filter(parkour -> parkour.getId().equals(id))
+                .findAny();
     }
 
     public Set<ParkourPlayer> getParkourPlayers() {

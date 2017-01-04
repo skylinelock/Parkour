@@ -7,7 +7,7 @@ import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
 import mc.sky_lock.parkour.config.ConfigElement;
 import mc.sky_lock.parkour.database.PlayerScoreDocument;
-import org.apache.commons.lang.time.DurationFormatUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -75,17 +75,16 @@ public class ParkourManager {
             return;
         }
 
-        for (ParkourPlayer parkourPlayer : parkourPlayers) {
-            if (parkourPlayer.getParkour().equals(parkour)) {
-                parkourPlayers.remove(parkourPlayer);
-                break;
-            }
-            if (parkourPlayer.getPlayer().equals(player)) {
-                parkourPlayers.remove(parkourPlayer);
-                sendFailedContent(player, parkourPlayer.getParkour());
-                break;
-            }
-        }
+        parkourPlayers.stream()
+                .filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player))
+                .findAny()
+                .ifPresent(parkourPlayer -> {
+                    parkourPlayers.remove(parkourPlayer);
+                    if (!parkourPlayer.getParkour().equals(parkour)) {
+                        sendFailedContent(player, parkourPlayer.getParkour());
+                    }
+                });
+
         parkourPlayers.add(new ParkourPlayer(player, parkour));
 
         player.sendMessage("");
@@ -105,35 +104,36 @@ public class ParkourManager {
         if (!compareLocation(toLocation, endPoint)) {
             return;
         }
-        for (ParkourPlayer parkourPlayer : parkourPlayers) {
-            if (parkourPlayer.getPlayer().equals(player)) {
-                if (!parkourPlayer.getParkour().equals(parkour)) {
-                    continue;
-                }
-                long time_ms = parkourPlayer.getCurrentTimeMillis();
+        parkourPlayers.stream()
+                .filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player))
+                .filter(parkourPlayer -> parkourPlayer.getParkour().equals(parkour))
+                .findAny()
+                .ifPresent(
+                        parkourPlayer -> {
+                            long time_ms = parkourPlayer.getCurrentTimeMillis();
 
-                PlayerParkourSucceedEvent succeedEvent = new PlayerParkourSucceedEvent(player, parkour, time_ms);
-                handler.getPluginManager().callEvent(succeedEvent);
-                if (succeedEvent.isCancelled()) {
-                    return;
-                }
+                            PlayerParkourSucceedEvent succeedEvent = new PlayerParkourSucceedEvent(player, parkour, time_ms);
+                            handler.getPluginManager().callEvent(succeedEvent);
+                            if (succeedEvent.isCancelled()) {
+                                return;
+                            }
 
-                String time = DurationFormatUtils.formatDurationHMS(time_ms);
-                player.sendMessage("");
-                player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge succeeded!");
-                player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + "Total Time: " + time);
-                player.sendMessage("");
+                            String time = DurationFormatUtils.formatDurationHMS(time_ms);
+                            player.sendMessage("");
+                            player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge succeeded!");
+                            player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + "Total Time: " + time);
+                            player.sendMessage("");
 
-                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+                            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
 
-                if (parkour.canSave()) {
-                    PlayerScoreDocument scoreDocument = new PlayerScoreDocument(handler, parkourPlayer);
-                    scoreDocument.insertDocument(time_ms);
-                }
+                            if (parkour.canSave()) {
+                                PlayerScoreDocument scoreDocument = new PlayerScoreDocument(handler, parkourPlayer);
+                                scoreDocument.insertDocument(time_ms);
+                            }
 
-                parkourPlayers.remove(parkourPlayer);
-            }
-        }
+                            parkourPlayers.remove(parkourPlayer);
+                        }
+                );
     }
 
     private void fail(PlayerMoveEvent event) {
@@ -144,7 +144,7 @@ public class ParkourManager {
             return;
         }
 
-        for (ParkourPlayer parkourPlayer : parkourPlayers) {
+        /*for (ParkourPlayer parkourPlayer : parkourPlayers) {
             if (parkourPlayer.getPlayer().equals(player)) {
                 Parkour parkour = parkourPlayer.getParkour();
 
@@ -158,7 +158,25 @@ public class ParkourManager {
                 parkourPlayers.remove(parkourPlayer);
                 sendFailedContent(player, parkour);
             }
-        }
+        }*/
+        parkourPlayers.stream()
+                .filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player))
+                .findAny()
+                .ifPresent(
+                        parkourPlayer -> {
+                            Parkour parkour = parkourPlayer.getParkour();
+
+                            PlayerParkourFailEvent failEvent = new PlayerParkourFailEvent(player, parkour);
+                            handler.getPluginManager().callEvent(failEvent);
+                            if (failEvent.isCancelled()) {
+                                return;
+                            }
+
+                            player.teleport(parkour.getPresetPoint());
+                            parkourPlayers.remove(parkourPlayer);
+                            sendFailedContent(player, parkour);
+                        }
+                );
     }
 
     private boolean compareLocation(Location location1, Location location2) {

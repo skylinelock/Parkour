@@ -1,7 +1,7 @@
 package mc.sky_lock.parkour.command;
 
-import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author sky_lock
@@ -37,16 +38,23 @@ class ActiveCommand implements ICommand, ConsoleCancellable {
         List<Parkour> parkours = handler.getParkours();
         String inputId = args[1];
 
-        for (Parkour parkour : parkours) {
-            if (parkour.getId().equals(inputId)) {
-                if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getPresetPoint() == null || parkour.getName() == null) {
-                    break;
-                }
-                parkour.setActive(true);
-                player.sendMessage(SuccessMessage.ACTIVE.getText());
+        Optional<Parkour> oParkour = handler.getParkour(inputId);
+        if (oParkour.isPresent()) {
+            Parkour parkour = oParkour.get();
+            if (!checkParkour(parkour)) {
                 return;
             }
+            parkour.setActive(true);
+            player.sendMessage(SuccessMessage.ACTIVE.getText());
+            return;
         }
-        player.sendMessage(FailedMessage.ACTIVE.getText());
+        player.sendMessage(SuccessMessage.ACTIVE.getText());
+    }
+
+    private boolean checkParkour(Parkour parkour) {
+        if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getPresetPoint() == null || parkour.getName() == null) {
+            return false;
+        }
+        return true;
     }
 }
