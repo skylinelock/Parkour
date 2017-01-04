@@ -16,13 +16,15 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 |/parkour info \<id>            |指定したParkourの情報を表示します。|parkour.command.info|
 |/parkour add \<id>             |IDが存在しない場合にそのIDのParkourを追加します。|parkour.command.add|
 |/parkour setstart \<id>        |指定したParkourのスタート地点を設定します。|parkour.command.setstart|
-|/parkour setend \<id>          |指定したParkourのゴール地点を設定します。|parkour.command.setend|__`**``**`__
+|/parkour setend \<id>          |指定したParkourのゴール地点を設定します。|parkour.command.setend|
 |/parkour setpre \<id>          |指定したParkourのプリセット地点を設定します。|parkour.command.setpre|
 |/parkour setname \<id> \<name> |指定したParkourの表示名を設定します。|parkour.command.setname|
-|/parkour active \<id>          |指定したParkourをプレイ可能の状態に変更します。|parkour.command.active|
+|/parkour active \<id>          |指定したParkourをプレイ可能にします。|parkour.command.active|
+|/parkour lock \<id>          |指定したParkourをプレイ不可能にします。|parkour.command.lock|
 |/parkour remove \<id>          |指定したParkourの登録を解除（削除）します。|parkour.command.remove|
 |/parkour teleport \<id>        |指定したParkourのプリセット地点へテレポートします。|parkour.command.teleport|
 |/parkour reload                |parkours.jsonの再読み込み、プレイヤーの計測のリセット|parkour.command.reload|
+|/parkour save \<id>            |指定したParkourのセーブ可能/不可能を切り替えます。|parkour.command.save|
 
 ###Permissions
 |Permission|Description|
