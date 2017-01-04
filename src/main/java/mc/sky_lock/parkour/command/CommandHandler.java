@@ -53,6 +53,9 @@ public class CommandHandler implements CommandExecutor {
             case "active":
                 cmd = new ActiveCommand(handler);
                 break;
+            case "lock":
+                cmd = new LockCommand(handler);
+                break;
             case "info":
                 cmd = new InfoCommand(handler);
                 break;
@@ -65,6 +68,9 @@ public class CommandHandler implements CommandExecutor {
                 break;
             case "reload":
                 cmd = new ReloadCommand(handler);
+                break;
+            case "save":
+                cmd = new SaveCommand(handler);
                 break;
             default:
                 break;

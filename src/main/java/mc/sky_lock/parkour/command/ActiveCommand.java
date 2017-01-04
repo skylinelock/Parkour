@@ -38,21 +38,14 @@ class ActiveCommand implements ICommand, ConsoleCancellable {
         String inputId = args[1];
 
         for (Parkour parkour : parkours) {
-            if (!parkour.getId().equalsIgnoreCase(inputId)) {
-                continue;
-            }
-            String successMsg = SuccessMessage.ACTIVE.getText();
-            if (parkour.isActive()) {
-                parkour.setActive(false);
-                player.sendMessage(successMsg);
+            if (parkour.getId().equals(inputId)) {
+                if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getPresetPoint() == null || parkour.getName() == null) {
+                    break;
+                }
+                parkour.setActive(true);
+                player.sendMessage(SuccessMessage.ACTIVE.getText());
                 return;
             }
-            if (parkour.getStartPoint() == null || parkour.getEndPoint() == null || parkour.getPresetPoint() == null || parkour.getName() == null) {
-                break;
-            }
-            parkour.setActive(true);
-            player.sendMessage(successMsg);
-            return;
         }
         player.sendMessage(FailedMessage.ACTIVE.getText());
     }

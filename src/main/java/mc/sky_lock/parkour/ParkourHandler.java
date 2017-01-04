@@ -1,5 +1,7 @@
 package mc.sky_lock.parkour;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.api.ParkourPlayer;
 import mc.sky_lock.parkour.command.CommandHandler;
@@ -36,6 +38,8 @@ public class ParkourHandler {
     private List<Parkour> parkours;
     private Set<ParkourPlayer> parkourPlayers;
     private Logger logger;
+    private MongoClient mongoClient;
+    private MongoDatabase mongoDatabase;
 
     public ParkourHandler(@NotNull ParkourPlugin plugin) {
         this.plugin = plugin;
@@ -44,6 +48,8 @@ public class ParkourHandler {
     }
 
     void onEnable() {
+        connectDB();
+
         parkourPlayers = new HashSet<>();
         configFile = new ConfigFile(plugin);
         parkourFile = new ParkourFile(plugin.getDataFolder());
@@ -63,6 +69,19 @@ public class ParkourHandler {
             parkourFile.saveParkours(parkours);
         } catch (IOException ex) {
             logger.warning("An error occurred while saving parkours");
+        }
+
+        closeDB();
+    }
+
+    private void connectDB() {
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        mongoDatabase = mongoClient.getDatabase("bukkit-parkour");
+    }
+
+    private void closeDB() {
+        if (mongoClient != null) {
+            mongoClient.close();
         }
     }
 
@@ -116,5 +135,7 @@ public class ParkourHandler {
         return logger;
     }
 
-
+    public MongoDatabase getMongoDatabase() {
+        return mongoDatabase;
+    }
 }

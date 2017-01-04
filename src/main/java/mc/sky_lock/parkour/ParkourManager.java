@@ -6,6 +6,7 @@ import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
 import mc.sky_lock.parkour.config.ConfigElement;
+import mc.sky_lock.parkour.database.PlayerScoreDocument;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -124,6 +125,11 @@ public class ParkourManager {
                 player.sendMessage("");
 
                 player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+
+                if (parkour.canSave()) {
+                    PlayerScoreDocument scoreDocument = new PlayerScoreDocument(handler, parkourPlayer);
+                    scoreDocument.insertDocument(time_ms);
+                }
 
                 parkourPlayers.remove(parkourPlayer);
             }

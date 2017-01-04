@@ -1,7 +1,7 @@
 package mc.sky_lock.parkour.command;
 
-import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
@@ -9,24 +9,21 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 /**
  * @author sky_lock
  */
 
-class RemoveCommand implements ICommand, ConsoleCancellable {
-
+public class LockCommand implements ICommand {
     private final ParkourHandler handler;
 
-    RemoveCommand(@NotNull ParkourHandler handler) {
+    public LockCommand(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
-        if (!player.hasPermission("parkour.command.remove")) {
+        if (!player.hasPermission("parkour.command.lock")) {
             player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
             return;
         }
@@ -34,16 +31,14 @@ class RemoveCommand implements ICommand, ConsoleCancellable {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
-        List<Parkour> parkours = handler.getParkours();
         String inputId = args[1];
-
-        for (Parkour parkour : parkours) {
+        for (Parkour parkour : handler.getParkours()) {
             if (parkour.getId().equals(inputId)) {
-                parkours.remove(parkour);
-                player.sendMessage(SuccessMessage.REMOVE.getText());
+                parkour.setActive(false);
+                player.sendMessage(SuccessMessage.LOCK.getText());
                 return;
             }
         }
-        player.sendMessage(FailedMessage.REMOVE.getText());
+        player.sendMessage(FailedMessage.LOCK.getText());
     }
 }

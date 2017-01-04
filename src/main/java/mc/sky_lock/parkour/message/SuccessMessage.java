@@ -9,7 +9,8 @@ import org.bukkit.ChatColor;
 public enum SuccessMessage {
 
     RELOAD(ChatColor.GREEN + "Reload successful"),
-    ACTIVE(ChatColor.GREEN + "Turn active successful"),
+    ACTIVE(ChatColor.GREEN + "Active successful"),
+    LOCK(ChatColor.GREEN + "Lock successful"),
     ADD(ChatColor.GREEN + "Add parkour successful"),
     INFO(ChatColor.GREEN + "Info succeeded"),
     REMOVE(ChatColor.GREEN + "Remove successful"),
@@ -17,7 +18,8 @@ public enum SuccessMessage {
     SET_PRE(ChatColor.GREEN + "Set prepoint successful"),
     SET_START(ChatColor.GREEN + "Set startpoint successful"),
     SET_END(ChatColor.GREEN + "Set endpoint successful"),
-    TELEPORT(ChatColor.GREEN + "Teleport successful");
+    TELEPORT(ChatColor.GREEN + "Teleport successful"),
+    SAVE(ChatColor.GREEN + "Turn save successful");
 
     private final String text;
 

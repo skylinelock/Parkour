@@ -12,7 +12,8 @@ public class Parkour {
 
     private final String id;
     private String name;
-    private boolean active = false;
+    private boolean active;
+    private boolean save;
     private Location startPoint;
     private Location endPoint;
     private Location presetPoint;
@@ -36,7 +37,7 @@ public class Parkour {
     }
 
     /**
-     * Parkourのアクティブ/非アクティブ状態を返します。
+     * Parkourがアクティブ状態かどうかを返します。
      *
      * @return アクティブ状態であったら {@code true}
      */
@@ -45,7 +46,16 @@ public class Parkour {
     }
 
     /**
-     * Parkourのアクティブ/非アクティブ状態を設定します。
+     * Parkourがロック状態かどうかを返します。
+     *
+     * @return ロック状態であったら {@code true}
+     */
+    public boolean isLocked() {
+        return !active;
+    }
+
+    /**
+     * Parkourのアクティブ/ロック状態を設定します。
      *
      * @param active アクティブ状態は {@code true}
      */
@@ -69,6 +79,14 @@ public class Parkour {
      */
     public void setName(@Nullable String name) {
         this.name = name;
+    }
+
+    public boolean canSave() {
+        return save;
+    }
+
+    public void setSave(boolean save) {
+        this.save = save;
     }
 
     /**

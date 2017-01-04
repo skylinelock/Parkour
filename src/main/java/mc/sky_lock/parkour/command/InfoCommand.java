@@ -53,6 +53,8 @@ class InfoCommand implements ICommand, ConsoleCancellable {
             player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + locationToString(startLoc));
             player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + locationToString(endLoc));
             player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + locationToString(preLoc));
+            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + boolString(parkour.canSave()));
+            player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + boolString(parkour.isLocked()));
             player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + boolString(parkour.isActive()));
             return;
         }
