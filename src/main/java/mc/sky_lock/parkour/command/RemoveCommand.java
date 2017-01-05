@@ -36,14 +36,13 @@ class RemoveCommand implements ICommand, ConsoleCancellable {
         }
         List<Parkour> parkours = handler.getParkours();
         String inputId = args[1];
+        Parkour parkour = handler.getParkour(inputId);
 
-        for (Parkour parkour : parkours) {
-            if (parkour.getId().equals(inputId)) {
-                parkours.remove(parkour);
-                player.sendMessage(SuccessMessage.REMOVE.getText());
-                return;
-            }
+        if (parkour == null) {
+            player.sendMessage(FailedMessage.REMOVE.getText());
+            return;
         }
-        player.sendMessage(FailedMessage.REMOVE.getText());
+        parkours.remove(parkour);
+        player.sendMessage(SuccessMessage.REMOVE.getText());
     }
 }

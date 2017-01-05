@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 public class SaveCommand implements ICommand {
     private final ParkourHandler handler;
 
-    public SaveCommand(ParkourHandler handler) {
+    SaveCommand(ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -31,17 +31,18 @@ public class SaveCommand implements ICommand {
             return;
         }
         String inputId = args[1];
-        for (Parkour parkour : handler.getParkours()) {
-            if (parkour.getId().equals(inputId)) {
-                if (parkour.canSave()) {
-                    parkour.setSave(false);
-                } else {
-                    parkour.setSave(true);
-                }
-                player.sendMessage(SuccessMessage.SAVE.getText());
-                return;
-            }
+        Parkour parkour = handler.getParkour(inputId);
+
+        if (parkour == null) {
+            player.sendMessage(FailedMessage.SAVE.getText());
+            return;
         }
-        player.sendMessage(FailedMessage.SAVE.getText());
+
+        if (parkour.canSave()) {
+            parkour.setSave(false);
+        } else {
+            parkour.setSave(true);
+        }
+        player.sendMessage(SuccessMessage.SAVE.getText());
     }
 }

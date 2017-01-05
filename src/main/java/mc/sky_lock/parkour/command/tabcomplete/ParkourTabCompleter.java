@@ -33,31 +33,33 @@ public class ParkourTabCompleter implements TabCompleter {
             displayStrs.add("reload");
             return displayStrs;
         }
-        List<String> allCommand = Arrays.asList("active", "add", "info", "list", "remove", "setend", "setname", "setpre", "setstart", "teleport", "sn", "ss", "se", "sp", "tp");
+        List<String> allCommand = Arrays.asList(
+                "info", "list", "teleport", "reload",
+                "add", "setstart", "setend", "setpre", "setname", "active", "lock", "save", "remove",
+                "ss", "se", "sp", "sn", "tp"
+        );
         String firstArg = args[0];
+
         if (args.length == 1) {
             if (firstArg.equals("")) {
                 return allCommand;
             }
-            for (String commandName : allCommand) {
-                if (commandName.toLowerCase().startsWith(firstArg)) {
-                    displayStrs.add(commandName);
-                }
-            }
+            allCommand.stream()
+                    .filter(commandName -> commandName.toLowerCase().startsWith(firstArg))
+                    .findFirst()
+                    .ifPresent(displayStrs::add);
         } else if (args.length == 2) {
             String secondArg = args[1];
             if (firstArg.equalsIgnoreCase("add") || firstArg.equalsIgnoreCase("list")) {
                 return Collections.emptyList();
             }
-            for (Parkour parkour : handler.getParkours()) {
-                if (secondArg.equals("")) {
-                    displayStrs.add(parkour.getId());
-                    continue;
-                }
-                if (parkour.getId().startsWith(args[0])) {
-                    displayStrs.add(parkour.getId());
-                }
+            List<Parkour> parkours = handler.getParkours();
+            if (secondArg.equals("")) {
+                parkours.forEach(parkour -> displayStrs.add(parkour.getId()));
             }
+            parkours.stream()
+                    .filter(parkour -> parkour.getId().startsWith(args[0]))
+                    .forEach(parkour -> displayStrs.add(parkour.getId()));
         }
         return displayStrs;
     }

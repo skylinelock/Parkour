@@ -11,13 +11,13 @@ import org.bukkit.entity.Player;
  * @author sky_lock
  */
 
-public class PlayerScoreDocument {
+public class TimeDocument {
     private final MongoDocument mongoDocument;
     private final Player player;
     private final Parkour parkour;
     private final MongoCollection mongoCollection;
 
-    public PlayerScoreDocument(ParkourHandler handler, ParkourPlayer parkourPlayer) {
+    public TimeDocument(ParkourHandler handler, ParkourPlayer parkourPlayer) {
         mongoDocument = new MongoDocument(handler, "playerScore");
         player = parkourPlayer.getPlayer();
         parkour = parkourPlayer.getParkour();
@@ -27,7 +27,7 @@ public class PlayerScoreDocument {
     public void insertDocument(long time) {
         Document document = new Document("uuid", player.getUniqueId().toString())
                 .append("name", player.getName())
-                .append("parkour", parkour.getName())
+                .append("parkour", parkour.getId())
                 .append("time_ms", time);
         mongoDocument.insertOne(document);
     }

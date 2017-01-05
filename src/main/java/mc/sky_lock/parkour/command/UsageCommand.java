@@ -32,6 +32,7 @@ class UsageCommand implements ICommand {
             player.sendMessage(CommandUsage.REMOVE.getText());
             player.sendMessage(CommandUsage.RELOAD.getText());
             player.sendMessage(CommandUsage.SAVE.getText());
+            player.sendMessage(CommandUsage.TELEPORT.getText());
             return;
         }
         sender.sendMessage(CommandUsage.RELOAD.getText());

@@ -15,7 +15,7 @@ public class MongoDocument {
     private final MongoCollection mongoCollection;
 
     public MongoDocument(ParkourHandler handler, String collectionName) {
-        mongoDatabase = handler.getMongoDatabase();
+        mongoDatabase = handler.getMongoDBManager().getMongoDatabase();
         mongoCollection = mongoDatabase.getCollection(collectionName);
     }
 

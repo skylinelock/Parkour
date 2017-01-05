@@ -1,12 +1,11 @@
 package mc.sky_lock.parkour;
 
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.api.ParkourPlayer;
 import mc.sky_lock.parkour.command.CommandHandler;
 import mc.sky_lock.parkour.command.tabcomplete.ParkourTabCompleter;
 import mc.sky_lock.parkour.config.ConfigFile;
+import mc.sky_lock.parkour.database.MongoDBManager;
 import mc.sky_lock.parkour.json.ParkourFile;
 import mc.sky_lock.parkour.listener.EntityListener;
 import mc.sky_lock.parkour.listener.PlayerListener;
@@ -19,7 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -35,8 +37,7 @@ public class ParkourHandler {
     private List<Parkour> parkours;
     private Set<ParkourPlayer> parkourPlayers;
     private Logger logger;
-    private MongoClient mongoClient;
-    private MongoDatabase mongoDatabase;
+    private MongoDBManager dbManager;
 
     public ParkourHandler(@NotNull ParkourPlugin plugin) {
         this.plugin = plugin;
@@ -45,7 +46,8 @@ public class ParkourHandler {
     }
 
     void onEnable() {
-        connectDB();
+        dbManager = new MongoDBManager();
+        dbManager.connect();
 
         parkourPlayers = new HashSet<>();
         configFile = new ConfigFile(plugin);
@@ -68,18 +70,7 @@ public class ParkourHandler {
             logger.warning("An error occurred while saving parkours");
         }
 
-        closeDB();
-    }
-
-    private void connectDB() {
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        mongoDatabase = mongoClient.getDatabase("bukkit-parkour");
-    }
-
-    private void closeDB() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
+        dbManager.close();
     }
 
     private void registerListeners() {
@@ -124,10 +115,21 @@ public class ParkourHandler {
         return parkours;
     }
 
-    public Optional<Parkour> getParkour(String id) {
-        return parkours.stream()
-                .filter(parkour -> parkour.getId().equals(id))
-                .findAny();
+    public Parkour getParkour(String id) {
+        for (Parkour parkour : parkours) {
+            if (parkour.getId().equals(id)) {
+                return parkour;
+            }
+        }
+        return null;
+    }
+
+    public void addParkour(Parkour parkour) {
+        parkours.add(parkour);
+    }
+
+    public void removeParkour(Parkour parkour) {
+        parkours.remove(parkour);
     }
 
     public Set<ParkourPlayer> getParkourPlayers() {
@@ -138,7 +140,7 @@ public class ParkourHandler {
         return logger;
     }
 
-    public MongoDatabase getMongoDatabase() {
-        return mongoDatabase;
+    public MongoDBManager getMongoDBManager() {
+        return dbManager;
     }
 }

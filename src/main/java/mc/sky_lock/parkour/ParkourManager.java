@@ -6,7 +6,7 @@ import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
 import mc.sky_lock.parkour.config.ConfigElement;
-import mc.sky_lock.parkour.database.PlayerScoreDocument;
+import mc.sky_lock.parkour.database.TimeDocument;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -127,7 +127,7 @@ public class ParkourManager {
                             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
 
                             if (parkour.canSave()) {
-                                PlayerScoreDocument scoreDocument = new PlayerScoreDocument(handler, parkourPlayer);
+                                TimeDocument scoreDocument = new TimeDocument(handler, parkourPlayer);
                                 scoreDocument.insertDocument(time_ms);
                             }
 
@@ -144,21 +144,6 @@ public class ParkourManager {
             return;
         }
 
-        /*for (ParkourPlayer parkourPlayer : parkourPlayers) {
-            if (parkourPlayer.getPlayer().equals(player)) {
-                Parkour parkour = parkourPlayer.getParkour();
-
-                PlayerParkourFailEvent failEvent = new PlayerParkourFailEvent(player, parkour);
-                handler.getPluginManager().callEvent(failEvent);
-                if (failEvent.isCancelled()) {
-                    return;
-                }
-
-                player.teleport(parkour.getPresetPoint());
-                parkourPlayers.remove(parkourPlayer);
-                sendFailedContent(player, parkour);
-            }
-        }*/
         parkourPlayers.stream()
                 .filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player))
                 .findAny()

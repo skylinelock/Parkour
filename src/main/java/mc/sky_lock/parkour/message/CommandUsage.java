@@ -19,7 +19,8 @@ public enum CommandUsage {
     SET_START(ChatColor.GREEN + "/parkour setstart [id]"),
     SET_END(ChatColor.GREEN + "/parkour setend [id]"),
     SET_PRE(ChatColor.GREEN + "/parkour setpre [id]"),
-    SAVE(ChatColor.GREEN + "/parkour save [id]");
+    SAVE(ChatColor.GREEN + "/parkour save [id]"),
+    TELEPORT(ChatColor.GREEN + "/parkour teleport [id]");
 
     private final String text;
 

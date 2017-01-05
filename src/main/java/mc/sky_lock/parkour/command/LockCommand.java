@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public class LockCommand implements ICommand {
     private final ParkourHandler handler;
 
-    public LockCommand(@NotNull ParkourHandler handler) {
+    LockCommand(@NotNull ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -32,13 +32,12 @@ public class LockCommand implements ICommand {
             return;
         }
         String inputId = args[1];
-        for (Parkour parkour : handler.getParkours()) {
-            if (parkour.getId().equals(inputId)) {
-                parkour.setActive(false);
-                player.sendMessage(SuccessMessage.LOCK.getText());
-                return;
-            }
+        Parkour parkour = handler.getParkour(inputId);
+        if (parkour == null) {
+            player.sendMessage(FailedMessage.LOCK.getText());
+            return;
         }
-        player.sendMessage(FailedMessage.LOCK.getText());
+        parkour.setActive(false);
+        player.sendMessage(SuccessMessage.LOCK.getText());
     }
 }
