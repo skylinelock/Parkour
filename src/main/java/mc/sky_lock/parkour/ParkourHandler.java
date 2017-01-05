@@ -10,11 +10,13 @@ import mc.sky_lock.parkour.json.ParkourFile;
 import mc.sky_lock.parkour.listener.EntityListener;
 import mc.sky_lock.parkour.listener.PlayerListener;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_11_R1.CraftServer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -46,7 +48,7 @@ public class ParkourHandler {
     }
 
     void onEnable() {
-        dbManager = new MongoDBManager();
+        dbManager = new MongoDBManager(this);
         dbManager.connect();
 
         parkourPlayers = new HashSet<>();
@@ -107,6 +109,10 @@ public class ParkourHandler {
         return configFile;
     }
 
+    public FileConfiguration getConfig() {
+        return plugin.getConfig();
+    }
+
     public ParkourFile getParkourFile() {
         return parkourFile;
     }
@@ -142,5 +148,13 @@ public class ParkourHandler {
 
     public MongoDBManager getMongoDBManager() {
         return dbManager;
+    }
+
+    public File getDataFolder() {
+        return plugin.getDataFolder();
+    }
+
+    public void disablePlugin() {
+        pluginManager.disablePlugin(plugin);
     }
 }
