@@ -89,7 +89,7 @@ public class ParkourHandler {
         constructor.setAccessible(true);
         PluginCommand parkourCmd;
         try {
-            parkourCmd = (PluginCommand)constructor.newInstance("parkour", plugin);
+            parkourCmd = (PluginCommand) constructor.newInstance("parkour", plugin);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException ex) {
             logger.warning("An error occurred while registering command");
             return;

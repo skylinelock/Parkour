@@ -12,7 +12,6 @@ public enum SuccessMessage {
     ACTIVE(ChatColor.GREEN + "Active successful"),
     LOCK(ChatColor.GREEN + "Lock successful"),
     ADD(ChatColor.GREEN + "Add parkour successful"),
-    INFO(ChatColor.GREEN + "Info succeeded"),
     REMOVE(ChatColor.GREEN + "Remove successful"),
     SET_NAME(ChatColor.GREEN + "Set name successful"),
     SET_PRE(ChatColor.GREEN + "Set prepoint successful"),
@@ -23,7 +22,7 @@ public enum SuccessMessage {
 
     private final String text;
 
-    private SuccessMessage(String text) {
+   SuccessMessage(String text) {
         this.text = text;
     }
 

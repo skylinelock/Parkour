@@ -26,7 +26,7 @@ public enum FailedMessage {
 
     private final String text;
 
-    private FailedMessage(String text) {
+    FailedMessage(String text) {
         this.text = text;
     }
 

@@ -35,7 +35,7 @@ class ListCommand implements ICommand, ConsoleCancellable {
         player.sendMessage(ChatColor.GREEN + "------  [" + ChatColor.WHITE + "Parkour List" + ChatColor.GREEN + "]  ------");
 
         parkours.stream()
-                .filter(parkour -> parkour.isActive())
+                .filter(Parkour::isActive)
                 .forEach(parkour -> player.sendMessage(
                         ChatColor.GREEN + "Id : " + ChatColor.WHITE + parkour.getId() + ChatColor.GREEN + " Name : " + ChatColor.WHITE + parkour.getName()
                         )

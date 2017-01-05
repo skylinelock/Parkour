@@ -24,7 +24,7 @@ public enum CommandUsage {
 
     private final String text;
 
-    private CommandUsage(String text) {
+    CommandUsage(String text) {
         this.text = text;
     }
 
