@@ -1,3 +1,5 @@
-teleport:
-  height:
-  spawn:
+mongodb:
+  host: localhost
+  port: 27017
+  database: parkour
+respawnHeight: 0
