@@ -1,7 +1,7 @@
 # Parkour
 
 ## Summary
-Parkourのタイム計測をサポートするBukkitプラグイン。未だ開発途中です。
+Parkourのタイム計測をサポートするBukkitプラグイン。未だ開発途中の為、コードに煩雑な部分があります。
 
 ## Features
 - Java8の機能を利用しています。  
@@ -33,12 +33,9 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 |parkour.command.*| プラグインの全てコマンドの仕様を許可します。|
 
 ### Plans
-- Permissionの実装
 - config.ymlの設定用コマンド
-- MongoDBを用いたタイムレコードの保持
 - リアルタイムでタイムレコードを表示
 - ゴール直後のテレポートのサポート
-- ライセンスの追加
 
 ### Events
 - PlayerParkourStartEvent  
