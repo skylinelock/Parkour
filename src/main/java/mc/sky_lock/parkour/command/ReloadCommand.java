@@ -2,8 +2,10 @@ package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.api.Parkour;
+import mc.sky_lock.parkour.database.MongoDBManager;
 import mc.sky_lock.parkour.json.ParkourFile;
 import mc.sky_lock.parkour.message.FailedMessage;
+import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -50,15 +52,12 @@ public class ReloadCommand implements ICommand {
             sender.sendMessage(FailedMessage.RELOAD.getText());
             return;
         }
-        /*try {
-            handler.getConfig().s
-        } catch (IOException |InvalidConfigurationException ex) {
-            //TODO エラー文をもっと的確に
-            logger.warning("An error occurred while loading parkours");
-            sender.sendMessage(FailedMessage.RELOAD.getText());
-            return;
+        MongoDBManager dbManager = handler.getMongoDBManager();
+        if (dbManager.getMongoClient() != null) {
+            dbManager.close();
         }
-        sender.sendMessage(SuccessMessage.RELOAD.getText());*/
+        dbManager.connect();
+        sender.sendMessage(SuccessMessage.RELOAD.getText());
     }
 
 }

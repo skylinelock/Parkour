@@ -16,7 +16,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -150,11 +149,11 @@ public class ParkourHandler {
         return dbManager;
     }
 
-    public File getDataFolder() {
-        return plugin.getDataFolder();
-    }
-
     public void disablePlugin() {
         pluginManager.disablePlugin(plugin);
+    }
+
+    public void reloadConfig() {
+        plugin.reloadConfig();
     }
 }

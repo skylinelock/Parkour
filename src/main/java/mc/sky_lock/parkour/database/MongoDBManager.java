@@ -23,7 +23,9 @@ public class MongoDBManager {
     }
 
     public void connect() {
+        handler.reloadConfig();
         FileConfiguration config = handler.getConfig();
+
         String host = config.getString("mongodb.host");
         int port = config.getInt("mongodb.port");
         Logger logger = handler.getLogger();
@@ -31,10 +33,9 @@ public class MongoDBManager {
         try {
             this.mongoClient = new MongoClient(host, port);
             this.mongoDatabase = mongoClient.getDatabase("parkour");
-            logger.info("hage");
         } catch (MongoSocketOpenException ex) {
             //TODO エラー文をもっと的確に
-            handler.getLogger().warning("An error occurred while connecting MongoDB");
+            logger.warning("An error occurred while connecting MongoDB");
             handler.disablePlugin();
         }
     }
@@ -45,7 +46,7 @@ public class MongoDBManager {
         }
     }
 
-    MongoClient getMongoClient() {
+    public MongoClient getMongoClient() {
         return mongoClient;
     }
 
