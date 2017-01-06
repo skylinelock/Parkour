@@ -1,7 +1,6 @@
 package mc.sky_lock.parkour.api;
 
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author sky_lock
@@ -19,7 +18,7 @@ public class ParkourPlayer {
      * @param player Player
      * @param parkour Parkour
      */
-    public ParkourPlayer(@NotNull Player player, @NotNull Parkour parkour) {
+    public ParkourPlayer(Player player, Parkour parkour) {
         this.player = player;
         this.parkour = parkour;
 

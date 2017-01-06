@@ -1,18 +1,19 @@
 package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.ParkourManager;
+import mc.sky_lock.parkour.PluginLogger;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.database.MongoDBManager;
 import mc.sky_lock.parkour.json.ParkourFile;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.SuccessMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * @author sky_lock
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
 public class ReloadCommand implements ICommand {
     private final ParkourHandler handler;
 
-    ReloadCommand(@NotNull ParkourHandler handler) {
+    ReloadCommand(ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -31,24 +32,26 @@ public class ReloadCommand implements ICommand {
             sender.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
             return;
         }
-        Logger logger = handler.getLogger();
+        PluginLogger logger = handler.getLogger();
+        ParkourManager parkourManager = handler.getParkourManager();
+        handler.reloadConfig();
+
         ParkourFile parkourFile = handler.getParkourFile();
         try {
-            parkourFile.saveParkours(handler.getParkours());
+            parkourFile.saveParkours(parkourManager.getParkours());
         } catch (IOException ex) {
-            logger.warning("An error occurred while saving parkours");
+            logger.out(ChatColor.RED + "Parkour情報のparkours.jsonへの保存に失敗しました");
             sender.sendMessage(FailedMessage.RELOAD.getText());
             return;
         }
-        handler.getParkourPlayers().clear();
+        parkourManager.getParkourPlayers().clear();
 
-        List<Parkour> parkours = handler.getParkours();
+        List<Parkour> parkours = parkourManager.getParkours();
         parkours.clear();
         try {
             parkours.addAll(parkourFile.loadParkours());
         } catch (IOException ex) {
-            //TODO エラー文をもっと的確に
-            logger.warning("An error occurred while loading parkours");
+            logger.out(ChatColor.RED + "parkours.jsonからのParkourの読み込みに失敗しました");
             sender.sendMessage(FailedMessage.RELOAD.getText());
             return;
         }

@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ class ListCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-    ListCommand(@NotNull ParkourHandler handler) {
+    ListCommand(ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -30,7 +29,7 @@ class ListCommand implements ICommand, ConsoleCancellable {
             player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
             return;
         }
-        List<Parkour> parkours = handler.getParkours();
+        List<Parkour> parkours = handler.getParkourManager().getParkours();
 
         player.sendMessage(ChatColor.GREEN + "------  [" + ChatColor.WHITE + "Parkour List" + ChatColor.GREEN + "]  ------");
 

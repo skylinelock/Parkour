@@ -6,7 +6,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import mc.sky_lock.parkour.exception.EmptyJsonException;
 import org.bukkit.Location;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -20,7 +19,7 @@ class GsonFile {
     private final Gson gson;
     private final File file;
 
-    GsonFile(@NotNull File file) {
+    GsonFile(File file) {
         this.file = file;
         this.gson = new GsonBuilder()
                 .serializeNulls()

@@ -7,7 +7,6 @@ import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author sky_lock
@@ -17,7 +16,7 @@ class ActiveCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-    ActiveCommand(@NotNull ParkourHandler handler) {
+    ActiveCommand(ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -33,8 +32,7 @@ class ActiveCommand implements ICommand, ConsoleCancellable {
             return;
         }
         String inputId = args[1];
-
-        Parkour parkour = handler.getParkour(inputId);
+        Parkour parkour = handler.getParkourManager().getParkour(inputId);
         if (parkour == null) {
             player.sendMessage(FailedMessage.ACTIVE.getText());
             return;

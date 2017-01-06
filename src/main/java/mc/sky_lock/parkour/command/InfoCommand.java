@@ -8,7 +8,6 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 
@@ -20,7 +19,7 @@ class InfoCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-    InfoCommand(@NotNull ParkourHandler handler) {
+    InfoCommand(ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -36,7 +35,7 @@ class InfoCommand implements ICommand, ConsoleCancellable {
             return;
         }
         String inputId = args[1];
-        Parkour parkour = handler.getParkour(inputId);
+        Parkour parkour = handler.getParkourManager().getParkour(inputId);
 
         if (parkour == null) {
             player.sendMessage(FailedMessage.INFO.getText());

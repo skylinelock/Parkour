@@ -6,7 +6,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author sky_lock
@@ -16,7 +15,7 @@ public class CommandHandler implements CommandExecutor {
 
     private final ParkourHandler handler;
 
-    public CommandHandler(@NotNull ParkourHandler handler) {
+    public CommandHandler(ParkourHandler handler) {
         this.handler = handler;
     }
 

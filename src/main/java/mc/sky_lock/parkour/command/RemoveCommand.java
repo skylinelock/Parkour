@@ -1,13 +1,13 @@
 package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.ParkourManager;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author sky_lock
@@ -17,7 +17,7 @@ class RemoveCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-    RemoveCommand(@NotNull ParkourHandler handler) {
+    RemoveCommand(ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -32,15 +32,15 @@ class RemoveCommand implements ICommand, ConsoleCancellable {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
-
+        ParkourManager parkourManager = handler.getParkourManager();
         String inputId = args[1];
-        Parkour parkour = handler.getParkour(inputId);
+        Parkour parkour = parkourManager.getParkour(inputId);
 
         if (parkour == null) {
             player.sendMessage(FailedMessage.REMOVE.getText());
             return;
         }
-        handler.removeParkour(parkour);
+        parkourManager.deleteParkour(parkour);
         player.sendMessage(SuccessMessage.REMOVE.getText());
     }
 }

@@ -31,7 +31,7 @@ public class EntityListener implements Listener {
                 return;
             }
             Player player = (Player) entity;
-            for (ParkourPlayer parkourPlayer : handler.getParkourPlayers()) {
+            for (ParkourPlayer parkourPlayer : handler.getParkourManager().getParkourPlayers()) {
                 if (parkourPlayer.getPlayer().equals(player)) {
                     event.setCancelled(true);
                 }

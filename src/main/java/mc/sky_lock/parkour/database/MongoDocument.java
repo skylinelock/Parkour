@@ -14,7 +14,7 @@ public class MongoDocument {
     private final MongoDatabase mongoDatabase;
     private final MongoCollection mongoCollection;
 
-    public MongoDocument(ParkourHandler handler, String collectionName) {
+    MongoDocument(ParkourHandler handler, String collectionName) {
         mongoDatabase = handler.getMongoDBManager().getMongoDatabase();
         mongoCollection = mongoDatabase.getCollection(collectionName);
     }
@@ -23,11 +23,11 @@ public class MongoDocument {
         return mongoDatabase;
     }
 
-    public MongoCollection getMongoCollection() {
+    MongoCollection getMongoCollection() {
         return mongoCollection;
     }
 
-    public void insertOne(Document document) {
+    void insertOne(Document document) {
         mongoCollection.insertOne(document);
     }
 

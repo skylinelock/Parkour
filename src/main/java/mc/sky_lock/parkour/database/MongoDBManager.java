@@ -4,10 +4,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoSocketOpenException;
 import com.mongodb.client.MongoDatabase;
 import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.PluginLogger;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * @author sky_lock
@@ -28,14 +29,13 @@ public class MongoDBManager {
 
         String host = config.getString("mongodb.host");
         int port = config.getInt("mongodb.port");
-        Logger logger = handler.getLogger();
+        PluginLogger logger = handler.getLogger();
 
         try {
             this.mongoClient = new MongoClient(host, port);
             this.mongoDatabase = mongoClient.getDatabase("parkour");
         } catch (MongoSocketOpenException ex) {
-            //TODO エラー文をもっと的確に
-            logger.warning("An error occurred while connecting MongoDB");
+            logger.out(ChatColor.RED + "MongoDBへの接続に失敗しました");
             handler.disablePlugin();
         }
     }

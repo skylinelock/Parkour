@@ -7,7 +7,6 @@ import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -19,7 +18,7 @@ class SetNameCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-    SetNameCommand(@NotNull ParkourHandler handler) {
+    SetNameCommand(ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -37,7 +36,7 @@ class SetNameCommand implements ICommand, ConsoleCancellable {
         String[] nameValues = Arrays.copyOfRange(args, 2, args.length);
 
         String inputId = args[1];
-        Parkour parkour = handler.getParkour(inputId);
+        Parkour parkour = handler.getParkourManager().getParkour(inputId);
 
         if (parkour == null) {
             player.sendMessage(FailedMessage.SET_NAME.getText());

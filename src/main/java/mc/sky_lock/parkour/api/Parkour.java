@@ -1,8 +1,6 @@
 package mc.sky_lock.parkour.api;
 
 import org.bukkit.Location;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author sky_lock
@@ -23,7 +21,7 @@ public class Parkour {
      *
      * @param id 文字列ID
      */
-    public Parkour(@NotNull String id) {
+    public Parkour(String id) {
         this.id = id;
     }
 
@@ -77,7 +75,7 @@ public class Parkour {
      *
      * @param name 名称文字列
      */
-    public void setName(@Nullable String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -103,7 +101,7 @@ public class Parkour {
      *
      * @param startPoint スタート地点
      */
-    public void setStartPoint(@Nullable Location startPoint) {
+    public void setStartPoint(Location startPoint) {
         this.startPoint = startPoint;
     }
 
@@ -121,7 +119,7 @@ public class Parkour {
      *
      * @param endPoint ゴール地点
      */
-    public void setEndPoint(@Nullable Location endPoint) {
+    public void setEndPoint(Location endPoint) {
         this.endPoint = endPoint;
     }
 
@@ -139,7 +137,7 @@ public class Parkour {
      *
      * @param presetPoint プリセット地点
      */
-    public void setPresetPoint(@Nullable Location presetPoint) {
+    public void setPresetPoint (Location presetPoint) {
         this.presetPoint = presetPoint;
     }
 

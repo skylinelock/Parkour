@@ -31,7 +31,7 @@ public class SaveCommand implements ICommand {
             return;
         }
         String inputId = args[1];
-        Parkour parkour = handler.getParkour(inputId);
+        Parkour parkour = handler.getParkourManager().getParkour(inputId);
 
         if (parkour == null) {
             player.sendMessage(FailedMessage.SAVE.getText());
