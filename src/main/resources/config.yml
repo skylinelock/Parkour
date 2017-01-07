@@ -2,5 +2,7 @@ mongodb:
   host: localhost
   port: 27017
   database: parkour
-
 respawnHeight: 0
+cancelDamage:
+  fall: true
+  void: true

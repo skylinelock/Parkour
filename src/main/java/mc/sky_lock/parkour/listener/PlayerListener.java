@@ -1,7 +1,7 @@
 package mc.sky_lock.parkour.listener;
 
 import mc.sky_lock.parkour.ParkourHandler;
-import mc.sky_lock.parkour.ParkourManager;
+import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.api.ParkourPlayer;
 import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;

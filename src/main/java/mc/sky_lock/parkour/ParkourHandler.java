@@ -1,5 +1,6 @@
 package mc.sky_lock.parkour;
 
+import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.command.CommandHandler;
 import mc.sky_lock.parkour.command.tabcomplete.ParkourTabCompleter;
 import mc.sky_lock.parkour.database.MongoDBManager;

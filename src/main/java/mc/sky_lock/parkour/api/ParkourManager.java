@@ -1,7 +1,6 @@
-package mc.sky_lock.parkour;
+package mc.sky_lock.parkour.api;
 
-import mc.sky_lock.parkour.api.Parkour;
-import mc.sky_lock.parkour.api.ParkourPlayer;
+import org.bukkit.entity.Player;
 
 import java.util.*;
 
@@ -32,5 +31,9 @@ public class ParkourManager {
 
     public Set<ParkourPlayer> getParkourPlayers() {
         return parkourPlayers;
+    }
+
+    public boolean isParkourPlayer(Player player) {
+        return parkourPlayers.stream().anyMatch(parkourPlayer -> parkourPlayer.getPlayer().equals(player));
     }
 }
