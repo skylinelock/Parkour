@@ -1,6 +1,5 @@
 package mc.sky_lock.parkour;
 
-import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.command.CommandHandler;
 import mc.sky_lock.parkour.command.tabcomplete.ParkourTabCompleter;
 import mc.sky_lock.parkour.database.MongoDBManager;
@@ -18,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 /**
  * @author sky_lock
@@ -31,7 +29,6 @@ public class ParkourHandler {
     private final MongoDBManager dbManager;
     private final ParkourManager parkourManager;
     private ParkourFile parkourFile;
-    private List<Parkour> parkours;
 
     private PluginLogger logger;
 
@@ -62,11 +59,10 @@ public class ParkourHandler {
 
     void onDisable() {
         try {
-            parkourFile.saveParkours(parkours);
+            parkourFile.saveParkours(parkourManager.getParkours());
         } catch (IOException ex) {
             logger.out(ChatColor.RED + "Parkour情報のparkours.jsonへの保存に失敗しました");
         }
-
         dbManager.close();
     }
 

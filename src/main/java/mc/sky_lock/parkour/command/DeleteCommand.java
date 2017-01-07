@@ -4,7 +4,8 @@ import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.ParkourManager;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.message.FailedMessage;
-import mc.sky_lock.parkour.message.SuccessMessage;
+import mc.sky_lock.parkour.message.ParkourMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,11 +14,11 @@ import org.bukkit.entity.Player;
  * @author sky_lock
  */
 
-class RemoveCommand implements ICommand, ConsoleCancellable {
+class DeleteCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
 
-    RemoveCommand(ParkourHandler handler) {
+    DeleteCommand(ParkourHandler handler) {
         this.handler = handler;
     }
 
@@ -37,10 +38,10 @@ class RemoveCommand implements ICommand, ConsoleCancellable {
         Parkour parkour = parkourManager.getParkour(inputId);
 
         if (parkour == null) {
-            player.sendMessage(FailedMessage.REMOVE.getText());
+            player.sendMessage(ParkourMessage.NOT_FOUND.getText());
             return;
         }
         parkourManager.deleteParkour(parkour);
-        player.sendMessage(SuccessMessage.REMOVE.getText());
+        player.sendMessage(ChatColor.GREEN + "Parkour " + parkour.getId() + " is deleted");
     }
 }

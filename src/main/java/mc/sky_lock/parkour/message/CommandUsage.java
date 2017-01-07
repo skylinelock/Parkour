@@ -12,7 +12,7 @@ public enum CommandUsage {
     ACTIVE(ChatColor.GREEN + "/parkour active [id]"),
     LOCK(ChatColor.GREEN + "/parkour lock [id]"),
     ADD(ChatColor.GREEN + "/parkour add [id]"),
-    REMOVE(ChatColor.GREEN + "/parkour remove [id]"),
+    DELETE(ChatColor.GREEN + "/parkour delete [id]"),
     LIST(ChatColor.GREEN + "/parkour list"),
     INFO(ChatColor.GREEN + "/parkour info [id]"),
     SET_NAME(ChatColor.GREEN + "/parkour setname [id] [name]"),

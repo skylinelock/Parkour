@@ -14,6 +14,7 @@ import java.util.Set;
  */
 
 public class ParkourManager {
+
     private final ParkourHandler handler;
     private final Set<ParkourPlayer> parkourPlayers = new HashSet<>();;
     private List<Parkour> parkours = new ArrayList<>();

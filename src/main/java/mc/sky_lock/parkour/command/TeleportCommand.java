@@ -3,7 +3,8 @@ package mc.sky_lock.parkour.command;
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.message.FailedMessage;
-import mc.sky_lock.parkour.message.SuccessMessage;
+import mc.sky_lock.parkour.message.ParkourMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -31,11 +32,11 @@ public class TeleportCommand implements ICommand, ConsoleCancellable {
         Parkour parkour = handler.getParkourManager().getParkour(inputId);
 
         if (parkour == null) {
-            player.sendMessage(FailedMessage.TELEPORT.getText());
+            player.sendMessage(ParkourMessage.NOT_FOUND.getText());
             return;
         }
 
         player.teleport(parkour.getPresetPoint());
-        player.sendMessage(SuccessMessage.TELEPORT.getText());
+        player.sendMessage(ChatColor.GREEN + "Teleported to Parkour " + parkour.getId());
     }
 }

@@ -46,8 +46,8 @@ public class CommandHandler implements CommandExecutor {
             case "sp":
                 cmd = new SetPreCommand(handler);
                 break;
-            case "remove":
-                cmd = new RemoveCommand(handler);
+            case "delete":
+                cmd = new DeleteCommand(handler);
                 break;
             case "active":
                 cmd = new ActiveCommand(handler);

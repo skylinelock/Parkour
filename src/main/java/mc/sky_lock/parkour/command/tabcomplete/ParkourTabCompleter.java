@@ -34,7 +34,7 @@ public class ParkourTabCompleter implements TabCompleter {
         }
         List<String> allCommand = Arrays.asList(
                 "info", "list", "teleport", "reload",
-                "add", "setstart", "setend", "setpre", "setname", "active", "lock", "save", "remove",
+                "add", "setstart", "setend", "setpre", "setname", "active", "lock", "save", "delete",
                 "ss", "se", "sp", "sn", "tp"
         );
         String firstArg = args[0];
@@ -57,7 +57,7 @@ public class ParkourTabCompleter implements TabCompleter {
                 parkours.forEach(parkour -> displayStrs.add(parkour.getId()));
             }
             parkours.stream()
-                    .filter(parkour -> parkour.getId().startsWith(args[0]))
+                    .filter(parkour -> parkour.getId().startsWith(secondArg))
                     .forEach(parkour -> displayStrs.add(parkour.getId()));
         }
         return displayStrs;

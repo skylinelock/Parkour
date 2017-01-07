@@ -7,7 +7,6 @@ import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.database.MongoDBManager;
 import mc.sky_lock.parkour.json.ParkourFile;
 import mc.sky_lock.parkour.message.FailedMessage;
-import mc.sky_lock.parkour.message.SuccessMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -60,7 +59,7 @@ public class ReloadCommand implements ICommand {
             dbManager.close();
         }
         dbManager.connect();
-        sender.sendMessage(SuccessMessage.RELOAD.getText());
+        sender.sendMessage(ChatColor.GREEN + "Reload successful");
     }
 
 }

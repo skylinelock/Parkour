@@ -3,7 +3,8 @@ package mc.sky_lock.parkour.command;
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.message.FailedMessage;
-import mc.sky_lock.parkour.message.SuccessMessage;
+import mc.sky_lock.parkour.message.ParkourMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -34,14 +35,15 @@ class ActiveCommand implements ICommand, ConsoleCancellable {
         String inputId = args[1];
         Parkour parkour = handler.getParkourManager().getParkour(inputId);
         if (parkour == null) {
-            player.sendMessage(FailedMessage.ACTIVE.getText());
+            player.sendMessage(ParkourMessage.NOT_FOUND.getText());
             return;
         }
         if (!checkParkour(parkour)) {
+            player.sendMessage(ParkourMessage.NOT_ENOUGH_ELEMENTS.getText());
             return;
         }
         parkour.setActive(true);
-        player.sendMessage(SuccessMessage.ACTIVE.getText());
+        player.sendMessage(ChatColor.GREEN + "Parkour " + parkour.getId() + " is activated");
     }
 
     private boolean checkParkour(Parkour parkour) {

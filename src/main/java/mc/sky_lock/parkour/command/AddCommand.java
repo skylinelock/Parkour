@@ -4,7 +4,8 @@ import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.ParkourManager;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.message.FailedMessage;
-import mc.sky_lock.parkour.message.SuccessMessage;
+import mc.sky_lock.parkour.message.ParkourMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -39,9 +40,9 @@ class AddCommand implements ICommand, ConsoleCancellable {
         if (parkour == null) {
             Parkour newParkour = new Parkour(inputId);
             parkourManager.addParkour(newParkour);
-            player.sendMessage(SuccessMessage.ADD.getText());
+            player.sendMessage(ChatColor.GREEN + "Parkour " + newParkour.getId() + " added");
             return;
         }
-        player.sendMessage(FailedMessage.ID_EXISTS.getText());
+        player.sendMessage(ParkourMessage.ALREADY_EXISTS.getText());
     }
 }

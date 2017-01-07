@@ -3,6 +3,7 @@ package mc.sky_lock.parkour.command;
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.message.FailedMessage;
+import mc.sky_lock.parkour.message.ParkourMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -38,7 +39,7 @@ class InfoCommand implements ICommand, ConsoleCancellable {
         Parkour parkour = handler.getParkourManager().getParkour(inputId);
 
         if (parkour == null) {
-            player.sendMessage(FailedMessage.INFO.getText());
+            player.sendMessage(ParkourMessage.NOT_FOUND.getText());
             return;
         }
 
