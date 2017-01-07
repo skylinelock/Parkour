@@ -10,6 +10,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Optional;
+
 /**
  * @author sky_lock
  */
@@ -35,14 +37,15 @@ class AddCommand implements ICommand, ConsoleCancellable {
         }
         ParkourManager parkourManager = handler.getParkourManager();
         String inputId = args[1];
-        Parkour parkour = parkourManager.getParkour(inputId);
 
-        if (parkour == null) {
+        if (!parkourManager.getParkour(inputId).flatMap(parkour -> {
+            player.sendMessage(ParkourMessage.ALREADY_EXISTS.getText());
+            return Optional.of(parkour);
+        }).isPresent()) {
             Parkour newParkour = new Parkour(inputId);
             parkourManager.addParkour(newParkour);
             player.sendMessage(ChatColor.GREEN + "Parkour " + newParkour.getId() + " added");
-            return;
         }
-        player.sendMessage(ParkourMessage.ALREADY_EXISTS.getText());
+
     }
 }

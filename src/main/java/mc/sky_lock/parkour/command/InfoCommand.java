@@ -1,7 +1,7 @@
 package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourHandler;
-import mc.sky_lock.parkour.api.Parkour;
+import mc.sky_lock.parkour.ParkourManager;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.ParkourMessage;
 import org.bukkit.ChatColor;
@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 /**
  * @author sky_lock
@@ -35,26 +36,26 @@ class InfoCommand implements ICommand, ConsoleCancellable {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
+        ParkourManager parkourManager = handler.getParkourManager();
         String inputId = args[1];
-        Parkour parkour = handler.getParkourManager().getParkour(inputId);
 
-        if (parkour == null) {
+        if (!parkourManager.getParkour(inputId).flatMap(parkour -> {
+            Location startLoc = parkour.getStartPoint();
+            Location endLoc = parkour.getEndPoint();
+            Location preLoc = parkour.getPresetPoint();
+
+            player.sendMessage(ChatColor.GREEN + "Id: " + ChatColor.WHITE + parkour.getId());
+            player.sendMessage(ChatColor.GREEN + "Name: " + ChatColor.WHITE + parkour.getName());
+            player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + locationToString(startLoc));
+            player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + locationToString(endLoc));
+            player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + locationToString(preLoc));
+            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + boolString(parkour.canSave()));
+            player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + boolString(parkour.isLocked()));
+            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + boolString(parkour.isActive()));
+            return Optional.of(parkour);
+        }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-            return;
         }
-
-        Location startLoc = parkour.getStartPoint();
-        Location endLoc = parkour.getEndPoint();
-        Location preLoc = parkour.getPresetPoint();
-
-        player.sendMessage(ChatColor.GREEN + "Id: " + ChatColor.WHITE + parkour.getId());
-        player.sendMessage(ChatColor.GREEN + "Name: " + ChatColor.WHITE + parkour.getName());
-        player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + locationToString(startLoc));
-        player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + locationToString(endLoc));
-        player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + locationToString(preLoc));
-        player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + boolString(parkour.canSave()));
-        player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + boolString(parkour.isLocked()));
-        player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + boolString(parkour.isActive()));
     }
 
 

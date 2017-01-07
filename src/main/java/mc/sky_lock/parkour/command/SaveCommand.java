@@ -1,13 +1,15 @@
 package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourHandler;
-import mc.sky_lock.parkour.api.Parkour;
+import mc.sky_lock.parkour.ParkourManager;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.ParkourMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
 
 /**
  * @author sky_lock
@@ -31,19 +33,19 @@ public class SaveCommand implements ICommand {
             player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
             return;
         }
+        ParkourManager parkourManager = handler.getParkourManager();
         String inputId = args[1];
-        Parkour parkour = handler.getParkourManager().getParkour(inputId);
 
-        if (parkour == null) {
+        if (!parkourManager.getParkour(inputId).flatMap(parkour -> {
+            if (parkour.canSave()) {
+                parkour.setSave(false);
+            } else {
+                parkour.setSave(true);
+            }
+            player.sendMessage(ChatColor.GREEN + "Turned save successful");
+            return Optional.of(parkour);
+        }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-            return;
         }
-
-        if (parkour.canSave()) {
-            parkour.setSave(false);
-        } else {
-            parkour.setSave(true);
-        }
-        player.sendMessage(ChatColor.GREEN + "Turned save successful");
     }
 }

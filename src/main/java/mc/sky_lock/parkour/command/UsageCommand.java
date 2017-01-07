@@ -18,6 +18,7 @@ class UsageCommand implements ICommand {
             sender.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
             return;
         }
+        sender.sendMessage(CommandUsage.RELOAD.getText());
         if (sender instanceof Player) {
             Player player = (Player) sender;
             player.sendMessage(CommandUsage.LIST.getText());
@@ -30,11 +31,8 @@ class UsageCommand implements ICommand {
             player.sendMessage(CommandUsage.ACTIVE.getText());
             player.sendMessage(CommandUsage.LOCK.getText());
             player.sendMessage(CommandUsage.DELETE.getText());
-            player.sendMessage(CommandUsage.RELOAD.getText());
             player.sendMessage(CommandUsage.SAVE.getText());
             player.sendMessage(CommandUsage.TELEPORT.getText());
-            return;
         }
-        sender.sendMessage(CommandUsage.RELOAD.getText());
     }
 }

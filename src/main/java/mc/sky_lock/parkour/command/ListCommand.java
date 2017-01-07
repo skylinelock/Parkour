@@ -45,6 +45,7 @@ class ListCommand implements ICommand, ConsoleCancellable {
                         ChatColor.RED + "Id : " + ChatColor.WHITE + parkour.getId() + ChatColor.RED + " Name : " + ChatColor.WHITE + parkour.getName()
                         )
                 );
+
         player.sendMessage(ChatColor.GREEN + "--------------------------");
     }
 }

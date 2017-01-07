@@ -36,7 +36,7 @@ public class ParkourHandler {
         this.plugin = plugin;
         this.pluginManager = plugin.getServer().getPluginManager();
         this.dbManager = new MongoDBManager(this);
-        this.parkourManager = new ParkourManager(this);
+        this.parkourManager = new ParkourManager();
     }
 
     void onEnable() {
