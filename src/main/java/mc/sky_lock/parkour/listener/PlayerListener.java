@@ -1,14 +1,14 @@
 package mc.sky_lock.parkour.listener;
 
 import mc.sky_lock.parkour.ParkourHandler;
-import mc.sky_lock.parkour.api.ParkourManager;
+import mc.sky_lock.parkour.Util;
 import mc.sky_lock.parkour.api.Parkour;
+import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.api.ParkourPlayer;
 import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
 import mc.sky_lock.parkour.database.TimeDocument;
-import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -143,7 +143,7 @@ public class PlayerListener implements Listener {
                         return;
                     }
 
-                    String time = DurationFormatUtils.formatDurationHMS(time_ms);
+                    String time = Util.formatTime(time_ms);
                     player.sendMessage("");
                     player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge succeeded!");
                     player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + "Total Time: " + time);
