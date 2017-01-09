@@ -55,6 +55,7 @@ public class ParkourTabCompleter implements TabCompleter {
             List<Parkour> parkours = handler.getParkourManager().getParkours();
             if (secondArg.equals("")) {
                 parkours.forEach(parkour -> displayStrs.add(parkour.getId()));
+                return displayStrs;
             }
             parkours.stream()
                     .filter(parkour -> parkour.getId().startsWith(secondArg))

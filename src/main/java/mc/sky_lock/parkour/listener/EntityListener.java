@@ -2,6 +2,7 @@ package mc.sky_lock.parkour.listener;
 
 import mc.sky_lock.parkour.ParkourHandler;
 import mc.sky_lock.parkour.api.ParkourManager;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,20 +26,20 @@ public class EntityListener implements Listener {
     public void entityDamage(EntityDamageEvent event) {
         EntityDamageEvent.DamageCause damageCause = event.getCause();
         Entity entity = event.getEntity();
-
         if (!(entity instanceof Player)) {
             return;
         }
 
+        FileConfiguration config = handler.getConfig();
         if (damageCause == EntityDamageEvent.DamageCause.VOID) {
             ParkourManager parkourManager = handler.getParkourManager();
             Player player = (Player) entity;
             if (parkourManager.isParkourPlayer(player)) {
-                boolean damage = handler.getConfig().getBoolean("cancelDamage.void", true);
+                boolean damage = config.getBoolean("cancelDamage.void", true);
                 event.setCancelled(damage);
             }
         } else if (damageCause == DamageCause.FALL) {
-            boolean damage = handler.getConfig().getBoolean("cancelDamage.fall", true);
+            boolean damage = config.getBoolean("cancelDamage.fall", true);
             event.setCancelled(damage);
         }
     }

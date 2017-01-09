@@ -13,6 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +21,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -48,12 +50,7 @@ public class PlayerListener implements Listener {
     public void playerLogout(PlayerQuitEvent event) {
         Set<ParkourPlayer> parkourPlayers = parkourManager.getParkourPlayers();
         Player player = event.getPlayer();
-        for (ParkourPlayer parkourPlayer : parkourPlayers) {
-            if (parkourPlayer.getPlayer().equals(player)) {
-                parkourPlayers.remove(parkourPlayer);
-                return;
-            }
-        }
+        parkourManager.getParkourPlayer(player).ifPresent(parkourManager::removeParkourPlayer);
     }
 
     private void measure(PlayerMoveEvent event) {
@@ -164,24 +161,33 @@ public class PlayerListener implements Listener {
     private void fail(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         Location location = event.getTo();
-        int teleportHeight = handler.getConfig().getInt("respawnHeight");
+        FileConfiguration config = handler.getConfig();
+        int teleportHeight = config.getInt("respawn.height");
+
         if (location.getBlockY() > teleportHeight) {
             return;
         }
         Set<ParkourPlayer> parkourPlayers = parkourManager.getParkourPlayers();
-        parkourPlayers.stream().filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player)).findFirst().ifPresent(parkourPlayer -> {
+
+        if (!parkourPlayers.stream().filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player)).findFirst().flatMap(parkourPlayer -> {
             Parkour parkour = parkourPlayer.getParkour();
 
             PlayerParkourFailEvent failEvent = new PlayerParkourFailEvent(player, parkour);
             pluginManager.callEvent(failEvent);
             if (failEvent.isCancelled()) {
-                return;
+                return Optional.of(parkourPlayer);
             }
 
             player.teleport(parkour.getPresetPoint());
             parkourPlayers.remove(parkourPlayer);
             sendFailedContent(player, parkour);
-        });
+            return Optional.of(parkourPlayer);
+        }).isPresent()) {
+            if (!config.getBoolean("respawn.toSpawn")) {
+                return;
+            }
+            player.teleport(player.getWorld().getSpawnLocation());
+        }
     }
 
     private boolean compareLocation(Location location1, Location location2) {

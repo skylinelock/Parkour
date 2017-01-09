@@ -33,6 +33,14 @@ public class ParkourManager {
         return parkourPlayers;
     }
 
+    public Optional<ParkourPlayer> getParkourPlayer(Player player) {
+        return parkourPlayers.stream().filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player)).findFirst();
+    }
+
+    public void removeParkourPlayer(ParkourPlayer parkourPlayer) {
+        parkourPlayers.remove(parkourPlayer);
+    }
+
     public boolean isParkourPlayer(Player player) {
         return parkourPlayers.stream().anyMatch(parkourPlayer -> parkourPlayer.getPlayer().equals(player));
     }
