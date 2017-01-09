@@ -10,7 +10,8 @@ public enum ParkourMessage {
 
     ALREADY_EXISTS(ChatColor.RED + "The Parkour already exists"),
     NOT_FOUND(ChatColor.RED + "The Parkour is not found"),
-    NOT_ENOUGH_ELEMENTS(ChatColor.RED + "Not enough Parkour elements");
+    NOT_ENOUGH_ELEMENTS(ChatColor.RED + "Not enough Parkour elements"),
+    PRESET_NOT_FOUND(ChatColor.RED + "Preset Point is not found");
 
     private final String text;
 

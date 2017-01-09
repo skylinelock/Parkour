@@ -5,6 +5,7 @@ import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.ParkourMessage;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -34,8 +35,13 @@ public class TeleportCommand implements ICommand, ConsoleCancellable {
         String inputId = args[1];
 
         if (!parkourManager.getParkour(inputId).flatMap(parkour -> {
-            player.teleport(parkour.getPresetPoint());
-            player.sendMessage(ChatColor.GREEN + "Teleported to Parkour " + parkour.getId());
+            Location prePoint = parkour.getPresetPoint();
+            if (prePoint == null) {
+                player.sendMessage(ParkourMessage.PRESET_NOT_FOUND.getText());
+            } else {
+                player.teleport(prePoint);
+                player.sendMessage(ChatColor.GREEN + "Teleported to Parkour " + parkour.getId());
+            }
             return Optional.of(parkour);
         }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
