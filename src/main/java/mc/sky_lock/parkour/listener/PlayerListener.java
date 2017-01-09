@@ -73,7 +73,7 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        parkourManager.getParkours().forEach(parkour -> {
+        parkourManager.getParkours().stream().filter(Parkour::isActive).forEach(parkour -> {
             start(event, parkour);
             stop(event, parkour);
         });
@@ -81,9 +81,6 @@ public class PlayerListener implements Listener {
 
     private void start(PlayerMoveEvent event, Parkour parkour) {
         Player player = event.getPlayer();
-        if (!parkour.isActive()) {
-            return;
-        }
         Location toLocation = event.getTo();
         Location startPoint = parkour.getStartPoint();
 
