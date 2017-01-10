@@ -42,8 +42,18 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerMove(PlayerMoveEvent event) {
+    public void playerTimer(PlayerMoveEvent event) {
+        Location toLocation = event.getTo();
+        Location fromLocation = event.getFrom();
+        if (compareLocation(fromLocation, toLocation)) {
+            return;
+        }
         measure(event);
+    }
+
+    @EventHandler
+    public void playerFail(PlayerMoveEvent event) {
+
     }
 
     @EventHandler
@@ -58,14 +68,9 @@ public class PlayerListener implements Listener {
         if (!player.hasPermission("parkour.use")) {
             return;
         }
-        Location toLocation = event.getTo();
-        Location fromLocation = event.getFrom();
-
         fail(event);
-        if (compareLocation(fromLocation, toLocation)) {
-            return;
-        }
-        Material blockType = toLocation.getBlock().getType();
+
+        Material blockType = event.getTo().getBlock().getType();
         if (blockType != Material.GOLD_PLATE &&
                 blockType != Material.IRON_PLATE &&
                 blockType != Material.WOOD_PLATE &&
@@ -93,6 +98,7 @@ public class PlayerListener implements Listener {
         if (startEvent.isCancelled()) {
             return;
         }
+
         Set<ParkourPlayer> parkourPlayers = parkourManager.getParkourPlayers();
         parkourPlayers.stream()
                 .filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player))

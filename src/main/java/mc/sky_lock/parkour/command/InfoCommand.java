@@ -1,6 +1,7 @@
 package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.Util;
 import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.ParkourMessage;
@@ -49,9 +50,9 @@ class InfoCommand implements ICommand, ConsoleCancellable {
             player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + locationToString(startLoc));
             player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + locationToString(endLoc));
             player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + locationToString(preLoc));
-            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + boolString(parkour.canSave()));
-            player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + boolString(parkour.isLocked()));
-            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + boolString(parkour.isActive()));
+            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + convertBool(parkour.canSave()));
+            player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + convertBool(parkour.isLocked()));
+            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + convertBool(parkour.isActive()));
             return Optional.of(parkour);
         }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
@@ -73,10 +74,7 @@ class InfoCommand implements ICommand, ConsoleCancellable {
         return scaledX + " " + scaledY + " " + scaledZ;
     }
 
-    private String boolString(boolean bool) {
-        if (bool) {
-            return "Yes";
-        }
-        return "No";
+    private String convertBool(boolean bool) {
+        return Util.convertBool(bool);
     }
 }
