@@ -45,7 +45,7 @@ public class ParkourTabCompleter implements TabCompleter {
             }
             allCommand.stream()
                     .filter(commandName -> commandName.toLowerCase().startsWith(firstArg))
-                    .findFirst()
+                    .findAny()
                     .ifPresent(displayStrs::add);
         } else if (args.length == 2) {
             String secondArg = args[1];

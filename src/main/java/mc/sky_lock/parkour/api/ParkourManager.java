@@ -26,7 +26,7 @@ public class ParkourManager {
     }
 
     public Optional<Parkour> getParkour(String id) {
-        return parkours.stream().filter(parkour -> parkour.getId().equals(id)).findFirst();
+        return parkours.stream().filter(parkour -> parkour.getId().equals(id)).findAny();
     }
 
     public Set<ParkourPlayer> getParkourPlayers() {
@@ -34,7 +34,7 @@ public class ParkourManager {
     }
 
     public Optional<ParkourPlayer> getParkourPlayer(Player player) {
-        return parkourPlayers.stream().filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player)).findFirst();
+        return parkourPlayers.stream().filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player)).findAny();
     }
 
     public void removeParkourPlayer(ParkourPlayer parkourPlayer) {

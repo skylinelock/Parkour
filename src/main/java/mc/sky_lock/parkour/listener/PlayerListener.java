@@ -172,7 +172,7 @@ public class PlayerListener implements Listener {
         }
         Set<ParkourPlayer> parkourPlayers = parkourManager.getParkourPlayers();
 
-        if (!parkourPlayers.stream().filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player)).findFirst().flatMap(parkourPlayer -> {
+        if (!parkourPlayers.stream().filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player)).findAny().flatMap(parkourPlayer -> {
             Parkour parkour = parkourPlayer.getParkour();
 
             PlayerParkourFailEvent failEvent = new PlayerParkourFailEvent(player, parkour);

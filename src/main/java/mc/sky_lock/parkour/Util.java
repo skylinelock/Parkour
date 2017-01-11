@@ -14,4 +14,8 @@ public class Util {
         SimpleDateFormat format = new SimpleDateFormat("mm:ss.SSS");
         return format.format(date);
     }
+
+    public static String convertBool(boolean bool) {
+        return bool ? "Yes" : "No";
+    }
 }
