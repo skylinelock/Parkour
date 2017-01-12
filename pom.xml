@@ -17,8 +17,16 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <bukkit.plugin.main>mc.sky_lock.parkour.ParkourPlugin</bukkit.plugin.main>
-        <bukkit.plugin.authors>sky_lock</bukkit.plugin.authors>
+        <bukkit.plugin.author>sky_lock</bukkit.plugin.author>
     </properties>
+
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <developers>
         <developer>
@@ -101,7 +109,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Built-By>${bukkit.plugin.authors}</Built-By>
+                            <Built-By>${bukkit.plugin.author}</Built-By>
                         </manifestEntries>
                     </archive>
                 </configuration>

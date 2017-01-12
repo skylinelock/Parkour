@@ -1,7 +1,7 @@
-main: ${bukkit.plugin.main}
 name: ${project.name}
 version: ${project.version}
-author: ${bukkit.plugin.authors}
 description: ${project.description}
+author: ${bukkit.plugin.author}
 
+main: ${bukkit.plugin.main}
 database: true
