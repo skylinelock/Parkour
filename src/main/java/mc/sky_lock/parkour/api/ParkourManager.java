@@ -11,7 +11,7 @@ import java.util.*;
 public class ParkourManager {
 
     private final Set<ParkourPlayer> parkourPlayers = new HashSet<>();
-    private List<Parkour> parkours = new ArrayList<>();
+    private final List<Parkour> parkours = new ArrayList<>();
 
     public void addParkour(Parkour parkour) {
         parkours.add(parkour);
