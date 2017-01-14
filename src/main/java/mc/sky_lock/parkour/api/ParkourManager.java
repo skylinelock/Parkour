@@ -29,6 +29,10 @@ public class ParkourManager {
         return parkours.stream().filter(parkour -> parkour.getId().equals(id)).findAny();
     }
 
+    public void addParkourPlayer(ParkourPlayer parkourPlayer) {
+        parkourPlayers.add(parkourPlayer);
+    }
+
     public Set<ParkourPlayer> getParkourPlayers() {
         return parkourPlayers;
     }

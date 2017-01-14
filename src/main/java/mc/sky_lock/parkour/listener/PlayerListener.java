@@ -5,6 +5,7 @@ import mc.sky_lock.parkour.Util;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.api.ParkourPlayer;
+import mc.sky_lock.parkour.api.event.ParkourEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
@@ -21,16 +22,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
 
-import java.util.Optional;
-import java.util.Set;
-
 /**
  * @author sky_lock
  */
 
 @SuppressWarnings("unused")
 public class PlayerListener implements Listener {
-
     private final ParkourHandler handler;
     private final ParkourManager parkourManager;
     private final PluginManager pluginManager;
@@ -42,35 +39,57 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerTimer(PlayerMoveEvent event) {
-        Location toLocation = event.getTo();
-        Location fromLocation = event.getFrom();
-        if (compareLocation(fromLocation, toLocation)) {
-            return;
-        }
-        measure(event);
-    }
-
-    @EventHandler
-    public void playerFail(PlayerMoveEvent event) {
-
-    }
-
-    @EventHandler
     public void playerLogout(PlayerQuitEvent event) {
-        Set<ParkourPlayer> parkourPlayers = parkourManager.getParkourPlayers();
         Player player = event.getPlayer();
         parkourManager.getParkourPlayer(player).ifPresent(parkourManager::removeParkourPlayer);
     }
 
-    private void measure(PlayerMoveEvent event) {
+    @EventHandler
+    public void playerFail(PlayerMoveEvent event) {
+        Location toLoc = event.getTo();
+        Location fromLoc = event.getFrom();
+        if (compareLocation(fromLoc, toLoc)) {
+            return;
+        }
         Player player = event.getPlayer();
         if (!player.hasPermission("parkour.use")) {
             return;
         }
-        fail(event);
+        FileConfiguration config = handler.getConfig();
 
-        Material blockType = event.getTo().getBlock().getType();
+        int heightLimit = config.getInt("respawn.height");
+        if (toLoc.getBlockY() > heightLimit) {
+            return;
+        }
+
+        parkourManager.getParkourPlayer(player).map(parkourPlayer -> {
+            Parkour parkour = parkourPlayer.getParkour();
+
+            if (!callParkourEvent(new PlayerParkourFailEvent(player, parkour))) {
+                return parkourPlayer;
+            }
+
+            player.teleport(parkour.getPresetPoint());
+            parkourManager.removeParkourPlayer(parkourPlayer);
+            sendFailedContent(player, parkour);
+            return parkourPlayer;
+        }).orElseGet(() -> {
+            if (config.getBoolean("respawn.toSpawn")) {
+                player.teleport(player.getWorld().getSpawnLocation());
+            }
+            return null;
+        });
+    }
+
+    @EventHandler
+    public void playerMeasure(PlayerMoveEvent event) {
+        Location toLoc = event.getTo();
+        Location fromLoc = event.getFrom();
+        if (compareLocation(fromLoc, toLoc)) {
+            return;
+        }
+
+        Material blockType = toLoc.getBlock().getType();
         if (blockType != Material.GOLD_PLATE &&
                 blockType != Material.IRON_PLATE &&
                 blockType != Material.WOOD_PLATE &&
@@ -93,24 +112,18 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        PlayerParkourStartEvent startEvent = new PlayerParkourStartEvent(player, parkour);
-        pluginManager.callEvent(startEvent);
-        if (startEvent.isCancelled()) {
+        if (!callParkourEvent(new PlayerParkourStartEvent(player, parkour))) {
             return;
         }
 
-        Set<ParkourPlayer> parkourPlayers = parkourManager.getParkourPlayers();
-        parkourPlayers.stream()
-                .filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player))
-                .findAny()
-                .ifPresent(parkourPlayer -> {
-                    parkourPlayers.remove(parkourPlayer);
-                    if (!parkourPlayer.getParkour().equals(parkour)) {
-                        sendFailedContent(player, parkourPlayer.getParkour());
-                    }
-                });
+        parkourManager.getParkourPlayer(player).ifPresent(parkourPlayer -> {
+            parkourManager.removeParkourPlayer(parkourPlayer);
+            if (!parkourPlayer.getParkour().equals(parkour)) {
+                sendFailedContent(player, parkourPlayer.getParkour());
+            }
+        });
 
-        parkourPlayers.add(new ParkourPlayer(player, parkour));
+        parkourManager.addParkourPlayer(new ParkourPlayer(player, parkour));
 
         player.sendMessage("");
         player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge started!");
@@ -120,77 +133,41 @@ public class PlayerListener implements Listener {
 
     private void stop(PlayerMoveEvent event, Parkour parkour) {
         Player player = event.getPlayer();
-        if (!parkour.isActive()) {
-            return;
-        }
-
-        Location toLocation = event.getTo();
+        Location toLoc = event.getTo();
         Location endPoint = parkour.getEndPoint();
-        if (!compareLocation(toLocation, endPoint)) {
+
+        if (!compareLocation(toLoc, endPoint)) {
             return;
         }
-        Set<ParkourPlayer> parkourPlayers = parkourManager.getParkourPlayers();
-        parkourPlayers.stream()
-                .filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player))
-                .filter(parkourPlayer -> parkourPlayer.getParkour().equals(parkour))
-                .findAny()
-                .ifPresent(parkourPlayer -> {
-                    long time_ms = parkourPlayer.getCurrentTimeMillis();
 
-                    PlayerParkourSucceedEvent succeedEvent = new PlayerParkourSucceedEvent(player, parkour, time_ms);
-                    pluginManager.callEvent(succeedEvent);
-                    if (succeedEvent.isCancelled()) {
-                        return;
-                    }
-
-                    String time = Util.formatTime(time_ms);
-                    player.sendMessage("");
-                    player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge succeeded!");
-                    player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + "Total Time: " + time);
-                    player.sendMessage("");
-
-                    player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
-
-                    if (parkour.canSave()) {
-                        TimeDocument scoreDocument = new TimeDocument(handler, parkourPlayer);
-                        scoreDocument.insertDocument(time_ms);
-                    }
-
-                    parkourPlayers.remove(parkourPlayer);
-
-                });
-    }
-
-    private void fail(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-        Location location = event.getTo();
-        FileConfiguration config = handler.getConfig();
-        int teleportHeight = config.getInt("respawn.height");
-
-        if (location.getBlockY() > teleportHeight) {
-            return;
-        }
-        Set<ParkourPlayer> parkourPlayers = parkourManager.getParkourPlayers();
-
-        if (!parkourPlayers.stream().filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player)).findAny().flatMap(parkourPlayer -> {
-            Parkour parkour = parkourPlayer.getParkour();
-
-            PlayerParkourFailEvent failEvent = new PlayerParkourFailEvent(player, parkour);
-            pluginManager.callEvent(failEvent);
-            if (failEvent.isCancelled()) {
-                return Optional.of(parkourPlayer);
-            }
-
-            player.teleport(parkour.getPresetPoint());
-            parkourPlayers.remove(parkourPlayer);
-            sendFailedContent(player, parkour);
-            return Optional.of(parkourPlayer);
-        }).isPresent()) {
-            if (!config.getBoolean("respawn.toSpawn")) {
+        parkourManager.getParkourPlayer(player).ifPresent(parkourPlayer -> {
+            if (!parkourPlayer.getParkour().equals(parkour)) {
                 return;
             }
-            player.teleport(player.getWorld().getSpawnLocation());
-        }
+            long time_ms = parkourPlayer.getCurrentTimeMillis();
+            if (!callParkourEvent(new PlayerParkourSucceedEvent(player, parkour, time_ms))) {
+                return;
+            }
+
+            String time = Util.formatTime(time_ms);
+            player.sendMessage("");
+            player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge succeeded!");
+            player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + "Total Time: " + time);
+            player.sendMessage("");
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+
+            if (parkour.canSave()) {
+                TimeDocument scoreDocument = new TimeDocument(handler, parkourPlayer);
+                scoreDocument.insertDocument(time_ms);
+            }
+
+            parkourManager.removeParkourPlayer(parkourPlayer);
+        });
+    }
+
+    private boolean callParkourEvent(ParkourEvent event) {
+        pluginManager.callEvent(event);
+        return !event.isCancelled();
     }
 
     private boolean compareLocation(Location location1, Location location2) {
