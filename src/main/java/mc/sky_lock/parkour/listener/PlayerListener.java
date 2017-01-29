@@ -1,7 +1,6 @@
 package mc.sky_lock.parkour.listener;
 
 import mc.sky_lock.parkour.ParkourHandler;
-import mc.sky_lock.parkour.Util;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.api.ParkourPlayer;
@@ -9,11 +8,8 @@ import mc.sky_lock.parkour.api.event.ParkourEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
-import mc.sky_lock.parkour.database.TimeDocument;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -71,7 +67,7 @@ public class PlayerListener implements Listener {
 
             player.teleport(parkour.getPresetPoint());
             parkourManager.removeParkourPlayer(parkourPlayer);
-            sendFailedContent(player, parkour);
+            parkourPlayer.sendFailContents();
             return parkourPlayer;
         }).orElseGet(() -> {
             if (config.getBoolean("respawn.toSpawn")) {
@@ -119,16 +115,13 @@ public class PlayerListener implements Listener {
         parkourManager.getParkourPlayer(player).ifPresent(parkourPlayer -> {
             parkourManager.removeParkourPlayer(parkourPlayer);
             if (!parkourPlayer.getParkour().equals(parkour)) {
-                sendFailedContent(player, parkourPlayer.getParkour());
+                parkourPlayer.sendFailContents();
             }
         });
 
-        parkourManager.addParkourPlayer(new ParkourPlayer(player, parkour));
-
-        player.sendMessage("");
-        player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge started!");
-        player.sendMessage("");
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1.0F, 1.0F);
+        ParkourPlayer parkourPlayer = new ParkourPlayer(player, parkour);
+        parkourManager.addParkourPlayer(parkourPlayer);
+        parkourPlayer.sendStartContents();
     }
 
     private void stop(PlayerMoveEvent event, Parkour parkour) {
@@ -144,23 +137,11 @@ public class PlayerListener implements Listener {
             if (!parkourPlayer.getParkour().equals(parkour)) {
                 return;
             }
-            long time_ms = parkourPlayer.getCurrentTimeMillis();
-            if (!callParkourEvent(new PlayerParkourSucceedEvent(player, parkour, time_ms))) {
+            long timeMillis = parkourPlayer.getCurrentTimeMillis();
+            if (!callParkourEvent(new PlayerParkourSucceedEvent(player, parkour, timeMillis))) {
                 return;
             }
-
-            String time = Util.formatTime(time_ms);
-            player.sendMessage("");
-            player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge succeeded!");
-            player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + "Total Time: " + time);
-            player.sendMessage("");
-            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
-
-            if (parkour.canSave()) {
-                TimeDocument scoreDocument = new TimeDocument(handler, parkourPlayer);
-                scoreDocument.insertDocument(time_ms);
-            }
-
+            parkourPlayer.sendEndContents(timeMillis);
             parkourManager.removeParkourPlayer(parkourPlayer);
         });
     }
@@ -173,11 +154,5 @@ public class PlayerListener implements Listener {
     private boolean compareLocation(Location location1, Location location2) {
         return location1.getBlockX() == location2.getBlockX() && location1.getBlockY() == location2.getBlockY() && location1.getBlockZ() == location2.getBlockZ();
     }
-
-    private void sendFailedContent(Player player, Parkour parkour) {
-        player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.RED + parkour.getName() + " Parkour challenge failed!");
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 1.0F, 0.0F);
-    }
-
 
 }
