@@ -22,7 +22,7 @@ public class ParkourManager {
     }
 
     public List<Parkour> getParkours() {
-        return parkours;
+        return Collections.unmodifiableList(parkours);
     }
 
     public Optional<Parkour> getParkour(String id) {
@@ -34,7 +34,7 @@ public class ParkourManager {
     }
 
     public Set<ParkourPlayer> getParkourPlayers() {
-        return parkourPlayers;
+        return Collections.unmodifiableSet(parkourPlayers);
     }
 
     public Optional<ParkourPlayer> getParkourPlayer(Player player) {
