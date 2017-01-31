@@ -17,6 +17,7 @@ import java.util.List;
 class ListCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
+    private static final String NAME = "list";
 
     ListCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -47,5 +48,10 @@ class ListCommand implements ICommand, ConsoleCancellable {
                 );
 
         player.sendMessage(ChatColor.GREEN + "--------------------------");
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

@@ -19,7 +19,9 @@ import java.util.List;
  */
 
 public class ReloadCommand implements ICommand {
+
     private final ParkourHandler handler;
+    private static final String NAME = "reload";
 
     ReloadCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -60,6 +62,11 @@ public class ReloadCommand implements ICommand {
         }
         dbManager.connect();
         sender.sendMessage(ChatColor.GREEN + "Reload successful");
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 
 }

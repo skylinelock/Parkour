@@ -18,6 +18,7 @@ import java.util.Optional;
 class SetEndCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
+    private static final String NAME = "setend";
 
     SetEndCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -44,5 +45,10 @@ class SetEndCommand implements ICommand, ConsoleCancellable {
         }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
         }
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

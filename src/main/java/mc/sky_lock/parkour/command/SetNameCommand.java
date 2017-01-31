@@ -19,6 +19,7 @@ import java.util.Optional;
 class SetNameCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
+    private static final String NAME = "setname";
 
     SetNameCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -49,5 +50,10 @@ class SetNameCommand implements ICommand, ConsoleCancellable {
         }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
         }
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

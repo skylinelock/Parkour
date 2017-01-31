@@ -18,6 +18,7 @@ import java.util.Optional;
 class SetStartCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
+    private static final String NAME = "setstart";
 
     SetStartCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -44,5 +45,10 @@ class SetStartCommand implements ICommand, ConsoleCancellable {
         }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
         }
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

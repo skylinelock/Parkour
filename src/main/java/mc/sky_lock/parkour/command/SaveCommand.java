@@ -16,7 +16,9 @@ import java.util.Optional;
  */
 
 public class SaveCommand implements ICommand {
+
     private final ParkourHandler handler;
+    private static final String NAME = "save";
 
     SaveCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -47,5 +49,10 @@ public class SaveCommand implements ICommand {
         }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
         }
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

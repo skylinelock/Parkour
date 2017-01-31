@@ -19,6 +19,7 @@ import java.util.Optional;
 public class TeleportCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
+    private static final String NAME = "teleport";
 
     TeleportCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -46,5 +47,10 @@ public class TeleportCommand implements ICommand, ConsoleCancellable {
         }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
         }
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

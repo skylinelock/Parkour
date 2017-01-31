@@ -16,7 +16,9 @@ import java.util.Optional;
  */
 
 public class LockCommand implements ICommand {
+
     private final ParkourHandler handler;
+    private static final String NAME = "lock";
 
     LockCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -43,5 +45,10 @@ public class LockCommand implements ICommand {
         }).isPresent()) {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
         }
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

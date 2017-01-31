@@ -21,6 +21,7 @@ import java.util.Optional;
 class InfoCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
+    private static final String NAME = "info";
 
     InfoCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -76,5 +77,10 @@ class InfoCommand implements ICommand, ConsoleCancellable {
 
     private String convertBool(boolean bool) {
         return Util.convertBool(bool);
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

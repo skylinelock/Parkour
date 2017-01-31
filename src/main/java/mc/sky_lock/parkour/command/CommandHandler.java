@@ -1,6 +1,7 @@
 package mc.sky_lock.parkour.command;
 
 import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.message.CommandUsage;
 import mc.sky_lock.parkour.message.FailedMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,69 +18,56 @@ public class CommandHandler implements CommandExecutor {
 
     public CommandHandler(ParkourHandler handler) {
         this.handler = handler;
+        handler.putSubCommand(new ActiveCommand(handler));
+        handler.putSubCommand(new AddCommand(handler));
+        handler.putSubCommand(new DeleteCommand(handler));
+        handler.putSubCommand(new InfoCommand(handler));
+        handler.putSubCommand(new ListCommand(handler));
+        handler.putSubCommand(new LockCommand(handler));
+        handler.putSubCommand(new ReloadCommand(handler));
+        handler.putSubCommand(new SaveCommand(handler));
+        handler.putSubCommand(new SetEndCommand(handler));
+        handler.putSubCommand(new SetNameCommand(handler));
+        handler.putSubCommand(new SetPreCommand(handler));
+        handler.putSubCommand(new SetStartCommand(handler));
+        handler.putSubCommand(new TeleportCommand(handler));
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        ICommand cmd = new UsageCommand();
         if (args.length < 1) {
-            cmd.execute(sender, command, label, args);
+            sendUsage(sender);
             return true;
         }
-        switch (args[0].toLowerCase()) {
-            case "add":
-                cmd = new AddCommand(handler);
-                break;
-            case "setname":
-            case "sn":
-                cmd = new SetNameCommand(handler);
-                break;
-            case "setstart":
-            case "ss":
-                cmd = new SetStartCommand(handler);
-                break;
-            case "setend":
-            case "se":
-                cmd = new SetEndCommand(handler);
-                break;
-            case "setpre":
-            case "sp":
-                cmd = new SetPreCommand(handler);
-                break;
-            case "delete":
-                cmd = new DeleteCommand(handler);
-                break;
-            case "active":
-                cmd = new ActiveCommand(handler);
-                break;
-            case "lock":
-                cmd = new LockCommand(handler);
-                break;
-            case "info":
-                cmd = new InfoCommand(handler);
-                break;
-            case "list":
-                cmd = new ListCommand(handler);
-                break;
-            case "teleport":
-            case "tp":
-                cmd = new TeleportCommand(handler);
-                break;
-            case "reload":
-                cmd = new ReloadCommand(handler);
-                break;
-            case "save":
-                cmd = new SaveCommand(handler);
-                break;
-            default:
-                break;
+        ICommand subCmd = handler.getSubCommand(args[0].toLowerCase());
+        if (subCmd == null) {
+            sendUsage(sender);
+            return true;
         }
-        if (cmd instanceof ConsoleCancellable && !(sender instanceof Player)) {
+        if (subCmd instanceof ConsoleCancellable && !(sender instanceof Player)) {
             sender.sendMessage(FailedMessage.NOT_PLAYER.getText());
             return true;
         }
-        cmd.execute(sender, command, label, args);
+        subCmd.execute(sender, command, label, args);
         return true;
+    }
+
+    private void sendUsage(CommandSender sender) {
+        sender.sendMessage(CommandUsage.RELOAD.getText());
+        if (sender instanceof Player) {
+            sender.sendMessage(CommandUsage.LIST.getText());
+            sender.sendMessage(CommandUsage.INFO.getText());
+            sender.sendMessage(CommandUsage.ADD.getText());
+            sender.sendMessage(CommandUsage.SET_NAME.getText());
+            sender.sendMessage(CommandUsage.SET_START.getText());
+            sender.sendMessage(CommandUsage.SET_END.getText());
+            sender.sendMessage(CommandUsage.SET_PRE.getText());
+            sender.sendMessage(CommandUsage.ACTIVE.getText());
+            sender.sendMessage(CommandUsage.LOCK.getText());
+            sender.sendMessage(CommandUsage.DELETE.getText());
+            sender.sendMessage(CommandUsage.SAVE.getText());
+            sender.sendMessage(CommandUsage.TELEPORT.getText());
+        }
     }
 
 }

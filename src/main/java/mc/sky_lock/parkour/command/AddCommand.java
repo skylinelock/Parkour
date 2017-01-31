@@ -19,6 +19,7 @@ import java.util.Optional;
 class AddCommand implements ICommand, ConsoleCancellable {
 
     private final ParkourHandler handler;
+    private static final String NAME = "add";
 
     AddCommand(ParkourHandler handler) {
         this.handler = handler;
@@ -46,6 +47,10 @@ class AddCommand implements ICommand, ConsoleCancellable {
             parkourManager.addParkour(newParkour);
             player.sendMessage(ChatColor.GREEN + "Parkour " + newParkour.getId() + " added");
         }
+    }
 
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

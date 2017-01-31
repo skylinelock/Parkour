@@ -2,6 +2,7 @@ package mc.sky_lock.parkour;
 
 import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.command.CommandHandler;
+import mc.sky_lock.parkour.command.ICommand;
 import mc.sky_lock.parkour.command.tabcomplete.ParkourTabCompleter;
 import mc.sky_lock.parkour.database.MongoDBManager;
 import mc.sky_lock.parkour.json.ParkourFile;
@@ -18,6 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author sky_lock
@@ -29,6 +33,7 @@ public class ParkourHandler {
     private final PluginManager pluginManager;
     private final MongoDBManager dbManager;
     private final ParkourManager parkourManager;
+    private final Map<String, ICommand> subCommands;
     private ParkourFile parkourFile;
 
     private PluginLogger logger;
@@ -38,6 +43,7 @@ public class ParkourHandler {
         this.pluginManager = plugin.getServer().getPluginManager();
         this.dbManager = new MongoDBManager(this);
         this.parkourManager = new ParkourManager();
+        this.subCommands = new HashMap<>();
     }
 
     void onEnable() {
@@ -129,6 +135,18 @@ public class ParkourHandler {
         getConfig().options().copyDefaults(true);
         plugin.saveDefaultConfig();
         plugin.reloadConfig();
+    }
+
+    public Set<String> getSubCommandNames() {
+        return subCommands.keySet();
+    }
+
+    public void putSubCommand(ICommand exe) {
+        subCommands.put(exe.getName(), exe);
+    }
+
+    public ICommand getSubCommand(String key) {
+        return subCommands.get(key);
     }
 
 }
