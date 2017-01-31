@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author sky_lock
@@ -37,13 +36,10 @@ public class ParkourTabCompleter implements TabCompleter {
         if (args.length == 2) {
             List<String> parkourNames = new ArrayList<>();
             handler.getParkourManager().getParkours().forEach(parkour -> parkourNames.add(parkour.getName()));
-            return checkStartWith(parkourNames, args[1]).map(Collections::singletonList).orElse(parkourNames);
+            return parkourNames;
         }
 
         return Collections.emptyList();
     }
 
-    private Optional<String> checkStartWith(List<String> strings, String start) {
-        return strings.stream().filter(str -> str.startsWith(start)).findAny();
-    }
 }
