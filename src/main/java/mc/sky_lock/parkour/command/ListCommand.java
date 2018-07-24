@@ -40,7 +40,7 @@ class ListCommand extends BaseCommand {
                         )
                 );
 
-        player.sendMessage(ChatColor.GREEN + "--------------------------");
+        player.sendMessage(ChatColor.GREEN + "---------------------------");
     }
 
 }

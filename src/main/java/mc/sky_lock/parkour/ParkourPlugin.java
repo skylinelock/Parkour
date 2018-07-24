@@ -26,7 +26,6 @@ public class ParkourPlugin extends JavaPlugin {
 
     @Getter
     private PluginLogger pluginLogger;
-    private CommandManager commandManager;
     @Getter
     private ParkourLoader parkourLoader;
 
@@ -38,7 +37,7 @@ public class ParkourPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        commandManager = new CommandManager();
+        CommandManager commandManager = new CommandManager();
         commandManager.register();
 
         pluginManager = getServer().getPluginManager();

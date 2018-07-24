@@ -28,7 +28,7 @@ class InfoCommand extends BaseCommand {
     public void onCommand(Player player, String id) {
         ParkourManager parkourManager = plugin.getParkourManager();
 
-        if (!parkourManager.getParkour(id).flatMap(parkour -> {
+        parkourManager.getParkour(id).map(parkour -> {
             Location startLoc = parkour.getStartPoint();
             Location endLoc = parkour.getEndPoint();
             Location preLoc = parkour.getPresetPoint();
@@ -42,9 +42,10 @@ class InfoCommand extends BaseCommand {
             player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + Utils.convertYesOrNo(parkour.isLocked()));
             player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + Utils.convertYesOrNo(parkour.isActive()));
             return Optional.of(parkour);
-        }).isPresent()) {
+        }).orElseGet(() -> {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-        }
+            return Optional.empty();
+        });
     }
 
 }
