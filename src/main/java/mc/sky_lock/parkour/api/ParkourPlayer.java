@@ -1,6 +1,6 @@
 package mc.sky_lock.parkour.api;
 
-import mc.sky_lock.parkour.FormatUtils;
+import mc.sky_lock.parkour.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -36,7 +36,7 @@ public class ParkourPlayer {
     }
 
     public void sendEndContents(long timeMillis) {
-        String time = FormatUtils.formatTime(timeMillis);
+        String time = Utils.durationFormat(timeMillis);
         player.sendMessage("");
         player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge succeeded!");
         player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + "Total Time: " + time);
