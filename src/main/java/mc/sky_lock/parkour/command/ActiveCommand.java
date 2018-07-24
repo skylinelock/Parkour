@@ -24,15 +24,6 @@ class ActiveCommand extends BaseCommand {
     @Subcommand("active")
     @CommandPermission("parkour.command.active")
     public void onCommand(Player player, String id) {
-        /*Player player = (Player) sender;
-        if (!player.hasPermission("parkour.command.active")) {
-            player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
-            return;
-        }
-        if (args.length < 2) {
-            player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
-            return;
-        }*/
         ParkourManager parkourManager = plugin.getParkourManager();
         parkourManager.getParkour(id).map(parkour -> {
             if (!checkParkour(parkour)) {

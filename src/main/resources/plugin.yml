@@ -5,4 +5,5 @@ author: ${project.author}
 main: ${project.main.package}.ParkourPlugin
 
 database: true
+api-version: 1.13
 

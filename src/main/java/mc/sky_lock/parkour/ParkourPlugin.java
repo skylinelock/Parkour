@@ -11,7 +11,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * @author sky_lock
@@ -26,10 +25,10 @@ public class ParkourPlugin extends JavaPlugin {
     private PluginManager pluginManager;
 
     @Getter
-    private ParkourFile parkourFile;
-    @Getter
     private PluginLogger pluginLogger;
     private CommandManager commandManager;
+    @Getter
+    private ParkourLoader parkourLoader;
 
     @Override
     public void onLoad() {
@@ -45,25 +44,17 @@ public class ParkourPlugin extends JavaPlugin {
         pluginManager = getServer().getPluginManager();
         pluginLogger = new PluginLogger();
 
-        this.reloadConfiguration();
+        this.reloadResources();
 
-        parkourFile = new ParkourFile(getDataFolder());
-        try {
-            parkourFile.loadParkours().forEach(parkourManager::addParkour);
-        } catch (IOException ex) {
-            pluginLogger.out(ChatColor.RED + "parkours.jsonからのParkourの読み込みに失敗しました");
-        }
+        parkourLoader = new ParkourLoader(new ParkourFile(getDataFolder()), parkourManager);
+        parkourLoader.load();
 
         registerListeners();
     }
     
     @Override
     public void onDisable() {
-        try {
-            parkourFile.saveParkours(parkourManager.getParkours());
-        } catch (IOException ex) {
-            pluginLogger.out(ChatColor.RED + "Parkour情報のparkours.jsonへの保存に失敗しました");
-        }
+        parkourLoader.save();
     }
 
     private void registerListeners() {
@@ -75,7 +66,7 @@ public class ParkourPlugin extends JavaPlugin {
         return instance;
     }
 
-    public void reloadConfiguration() {
+    public void reloadResources() {
         File dataFolder = getDataFolder();
         if (dataFolder.mkdirs()) {
             pluginLogger.out(ChatColor.GRAY + "プラグインのデータフォルダを作成しました");
