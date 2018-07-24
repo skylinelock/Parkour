@@ -44,7 +44,7 @@ public class PlayerListener implements Listener {
     public void onPlayerFail(PlayerMoveEvent event) {
         Location toLoc = event.getTo();
         Location fromLoc = event.getFrom();
-        if (compareLocation(fromLoc, toLoc)) {
+        if (sameBlockCoordinate(fromLoc, toLoc)) {
             return;
         }
         Player player = event.getPlayer();
@@ -81,7 +81,7 @@ public class PlayerListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         Location toLoc = event.getTo();
         Location fromLoc = event.getFrom();
-        if (compareLocation(fromLoc, toLoc)) {
+        if (sameBlockCoordinate(fromLoc, toLoc)) {
             return;
         }
         Material plate = toLoc.getBlock().getType();
@@ -108,15 +108,12 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         Location toLocation = event.getTo();
         Location startPoint = parkour.getStartPoint();
-
-        if (!compareLocation(toLocation, startPoint)) {
+        if (!sameBlockCoordinate(toLocation, startPoint)) {
             return;
         }
-
         if (!callParkourEvent(new PlayerParkourStartEvent(player, parkour))) {
             return;
         }
-
         parkourManager.getParkourPlayer(player).ifPresent(parkourPlayer -> {
             parkourManager.remove(parkourPlayer);
             if (!parkourPlayer.getParkour().equals(parkour)) {
@@ -133,11 +130,9 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         Location toLoc = event.getTo();
         Location endPoint = parkour.getEndPoint();
-
-        if (!compareLocation(toLoc, endPoint)) {
+        if (!sameBlockCoordinate(toLoc, endPoint)) {
             return;
         }
-
         parkourManager.getParkourPlayer(player).ifPresent(parkourPlayer -> {
             if (!parkourPlayer.getParkour().equals(parkour)) {
                 return;
@@ -156,7 +151,7 @@ public class PlayerListener implements Listener {
         return !event.isCancelled();
     }
 
-    private boolean compareLocation(Location location1, Location location2) {
+    private boolean sameBlockCoordinate(Location location1, Location location2) {
         return location1.getBlockX() == location2.getBlockX() && location1.getBlockY() == location2.getBlockY() && location1.getBlockZ() == location2.getBlockZ();
     }
 
