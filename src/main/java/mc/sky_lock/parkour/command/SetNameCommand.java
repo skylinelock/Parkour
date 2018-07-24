@@ -18,7 +18,6 @@ import java.util.Optional;
 
 @CommandAlias("parkour|pk")
 class SetNameCommand extends BaseCommand {
-
     private final ParkourPlugin plugin = ParkourPlugin.getInstance();
 
     @Subcommand("setname")
@@ -32,7 +31,7 @@ class SetNameCommand extends BaseCommand {
             return Optional.of(parkour);
         }).orElseGet(() -> {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-            return null;
+            return Optional.empty();
         });
     }
 }

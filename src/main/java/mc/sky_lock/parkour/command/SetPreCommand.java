@@ -31,7 +31,7 @@ class SetPreCommand extends BaseCommand {
             return Optional.of(parkour);
         }).orElseGet(() -> {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-            return null;
+            return Optional.empty();
         });
     }
 }

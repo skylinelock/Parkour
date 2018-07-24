@@ -18,7 +18,7 @@ import java.util.Optional;
  */
 
 @CommandAlias("parkour|pk")
-public class TeleportCommand extends BaseCommand {
+class TeleportCommand extends BaseCommand {
     private final ParkourPlugin plugin = ParkourPlugin.getInstance();
 
     @Subcommand("teleport")
@@ -37,7 +37,7 @@ public class TeleportCommand extends BaseCommand {
             return Optional.of(parkour);
         }).orElseGet(() -> {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-            return null;
+            return Optional.empty();
         });
     }
 }
