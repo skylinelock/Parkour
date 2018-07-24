@@ -27,7 +27,7 @@ class DeleteCommand extends BaseCommand {
         ParkourManager parkourManager = plugin.getParkourManager();
 
         parkourManager.getParkour(id).map(parkour -> {
-            parkourManager.deleteParkour(parkour);
+            parkourManager.delete(parkour);
             player.sendMessage(ChatColor.GREEN + "Parkour " + parkour.getId() + " is deleted");
             return Optional.of(parkour);
         }).orElseGet(() -> {

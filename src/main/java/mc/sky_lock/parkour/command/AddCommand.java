@@ -32,7 +32,7 @@ class AddCommand extends BaseCommand {
             return Optional.of(parkour);
         }).orElseGet(() -> {
             Parkour newParkour = new Parkour(id);
-            parkourManager.addParkour(newParkour);
+            parkourManager.add(newParkour);
             player.sendMessage(ChatColor.GREEN + "Parkour " + newParkour.getId() + " added");
             return Optional.empty();
         });

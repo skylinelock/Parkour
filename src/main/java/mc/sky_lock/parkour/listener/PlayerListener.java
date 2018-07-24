@@ -37,7 +37,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        parkourManager.getParkourPlayer(player).ifPresent(parkourManager::removeParkourPlayer);
+        parkourManager.getParkourPlayer(player).ifPresent(parkourManager::remove);
     }
 
     @EventHandler
@@ -66,7 +66,7 @@ public class PlayerListener implements Listener {
             }
 
             player.teleport(parkour.getPresetPoint());
-            parkourManager.removeParkourPlayer(parkourPlayer);
+            parkourManager.remove(parkourPlayer);
             parkourPlayer.sendFailContents();
             return parkourPlayer;
         }).orElseGet(() -> {
@@ -118,14 +118,14 @@ public class PlayerListener implements Listener {
         }
 
         parkourManager.getParkourPlayer(player).ifPresent(parkourPlayer -> {
-            parkourManager.removeParkourPlayer(parkourPlayer);
+            parkourManager.remove(parkourPlayer);
             if (!parkourPlayer.getParkour().equals(parkour)) {
                 parkourPlayer.sendFailContents();
             }
         });
 
         ParkourPlayer parkourPlayer = new ParkourPlayer(player, parkour);
-        parkourManager.addParkourPlayer(parkourPlayer);
+        parkourManager.add(parkourPlayer);
         parkourPlayer.sendStartContents();
     }
 
@@ -147,7 +147,7 @@ public class PlayerListener implements Listener {
                 return;
             }
             parkourPlayer.sendEndContents(timeMillis);
-            parkourManager.removeParkourPlayer(parkourPlayer);
+            parkourManager.remove(parkourPlayer);
         });
     }
 

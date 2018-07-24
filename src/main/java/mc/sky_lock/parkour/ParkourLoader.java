@@ -24,7 +24,7 @@ public class ParkourLoader {
 
     public boolean load() {
         try {
-            file.loadParkours().forEach(manager::addParkour);
+            file.loadParkours().forEach(manager::add);
         } catch (IOException ex) {
             logger.out(ChatColor.RED + "parkours.jsonからのParkourの読み込みに失敗しました");
             return false;
@@ -39,7 +39,7 @@ public class ParkourLoader {
             logger.out(ChatColor.RED + "parkours.jsonへのParkourの保存に失敗しました");
             return false;
         } finally {
-            manager.clearAllParkour();
+            manager.clearAllParkours();
         }
         return true;
     }
