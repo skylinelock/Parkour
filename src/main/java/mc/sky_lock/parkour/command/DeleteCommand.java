@@ -1,12 +1,13 @@
 package mc.sky_lock.parkour.command;
 
-import mc.sky_lock.parkour.ParkourHandler;
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandPermission;
+import co.aikar.commands.annotation.Subcommand;
+import mc.sky_lock.parkour.ParkourPlugin;
 import mc.sky_lock.parkour.api.ParkourManager;
-import mc.sky_lock.parkour.message.FailedMessage;
 import mc.sky_lock.parkour.message.ParkourMessage;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Optional;
@@ -15,40 +16,23 @@ import java.util.Optional;
  * @author sky_lock
  */
 
-class DeleteCommand implements ICommand, ConsoleCancellable {
+@CommandAlias("parkour|pk")
+class DeleteCommand extends BaseCommand {
 
-    private final ParkourHandler handler;
-    private static final String NAME = "delete";
+    private final ParkourPlugin plugin = ParkourPlugin.getInstance();
 
-    DeleteCommand(ParkourHandler handler) {
-        this.handler = handler;
-    }
+    @Subcommand("delete|remove")
+    @CommandPermission("parkour.command.delete")
+    public void onCommand(Player player, String id) {
+        ParkourManager parkourManager = plugin.getParkourManager();
 
-    @Override
-    public void execute(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-        if (!player.hasPermission("parkour.command.remove")) {
-            player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
-            return;
-        }
-        if (args.length < 2) {
-            player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
-            return;
-        }
-        ParkourManager parkourManager = handler.getParkourManager();
-        String inputId = args[1];
-
-        if (!parkourManager.getParkour(inputId).flatMap(parkour -> {
+        parkourManager.getParkour(id).map(parkour -> {
             parkourManager.deleteParkour(parkour);
             player.sendMessage(ChatColor.GREEN + "Parkour " + parkour.getId() + " is deleted");
             return Optional.of(parkour);
-        }).isPresent()) {
+        }).orElseGet(() -> {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-        }
-    }
-
-    @Override
-    public String getName() {
-        return NAME;
+            return null;
+        });
     }
 }

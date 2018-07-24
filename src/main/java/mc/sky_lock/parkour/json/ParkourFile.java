@@ -2,12 +2,12 @@ package mc.sky_lock.parkour.json;
 
 import com.google.gson.reflect.TypeToken;
 import mc.sky_lock.parkour.api.Parkour;
-import mc.sky_lock.parkour.exception.EmptyJsonException;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,19 +15,18 @@ import java.util.List;
  */
 
 public class ParkourFile {
-
-    private final GsonFile gsonFile;
+    private final File file;
+    private static final Type type = new TypeToken<List<Parkour>>() {}.getType();
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public ParkourFile(File dir) {
         dir.mkdirs();
-        File file = new File(dir, "parkours.json");
+        this.file = new File(dir, "parkours.json");
         try {
             file.createNewFile();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        gsonFile = new GsonFile(file);
     }
 
     /**
@@ -38,7 +37,7 @@ public class ParkourFile {
      */
     public void saveParkours(List<Parkour> parkours) throws IOException {
         Type type = new TypeToken<List<Parkour>>() {}.getType();
-        gsonFile.save(parkours, type);
+        GsonUtil.save(file, parkours, type);
     }
 
     /**
@@ -50,12 +49,11 @@ public class ParkourFile {
      */
     public List<Parkour> loadParkours() throws IOException {
         Type type = new TypeToken<List<Parkour>>() {}.getType();
-        List<Parkour> parkours;
-        try {
-            parkours = gsonFile.load(type);
-        } catch (EmptyJsonException ex) {
+        List<Parkour> parkours = GsonUtil.load(file, type);
+
+        if (parkours == null) {
             parkours = new ArrayList<>();
         }
-        return parkours;
+        return Collections.unmodifiableList(parkours);
     }
 }

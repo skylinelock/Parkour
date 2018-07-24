@@ -1,11 +1,12 @@
 package mc.sky_lock.parkour.command;
 
-import mc.sky_lock.parkour.ParkourHandler;
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandPermission;
+import co.aikar.commands.annotation.Subcommand;
+import mc.sky_lock.parkour.ParkourPlugin;
 import mc.sky_lock.parkour.api.Parkour;
-import mc.sky_lock.parkour.message.FailedMessage;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -14,23 +15,15 @@ import java.util.List;
  * @author sky_lock
  */
 
-class ListCommand implements ICommand, ConsoleCancellable {
+@CommandAlias("parkour|pk")
+class ListCommand extends BaseCommand {
 
-    private final ParkourHandler handler;
-    private static final String NAME = "list";
+    private final ParkourPlugin plugin = ParkourPlugin.getInstance();
 
-    ListCommand(ParkourHandler handler) {
-        this.handler = handler;
-    }
-
-    @Override
-    public void execute(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-        if (!player.hasPermission("parkour.command.list")) {
-            player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
-            return;
-        }
-        List<Parkour> parkours = handler.getParkourManager().getParkours();
+    @Subcommand("list")
+    @CommandPermission("parkour.command.list")
+    public void onCommand(Player player) {
+        List<Parkour> parkours = plugin.getParkourManager().getParkours();
 
         player.sendMessage(ChatColor.GREEN + "------  [" + ChatColor.WHITE + "Parkour List" + ChatColor.GREEN + "]  ------");
 
@@ -50,8 +43,4 @@ class ListCommand implements ICommand, ConsoleCancellable {
         player.sendMessage(ChatColor.GREEN + "--------------------------");
     }
 
-    @Override
-    public String getName() {
-        return NAME;
-    }
 }

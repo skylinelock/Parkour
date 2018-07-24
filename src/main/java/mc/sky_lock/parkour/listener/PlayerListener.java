@@ -1,6 +1,6 @@
 package mc.sky_lock.parkour.listener;
 
-import mc.sky_lock.parkour.ParkourHandler;
+import mc.sky_lock.parkour.ParkourPlugin;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.api.ParkourPlayer;
@@ -24,24 +24,24 @@ import org.bukkit.plugin.PluginManager;
 
 @SuppressWarnings("unused")
 public class PlayerListener implements Listener {
-    private final ParkourHandler handler;
+
+    private final ParkourPlugin plugin = ParkourPlugin.getInstance();
     private final ParkourManager parkourManager;
     private final PluginManager pluginManager;
 
-    public PlayerListener(ParkourHandler handler) {
-        this.handler = handler;
-        this.parkourManager = handler.getParkourManager();
-        this.pluginManager = handler.getPluginManager();
+    public PlayerListener() {
+        this.parkourManager = plugin.getParkourManager();
+        this.pluginManager = plugin.getPluginManager();
     }
 
     @EventHandler
-    public void playerLogout(PlayerQuitEvent event) {
+    public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         parkourManager.getParkourPlayer(player).ifPresent(parkourManager::removeParkourPlayer);
     }
 
     @EventHandler
-    public void playerFail(PlayerMoveEvent event) {
+    public void onPlayerFail(PlayerMoveEvent event) {
         Location toLoc = event.getTo();
         Location fromLoc = event.getFrom();
         if (compareLocation(fromLoc, toLoc)) {
@@ -51,7 +51,7 @@ public class PlayerListener implements Listener {
         if (!player.hasPermission("parkour.use")) {
             return;
         }
-        FileConfiguration config = handler.getConfig();
+        FileConfiguration config = plugin.getConfig();
 
         int heightLimit = config.getInt("respawn.height");
         if (toLoc.getBlockY() > heightLimit) {
@@ -78,21 +78,26 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerMeasure(PlayerMoveEvent event) {
+    public void onPlayerMove(PlayerMoveEvent event) {
         Location toLoc = event.getTo();
         Location fromLoc = event.getFrom();
         if (compareLocation(fromLoc, toLoc)) {
             return;
         }
-
-        Material blockType = toLoc.getBlock().getType();
-        if (blockType != Material.GOLD_PLATE &&
-                blockType != Material.IRON_PLATE &&
-                blockType != Material.WOOD_PLATE &&
-                blockType != Material.STONE_PLATE) {
-            return;
+        Material plate = toLoc.getBlock().getType();
+        switch (plate) {
+            case HEAVY_WEIGHTED_PRESSURE_PLATE:
+            case LIGHT_WEIGHTED_PRESSURE_PLATE:
+            case ACACIA_PRESSURE_PLATE:
+            case BIRCH_PRESSURE_PLATE:
+            case DARK_OAK_PRESSURE_PLATE:
+            case JUNGLE_PRESSURE_PLATE:
+            case OAK_PRESSURE_PLATE:
+            case SPRUCE_PRESSURE_PLATE:
+            case STONE_PRESSURE_PLATE:
+                break;
+            default: return;
         }
-
         parkourManager.getParkours().stream().filter(Parkour::isActive).forEach(parkour -> {
             start(event, parkour);
             stop(event, parkour);

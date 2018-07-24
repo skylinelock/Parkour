@@ -1,13 +1,14 @@
 package mc.sky_lock.parkour.command;
 
-import mc.sky_lock.parkour.ParkourHandler;
-import mc.sky_lock.parkour.api.ParkourManager;
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandPermission;
+import co.aikar.commands.annotation.Subcommand;
+import mc.sky_lock.parkour.ParkourPlugin;
 import mc.sky_lock.parkour.api.Parkour;
-import mc.sky_lock.parkour.message.FailedMessage;
+import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.message.ParkourMessage;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Optional;
@@ -16,41 +17,24 @@ import java.util.Optional;
  * @author sky_lock
  */
 
-class AddCommand implements ICommand, ConsoleCancellable {
+@CommandAlias("parkour|pk")
+class AddCommand extends BaseCommand {
 
-    private final ParkourHandler handler;
-    private static final String NAME = "add";
+    private final ParkourPlugin plugin = ParkourPlugin.getInstance();
 
-    AddCommand(ParkourHandler handler) {
-        this.handler = handler;
-    }
+    @Subcommand("add")
+    @CommandPermission("parkour.command.add")
+    public void onCommand(Player player, String id) {
+        ParkourManager parkourManager = plugin.getParkourManager();
 
-    @Override
-    public void execute(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-        if (!player.hasPermission("parkour.command.add")) {
-            player.sendMessage(FailedMessage.DONT_HAVE_PERM.getText());
-            return;
-        }
-        if (args.length < 2) {
-            player.sendMessage(FailedMessage.NOT_ENOUGH_ARGS.getText());
-            return;
-        }
-        ParkourManager parkourManager = handler.getParkourManager();
-        String inputId = args[1];
-
-        if (!parkourManager.getParkour(inputId).flatMap(parkour -> {
+        parkourManager.getParkour(id).map(parkour -> {
             player.sendMessage(ParkourMessage.ALREADY_EXISTS.getText());
             return Optional.of(parkour);
-        }).isPresent()) {
-            Parkour newParkour = new Parkour(inputId);
+        }).orElseGet(() -> {
+            Parkour newParkour = new Parkour(id);
             parkourManager.addParkour(newParkour);
             player.sendMessage(ChatColor.GREEN + "Parkour " + newParkour.getId() + " added");
-        }
-    }
-
-    @Override
-    public String getName() {
-        return NAME;
+            return null;
+        });
     }
 }

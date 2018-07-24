@@ -2,30 +2,26 @@ package mc.sky_lock.parkour.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import mc.sky_lock.parkour.exception.EmptyJsonException;
+import mc.sky_lock.parkour.api.Parkour;
 import org.bukkit.Location;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * @author sky_lock
  */
 
-class GsonFile {
+public class GsonUtil {
 
-    private final Gson gson;
-    private final File file;
-
-    GsonFile(File file) {
-        this.file = file;
-        this.gson = new GsonBuilder()
-                .serializeNulls()
-                .registerTypeAdapter(Location.class, new LocationAdapter())
-                .create();
-    }
+    private static final Gson gson = new GsonBuilder()
+            .serializeNulls()
+            .registerTypeAdapter(Location.class, new LocationAdapter())
+            .create();
 
     /**
      * Fileから指定した型でJsonをロードします。
@@ -38,18 +34,13 @@ class GsonFile {
      * @throws RuntimeException
      */
     @SuppressWarnings("unused")
-    <T> T load(Type type) throws IOException, EmptyJsonException {
-        JsonReader reader = null;
-        try {
-            reader = new JsonReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+    public static <T> T load(File file, Type type) throws IOException {
+        checkFile(file);
+        try (JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
             if (!reader.hasNext()) {
-                throw new EmptyJsonException();
+                return null;
             }
             return gson.fromJson(reader, type);
-        } finally {
-            if (reader != null) {
-                reader.close();
-            }
         }
     }
 
@@ -62,15 +53,21 @@ class GsonFile {
      * @throws IOException
      * @throws RuntimeException
      */
-    <T> void save(T obj, Type type) throws IOException {
-        JsonWriter writer = null;
-        try {
-            writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+    public static <T> void save(File file, T obj, Type type) throws IOException {
+        checkFile(file);
+        try (JsonWriter writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))) {
             gson.toJson(obj, type, writer);
-        } finally {
-            if (writer != null) {
-                writer.close();
-            }
         }
+    }
+
+    private static void checkFile(File file) throws IOException {
+        if (!file.canRead()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+    }
+
+    public static class Types {
+        public static Type PARKOURS = new TypeToken<List<Parkour>>() {}.getType();
     }
 }

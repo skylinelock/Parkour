@@ -7,7 +7,7 @@ import java.util.Date;
  * @author sky_lock
  */
 
-public class Util {
+public class FormatUtils {
 
     public static String formatTime(long timeMillis) {
         Date date = new Date(timeMillis);
@@ -15,7 +15,7 @@ public class Util {
         return format.format(date);
     }
 
-    public static String convertBool(boolean bool) {
+    public static String formatBoolean(boolean bool) {
         return bool ? "Yes" : "No";
     }
 }

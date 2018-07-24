@@ -1,6 +1,6 @@
 package mc.sky_lock.parkour.api;
 
-import mc.sky_lock.parkour.Util;
+import mc.sky_lock.parkour.FormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -32,11 +32,11 @@ public class ParkourPlayer {
         player.sendMessage("");
         player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge started!");
         player.sendMessage("");
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1.0F, 1.0F);
+        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 1.0F);
     }
 
     public void sendEndContents(long timeMillis) {
-        String time = Util.formatTime(timeMillis);
+        String time = FormatUtils.formatTime(timeMillis);
         player.sendMessage("");
         player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + parkour.getName() + " Parkour challenge succeeded!");
         player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.GREEN + "Total Time: " + time);
@@ -46,7 +46,7 @@ public class ParkourPlayer {
 
     public void sendFailContents() {
         player.sendMessage(ChatColor.DARK_AQUA + "Parkour" + ChatColor.DARK_GRAY + "≫ " + ChatColor.RED + parkour.getName() + " Parkour challenge failed!");
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 1.0F, 0.0F);
+        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 0.0F);
     }
 
     /**

@@ -1,7 +1,11 @@
 package mc.sky_lock.parkour.api;
 
+import mc.sky_lock.parkour.ParkourPlugin;
+import mc.sky_lock.parkour.json.GsonUtil;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -10,6 +14,7 @@ import java.util.*;
 
 public class ParkourManager {
 
+    private final ParkourPlugin plugin = ParkourPlugin.getInstance();
     private final Set<ParkourPlayer> parkourPlayers = new HashSet<>();
     private final List<Parkour> parkours = new ArrayList<>();
 
@@ -47,5 +52,30 @@ public class ParkourManager {
 
     public boolean isParkourPlayer(Player player) {
         return parkourPlayers.stream().anyMatch(parkourPlayer -> parkourPlayer.getPlayer().equals(player));
+    }
+
+    public void clearAllParkour() {
+        parkours.clear();
+    }
+
+    public void clearAllParkourPlayers() {
+        parkourPlayers.clear();
+    }
+
+    public void init() {
+        File parkourFile = new File(plugin.getDataFolder(), "parkours.json");
+        try {
+            List<Parkour> loadedParkour = GsonUtil.load(parkourFile, GsonUtil.Types.PARKOURS);
+            if (loadedParkour == null) {
+                return;
+            }
+            parkours.addAll(loadedParkour);
+        } catch (IOException ex) {
+            //後で書く
+        }
+    }
+
+    public void deinit() {
+
     }
 }
