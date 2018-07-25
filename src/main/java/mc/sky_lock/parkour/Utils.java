@@ -23,6 +23,9 @@ public class Utils {
     }
 
     public static String roundDownCoordinateSet(Location location) {
+        if (location == null) {
+            return "Null";
+        }
         BigDecimal x = new BigDecimal(location.getX());
         BigDecimal y = new BigDecimal(location.getY());
         BigDecimal z = new BigDecimal(location.getZ());
