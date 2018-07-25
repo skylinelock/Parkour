@@ -9,7 +9,7 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 - ファイルの再読込には/parkour reloadコマンドを使用して下さい。
 
 ## 配布
-http://www.mediafire.com/file/gmys3lbbpzf2hmc/Parkour-2.1.0-SNAPSHOT.jar
+http://www.mediafire.com/file/eg2dqyrbx3v3sbe/Parkour-2.1.0-SNAPSHOT.jar
 
 ## Description
 ### Commands
