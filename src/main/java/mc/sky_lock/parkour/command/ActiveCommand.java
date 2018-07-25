@@ -17,7 +17,7 @@ import java.util.Optional;
  * @author sky_lock
  */
 
-@CommandAlias("parkour|pk")
+@CommandAlias("%parkour")
 class ActiveCommand extends BaseCommand {
     private final ParkourPlugin plugin = ParkourPlugin.getInstance();
 

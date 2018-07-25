@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
  * @author sky_lock
  */
 
-@CommandAlias("parkour|pk")
+@CommandAlias("%parkour")
 public class ParkourCommand extends BaseCommand {
 
     @Default

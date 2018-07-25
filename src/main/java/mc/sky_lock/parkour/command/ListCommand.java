@@ -15,7 +15,7 @@ import java.util.List;
  * @author sky_lock
  */
 
-@CommandAlias("parkour|pk")
+@CommandAlias("%parkour")
 class ListCommand extends BaseCommand {
 
     private final ParkourPlugin plugin = ParkourPlugin.getInstance();

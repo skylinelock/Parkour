@@ -43,7 +43,7 @@ public class ParkourPlugin extends JavaPlugin {
         pluginManager = getServer().getPluginManager();
         pluginLogger = new PluginLogger();
 
-        this.reloadResources();
+        reloadResources();
 
         parkourLoader = new ParkourLoader(new ParkourFile(getDataFolder()), parkourManager);
         parkourLoader.load();
@@ -72,8 +72,8 @@ public class ParkourPlugin extends JavaPlugin {
         if (dataFolder.mkdirs()) {
             pluginLogger.out(ChatColor.GRAY + "プラグインのデータフォルダを作成しました");
         }
-        getConfig().options().copyDefaults(true);
-        saveDefaultConfig();
+        getConfig().options().copyDefaults(true); //Returning default value
+        saveDefaultConfig(); //If config.yml does not exist
         reloadConfig();
     }
 

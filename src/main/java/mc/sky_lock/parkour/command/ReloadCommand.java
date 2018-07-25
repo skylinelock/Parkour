@@ -16,7 +16,7 @@ import org.bukkit.command.CommandSender;
  * @author sky_lock
  */
 
-@CommandAlias("parkour|pk")
+@CommandAlias("%parkour")
 public class ReloadCommand extends BaseCommand {
 
     private final ParkourPlugin plugin = ParkourPlugin.getInstance();

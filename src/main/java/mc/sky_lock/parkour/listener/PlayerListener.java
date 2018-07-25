@@ -51,10 +51,10 @@ public class PlayerListener implements Listener {
         if (!player.hasPermission("parkour.use")) {
             return;
         }
-        FileConfiguration config = plugin.getConfig();
 
-        int heightLimit = config.getInt("respawn.height");
-        if (toLoc.getBlockY() > heightLimit) {
+        FileConfiguration config = plugin.getConfig();
+        int height = config.getInt("respawn.height");
+        if (toLoc.getBlockY() > height) {
             return;
         }
 

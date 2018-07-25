@@ -1,6 +1,7 @@
 package mc.sky_lock.parkour.command;
 
 import co.aikar.commands.BukkitCommandManager;
+import co.aikar.commands.CommandReplacements;
 import mc.sky_lock.parkour.ParkourPlugin;
 
 /**
@@ -27,5 +28,10 @@ public class CommandManager {
         commandManager.registerCommand(new SetStartCommand());
         commandManager.registerCommand(new SetNameCommand());
         commandManager.registerCommand(new TeleportCommand());
+        commandManager.registerCommand(new SetHeightCommand());
+        commandManager.registerCommand(new ConfigCommand());
+
+        CommandReplacements replacements = commandManager.getCommandReplacements();
+        replacements.addReplacement("parkour", "parkour|pk");
     }
 }

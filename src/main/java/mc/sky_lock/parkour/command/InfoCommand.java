@@ -8,6 +8,7 @@ import mc.sky_lock.parkour.Utils;
 import mc.sky_lock.parkour.ParkourPlugin;
 import mc.sky_lock.parkour.api.ParkourManager;
 import mc.sky_lock.parkour.message.ParkourMessage;
+import org.apache.commons.lang.BooleanUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ import java.util.Optional;
  * @author sky_lock
  */
 
-@CommandAlias("parkour|pk")
+@CommandAlias("%parkour")
 class InfoCommand extends BaseCommand {
 
     private final ParkourPlugin plugin = ParkourPlugin.getInstance();
@@ -49,6 +50,6 @@ class InfoCommand extends BaseCommand {
     }
 
     private String toYesOrNo(boolean bool) {
-        return Utils.toString(bool, "Yes", "No");
+        return BooleanUtils.toString(bool, "Yes", "No");
     }
 }
