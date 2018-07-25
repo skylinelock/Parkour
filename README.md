@@ -29,12 +29,14 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 ### Permissions
 |Permission|Description|
 |:---------|:----------|
-|parkour.use      | Parkourの使用を許可します。|
-|parkour.command.*| プラグインの全てコマンドの仕様を許可します。|
+|parkour.use      | Parkourのプレイを許可します。|
+|parkour.command.*| プラグインの全てコマンドの使用を許可します。|
 
 ### Plans
 - config.ymlの設定用コマンド
-- リアルタイムでタイムレコードを表示
+- コマンドでのタイムレコード表示
+- タイムレコードのホログラム表示
+-　スタート及びゴールのホログラム表示
 - ゴール直後のテレポートのサポート
 
 ### Events
