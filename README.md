@@ -8,7 +8,7 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 - Bukkitに内包されているGsonライブラリを使用している為、bukkit:reloadでエラーを引き起こす可能性があります。
 - ファイルの再読込には/parkour reloadコマンドを使用して下さい。
 
-##配布
+## 配布
 http://www.mediafire.com/file/gmys3lbbpzf2hmc/Parkour-2.1.0-SNAPSHOT.jar
 
 ## Description
