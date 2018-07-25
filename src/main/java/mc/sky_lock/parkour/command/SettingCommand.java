@@ -15,6 +15,5 @@ public class SettingCommand extends BaseCommand {
 
     @Subcommand("setting")
     public void onCommand(Player player, String key, @Optional boolean bool) {
-
     }
 }

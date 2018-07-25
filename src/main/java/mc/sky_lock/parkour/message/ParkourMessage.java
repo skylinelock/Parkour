@@ -8,10 +8,10 @@ import org.bukkit.ChatColor;
 
 public enum ParkourMessage {
 
-    ALREADY_EXISTS(ChatColor.RED + "The Parkour already exists"),
-    NOT_FOUND(ChatColor.RED + "The Parkour is not found"),
+    ALREADY_EXISTS(ChatColor.RED + "Already exists"),
+    NOT_FOUND(ChatColor.RED + "Not found"),
     NOT_ENOUGH_ELEMENTS(ChatColor.RED + "Not enough Parkour elements"),
-    PRESET_NOT_FOUND(ChatColor.RED + "Preset Point is not found");
+    PRESET_NOT_FOUND(ChatColor.RED + "Preset Point was not found");
 
     private final String text;
 
