@@ -1,6 +1,5 @@
 package mc.sky_lock.parkour;
 
-import lombok.NonNull;
 import org.bukkit.Location;
 
 import java.math.BigDecimal;
@@ -23,7 +22,7 @@ public class Utils {
         return bool ? trueString : falseString;
     }
 
-    public static String roundDownCoordinateSet(@NonNull Location location) {
+    public static String roundDownCoordinateSet(Location location) {
         BigDecimal x = new BigDecimal(location.getX());
         BigDecimal y = new BigDecimal(location.getY());
         BigDecimal z = new BigDecimal(location.getZ());
