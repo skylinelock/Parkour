@@ -8,7 +8,7 @@ import com.mongodb.async.client.MongoCollection;
 import com.mongodb.connection.ClusterSettings;
 import mc.sky_lock.parkour.ParkourPlugin;
 import mc.sky_lock.parkour.api.Parkour;
-import mc.sky_lock.parkour.api.ParkourPlayer;
+import mc.sky_lock.parkour.api.Runner;
 import org.bson.Document;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -49,10 +49,10 @@ public class MongoDatabase {
         }
     }
 
-    public void savePlayerRecord(ParkourPlayer parkourPlayer, long record) {
+    public void savePlayerRecord(Runner runner, long record) {
         MongoCollection<Document> mongoCollection = getCollection("playerRecord");
-        Document document = new Document("player", parkourPlayer.getPlayer().getUniqueId())
-                .append("parkour", parkourPlayer.getParkour().getId())
+        Document document = new Document("player", runner.getPlayer().getUniqueId())
+                .append("parkour", runner.getParkour().getId())
                 .append("record", record);
         mongoCollection.insertOne(document, (t, e) -> {
             if (e != null) {

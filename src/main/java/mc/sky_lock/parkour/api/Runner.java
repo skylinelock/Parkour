@@ -1,6 +1,7 @@
 package mc.sky_lock.parkour.api;
 
 import mc.sky_lock.parkour.Utils;
+import org.apache.commons.lang.time.StopWatch;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -9,11 +10,11 @@ import org.bukkit.entity.Player;
  * @author sky_lock
  */
 
-public class ParkourPlayer {
+public class Runner {
 
     private final Player player;
     private final Parkour parkour;
-    private final long startTime;
+    private final StopWatch stopWatch;
 
     /**
      * 引数として渡されたPlayerとParkourを紐づけるParkourPlayerインスタンスを作成します。
@@ -21,10 +22,11 @@ public class ParkourPlayer {
      * @param player Player
      * @param parkour Parkour
      */
-    public ParkourPlayer(Player player, Parkour parkour) {
+    public Runner(Player player, Parkour parkour) {
         this.player = player;
         this.parkour = parkour;
-        this.startTime = System.currentTimeMillis();
+        stopWatch = new StopWatch();
+        stopWatch.start();
 
     }
 
@@ -54,9 +56,8 @@ public class ParkourPlayer {
      *
      * @return ミリ秒で表される現在の計測タイム
      */
-    public long getCurrentTimeMillis() {
-        long currentTime = System.currentTimeMillis();
-        return currentTime - startTime;
+    public long getTime() {
+        return stopWatch.getTime();
     }
 
     /**

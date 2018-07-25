@@ -3,7 +3,7 @@ package mc.sky_lock.parkour.listener;
 import mc.sky_lock.parkour.ParkourPlugin;
 import mc.sky_lock.parkour.api.Parkour;
 import mc.sky_lock.parkour.api.ParkourManager;
-import mc.sky_lock.parkour.api.ParkourPlayer;
+import mc.sky_lock.parkour.api.Runner;
 import mc.sky_lock.parkour.api.event.ParkourEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
@@ -58,17 +58,17 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        parkourManager.getParkourPlayer(player).map(parkourPlayer -> {
-            Parkour parkour = parkourPlayer.getParkour();
+        parkourManager.getParkourPlayer(player).map(runner -> {
+            Parkour parkour = runner.getParkour();
 
             if (!callParkourEvent(new PlayerParkourFailEvent(player, parkour))) {
-                return parkourPlayer;
+                return runner;
             }
 
             player.teleport(parkour.getPresetPoint());
-            parkourManager.remove(parkourPlayer);
-            parkourPlayer.sendFailContents();
-            return parkourPlayer;
+            parkourManager.remove(runner);
+            runner.sendFailContents();
+            return runner;
         }).orElseGet(() -> {
             if (config.getBoolean("respawn.toSpawn")) {
                 player.teleport(player.getWorld().getSpawnLocation());
@@ -114,16 +114,16 @@ public class PlayerListener implements Listener {
         if (!callParkourEvent(new PlayerParkourStartEvent(player, parkour))) {
             return;
         }
-        parkourManager.getParkourPlayer(player).ifPresent(parkourPlayer -> {
-            parkourManager.remove(parkourPlayer);
-            if (!parkourPlayer.getParkour().equals(parkour)) {
-                parkourPlayer.sendFailContents();
+        parkourManager.getParkourPlayer(player).ifPresent(runner -> {
+            parkourManager.remove(runner);
+            if (!runner.getParkour().equals(parkour)) {
+                runner.sendFailContents();
             }
         });
 
-        ParkourPlayer parkourPlayer = new ParkourPlayer(player, parkour);
-        parkourManager.add(parkourPlayer);
-        parkourPlayer.sendStartContents();
+        Runner runner = new Runner(player, parkour);
+        parkourManager.add(runner);
+        runner.sendStartContents();
     }
 
     private void stop(PlayerMoveEvent event, Parkour parkour) {
@@ -133,16 +133,16 @@ public class PlayerListener implements Listener {
         if (!sameBlockCoordinate(toLoc, endPoint)) {
             return;
         }
-        parkourManager.getParkourPlayer(player).ifPresent(parkourPlayer -> {
-            if (!parkourPlayer.getParkour().equals(parkour)) {
+        parkourManager.getParkourPlayer(player).ifPresent(runner -> {
+            if (!runner.getParkour().equals(parkour)) {
                 return;
             }
-            long timeMillis = parkourPlayer.getCurrentTimeMillis();
+            long timeMillis = runner.getTime();
             if (!callParkourEvent(new PlayerParkourSucceedEvent(player, parkour, timeMillis))) {
                 return;
             }
-            parkourPlayer.sendEndContents(timeMillis);
-            parkourManager.remove(parkourPlayer);
+            runner.sendEndContents(timeMillis);
+            parkourManager.remove(runner);
         });
     }
 

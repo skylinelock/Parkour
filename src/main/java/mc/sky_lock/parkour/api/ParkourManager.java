@@ -12,7 +12,7 @@ import java.util.*;
 public class ParkourManager {
 
     private final ParkourPlugin plugin = ParkourPlugin.getInstance();
-    private final Set<ParkourPlayer> parkourPlayers = new HashSet<>();
+    private final Set<Runner> runners = new HashSet<>();
     private final List<Parkour> parkours = new ArrayList<>();
 
     public void add(Parkour parkour) {
@@ -31,24 +31,24 @@ public class ParkourManager {
         return parkours.stream().filter(parkour -> parkour.getId().equals(id)).findAny();
     }
 
-    public void add(ParkourPlayer parkourPlayer) {
-        parkourPlayers.add(parkourPlayer);
+    public void add(Runner runner) {
+        runners.add(runner);
     }
 
-    public Set<ParkourPlayer> getParkourPlayers() {
-        return Collections.unmodifiableSet(parkourPlayers);
+    public Set<Runner> getRunners() {
+        return Collections.unmodifiableSet(runners);
     }
 
-    public Optional<ParkourPlayer> getParkourPlayer(Player player) {
-        return parkourPlayers.stream().filter(parkourPlayer -> parkourPlayer.getPlayer().equals(player)).findAny();
+    public Optional<Runner> getParkourPlayer(Player player) {
+        return runners.stream().filter(runner -> runner.getPlayer().equals(player)).findAny();
     }
 
-    public void remove(ParkourPlayer parkourPlayer) {
-        parkourPlayers.remove(parkourPlayer);
+    public void remove(Runner runner) {
+        runners.remove(runner);
     }
 
     public boolean isParkourPlayer(Player player) {
-        return parkourPlayers.stream().anyMatch(parkourPlayer -> parkourPlayer.getPlayer().equals(player));
+        return runners.stream().anyMatch(runner -> runner.getPlayer().equals(player));
     }
 
     public void clearAllParkours() {
@@ -56,6 +56,6 @@ public class ParkourManager {
     }
 
     public void clearAllParkourPlayers() {
-        parkourPlayers.clear();
+        runners.clear();
     }
 }
