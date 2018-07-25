@@ -26,7 +26,6 @@ class SetNameCommand extends BaseCommand {
         ParkourManager parkourManager = plugin.getParkourManager();
         parkourManager.getParkour(id).map(parkour -> {
             parkour.setName(renameTo);
-
             player.sendMessage(ChatColor.GREEN + "Set Parkour " + parkour.getId() + "'s name to " + parkour.getName());
             return Optional.of(parkour);
         }).orElseGet(() -> {

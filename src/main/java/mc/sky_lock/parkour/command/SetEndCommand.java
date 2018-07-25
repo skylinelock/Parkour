@@ -24,7 +24,6 @@ class SetEndCommand extends BaseCommand {
     @CommandPermission("parkour.command.setend")
     public void onCommand(Player player, String id) {
         ParkourManager parkourManager = plugin.getParkourManager();
-
         parkourManager.getParkour(id).map(parkour -> {
             parkour.setEndPoint(player.getLocation());
             player.sendMessage(ChatColor.GREEN + "Set Parkour " + parkour.getId() + "'s endpoint");
