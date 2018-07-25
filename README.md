@@ -26,7 +26,7 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 |/parkour reload                |parkours.jsonの再読み込み、プレイヤーの計測のリセット|parkour.command.reload|
 |/parkour save \<id>            |指定したParkourのセーブ可能/不可能を切り替えます。|parkour.command.save|
 
-###Permissions
+### Permissions
 |Permission|Description|
 |:---------|:----------|
 |parkour.use      | Parkourの使用を許可します。|
