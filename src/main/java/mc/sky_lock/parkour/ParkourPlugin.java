@@ -49,6 +49,8 @@ public class ParkourPlugin extends JavaPlugin {
         parkourLoader.load();
 
         registerListeners();
+
+        Metrics metrics = new Metrics(this);
     }
     
     @Override

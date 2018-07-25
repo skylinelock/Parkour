@@ -10,7 +10,7 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 - 身動きが取れなくなった場合、プラグインフォルダのconfig.ymlのrespawn.toSpawn設定の値を現在のY座標以下に設定して下さい。
 
 ## 配布
-http://www.mediafire.com/file/xmht4na0kxtrbh7/Parkour-2.1.1-SNAPSHOT.jar
+http://www.mediafire.com/file/36r9iwxz1d4337z/Parkour-2.1.1-SNAPSHOT.jar/file
 
 ## Description
 ### Commands
@@ -36,6 +36,8 @@ http://www.mediafire.com/file/xmht4na0kxtrbh7/Parkour-2.1.1-SNAPSHOT.jar
 |:---------|:----------|
 |parkour.use      | Parkourのプレイを許可します。|
 |parkour.command.*| プラグインの全てコマンドの使用を許可します。|
+
+### 使い方
 
 ### Plans
 - config.ymlの設定用コマンド
