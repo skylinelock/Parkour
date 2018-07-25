@@ -18,10 +18,6 @@ public class Utils {
         return format.format(date);
     }
 
-    public static String toString(boolean bool, String trueString, String falseString) {
-        return bool ? trueString : falseString;
-    }
-
     public static String roundDownCoordinateSet(Location location) {
         if (location == null) {
             return "Null";
