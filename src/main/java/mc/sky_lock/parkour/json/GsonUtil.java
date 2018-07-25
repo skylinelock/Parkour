@@ -33,7 +33,6 @@ public class GsonUtil {
      * @throws IOException
      * @throws RuntimeException
      */
-    @SuppressWarnings("unused")
     public static <T> T load(File file, Type type) throws IOException {
         checkFile(file);
         try (JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {

@@ -38,9 +38,9 @@ class InfoCommand extends BaseCommand {
             player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + Utils.roundDownCoordinateSet(startLoc));
             player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + Utils.roundDownCoordinateSet(endLoc));
             player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + Utils.roundDownCoordinateSet(preLoc));
-            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + Utils.convertYesOrNo(parkour.canSave()));
-            player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + Utils.convertYesOrNo(parkour.isLocked()));
-            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + Utils.convertYesOrNo(parkour.isActive()));
+            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + toYesOrNo(parkour.canSave()));
+            player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + toYesOrNo(parkour.isLocked()));
+            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + toYesOrNo(parkour.isActive()));
             return Optional.of(parkour);
         }).orElseGet(() -> {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
@@ -48,4 +48,7 @@ class InfoCommand extends BaseCommand {
         });
     }
 
+    private String toYesOrNo(boolean bool) {
+        return Utils.toString(bool, "Yes", "No");
+    }
 }

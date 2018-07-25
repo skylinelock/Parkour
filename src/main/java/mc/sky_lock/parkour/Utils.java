@@ -19,8 +19,8 @@ public class Utils {
         return format.format(date);
     }
 
-    public static String convertYesOrNo(boolean bool) {
-        return bool ? "Yes" : "No";
+    public static String toString(boolean bool, String trueString, String falseString) {
+        return bool ? trueString : falseString;
     }
 
     public static String roundDownCoordinateSet(@NonNull Location location) {
