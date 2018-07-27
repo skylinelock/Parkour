@@ -13,6 +13,9 @@ public class CommandManager {
     private final BukkitCommandManager commandManager = new BukkitCommandManager(ParkourPlugin.getInstance());
 
     public void register() {
+        CommandReplacements replacements = commandManager.getCommandReplacements();
+        replacements.addReplacement("parkour", "parkour|pk");
+
         commandManager.registerCommand(new ParkourCommand());
         commandManager.registerCommand(new ActiveCommand());
         commandManager.registerCommand(new AddCommand());
@@ -30,8 +33,5 @@ public class CommandManager {
         commandManager.registerCommand(new TeleportCommand());
         commandManager.registerCommand(new SetHeightCommand());
         commandManager.registerCommand(new ConfigCommand());
-
-        CommandReplacements replacements = commandManager.getCommandReplacements();
-        replacements.addReplacement("parkour", "parkour|pk");
     }
 }

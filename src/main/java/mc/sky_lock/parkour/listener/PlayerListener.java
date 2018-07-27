@@ -8,6 +8,7 @@ import mc.sky_lock.parkour.api.event.ParkourEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import mc.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
+import mc.sky_lock.parkour.util.PressurePlate;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,6 +18,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
+
+import java.util.Arrays;
 
 /**
  * @author sky_lock
@@ -85,64 +88,38 @@ public class PlayerListener implements Listener {
             return;
         }
         Material plate = toLoc.getBlock().getType();
-        switch (plate) {
-            case HEAVY_WEIGHTED_PRESSURE_PLATE:
-            case LIGHT_WEIGHTED_PRESSURE_PLATE:
-            case ACACIA_PRESSURE_PLATE:
-            case BIRCH_PRESSURE_PLATE:
-            case DARK_OAK_PRESSURE_PLATE:
-            case JUNGLE_PRESSURE_PLATE:
-            case OAK_PRESSURE_PLATE:
-            case SPRUCE_PRESSURE_PLATE:
-            case STONE_PRESSURE_PLATE:
-                break;
-            default: return;
-        }
-        parkourManager.getParkours().stream().filter(Parkour::isActive).forEach(parkour -> {
-            start(event, parkour);
-            stop(event, parkour);
-        });
-    }
-
-    private void start(PlayerMoveEvent event, Parkour parkour) {
-        Player player = event.getPlayer();
-        Location toLocation = event.getTo();
-        Location startPoint = parkour.getStartPoint();
-        if (!sameBlockCoordinate(toLocation, startPoint)) {
-            return;
-        }
-        if (!callParkourEvent(new PlayerParkourStartEvent(player, parkour))) {
-            return;
-        }
-        parkourManager.getParkourPlayer(player).ifPresent(runner -> {
-            parkourManager.remove(runner);
-            if (!runner.getParkour().equals(parkour)) {
-                runner.sendFailContents();
-            }
-        });
-
-        Runner runner = new Runner(player, parkour);
-        parkourManager.add(runner);
-        runner.sendStartContents();
-    }
-
-    private void stop(PlayerMoveEvent event, Parkour parkour) {
-        Player player = event.getPlayer();
-        Location toLoc = event.getTo();
-        Location endPoint = parkour.getEndPoint();
-        if (!sameBlockCoordinate(toLoc, endPoint)) {
-            return;
-        }
-        parkourManager.getParkourPlayer(player).ifPresent(runner -> {
-            if (!runner.getParkour().equals(parkour)) {
-                return;
-            }
-            long timeMillis = runner.getTime();
-            if (!callParkourEvent(new PlayerParkourSucceedEvent(player, parkour, timeMillis))) {
-                return;
-            }
-            runner.sendEndContents(timeMillis);
-            parkourManager.remove(runner);
+        Arrays.stream(PressurePlate.values()).filter(pressure -> plate == pressure.getMaterial()).findAny().ifPresent(pressure -> {
+            parkourManager.getParkours().stream().filter(Parkour::isActive).forEach(parkour -> {
+                Player player = event.getPlayer();
+                Location start = parkour.getStartPoint();
+                Location end = parkour.getEndPoint();
+                if (sameBlockCoordinate(toLoc, start)) {
+                    if (!callParkourEvent(new PlayerParkourStartEvent(player, parkour))) {
+                        return;
+                    }
+                    parkourManager.getParkourPlayer(player).ifPresent(runner -> {
+                        parkourManager.remove(runner);
+                        if (!runner.getParkour().equals(parkour)) {
+                            runner.sendFailContents();
+                        }
+                    });
+                    Runner runner = new Runner(player, parkour);
+                    parkourManager.add(runner);
+                    runner.sendStartContents();
+                } else if (sameBlockCoordinate(toLoc, end)) {
+                    parkourManager.getParkourPlayer(player).ifPresent(runner -> {
+                        if (!runner.getParkour().equals(parkour)) {
+                            return;
+                        }
+                        long timeMillis = runner.getTime();
+                        if (!callParkourEvent(new PlayerParkourSucceedEvent(player, parkour, timeMillis))) {
+                            return;
+                        }
+                        runner.sendEndContents(timeMillis);
+                        parkourManager.remove(runner);
+                    });
+                }
+            });
         });
     }
 
