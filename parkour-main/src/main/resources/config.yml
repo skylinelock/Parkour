@@ -1,0 +1,10 @@
+mongodb:
+  host: localhost
+  port: 27017
+  database: parkour
+respawn:
+  height: 50
+  toSpawn: true
+cancelDamage:
+  fall: true
+  void: true
