@@ -9,9 +9,6 @@ Parkourのタイム計測をサポートするBukkitプラグイン。未だ開�
 - ファイルの再読込には/parkour reloadコマンドを使用して下さい。
 - 身動きが取れなくなった場合、プラグインフォルダのconfig.ymlのrespawn.toSpawn設定の値を現在のY座標以下に設定して下さい。
 
-## 配布
-http://www.mediafire.com/file/36r9iwxz1d4337z/Parkour-2.1.1-SNAPSHOT.jar/file
-
 ## Description
 ### Commands
 |Usage|Description|Permission|
