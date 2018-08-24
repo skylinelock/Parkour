@@ -8,7 +8,6 @@
     <artifactId>parkour-parent</artifactId>
     <packaging>pom</packaging>
     <version>2.1.1-SNAPSHOT</version>
-    <name>Parkour</name>
 
     <modules>
         <module>parkour-main</module>
