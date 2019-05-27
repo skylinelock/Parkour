@@ -9,7 +9,6 @@
         <version>2.1.1-SNAPSHOT</version>
     </parent>
     <artifactId>parkour-final</artifactId>
-    <name>Parkour</name>
 
     <dependencies>
         <dependency>
