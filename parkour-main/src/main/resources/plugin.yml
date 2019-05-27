@@ -1,9 +1,0 @@
-name: ${project.name}
-version: ${project.version}
-description: ${project.description}
-author: ${project.author}
-main: ${project.package.main}.ParkourPlugin
-
-database: true
-api-version: 1.13
-
