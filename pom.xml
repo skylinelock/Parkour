@@ -17,7 +17,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.author>sky_lock</project.author>
-        <project.main.package>mc.sky_lock.parkour</project.main.package>
+        <project.main.package>dev.sky_lock.parkour</project.main.package>
     </properties>
 
     <licenses>
