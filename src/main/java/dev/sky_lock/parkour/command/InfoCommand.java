@@ -5,7 +5,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
 import dev.sky_lock.parkour.message.ParkourMessage;
-import dev.sky_lock.parkour.Utils;
+import dev.sky_lock.parkour.Formats;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.ParkourManager;
 import org.apache.commons.lang.BooleanUtils;
@@ -36,9 +36,9 @@ class InfoCommand extends BaseCommand {
 
             player.sendMessage(ChatColor.GREEN + "Id: " + ChatColor.WHITE + parkour.getId());
             player.sendMessage(ChatColor.GREEN + "Name: " + ChatColor.WHITE + parkour.getName());
-            player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + Utils.roundDownCoordinateSet(startLoc));
-            player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + Utils.roundDownCoordinateSet(endLoc));
-            player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + Utils.roundDownCoordinateSet(preLoc));
+            player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + Formats.roundDownCoordinateSet(startLoc));
+            player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + Formats.roundDownCoordinateSet(endLoc));
+            player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + Formats.roundDownCoordinateSet(preLoc));
             player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + toYesOrNo(parkour.canSave()));
             player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + toYesOrNo(parkour.isLocked()));
             player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + toYesOrNo(parkour.isActive()));

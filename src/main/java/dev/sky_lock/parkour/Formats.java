@@ -10,7 +10,7 @@ import java.util.Date;
  * @author sky_lock
  */
 
-public class Utils {
+public class Formats {
 
     public static String durationFormat(long timeMillis) {
         Date date = new Date(timeMillis);
