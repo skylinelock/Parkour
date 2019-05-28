@@ -7,7 +7,6 @@ import co.aikar.commands.annotation.Subcommand;
 import dev.sky_lock.parkour.message.FailedMessage;
 import dev.sky_lock.parkour.ParkourLoader;
 import dev.sky_lock.parkour.ParkourPlugin;
-import dev.sky_lock.parkour.PluginLogger;
 import dev.sky_lock.parkour.api.ParkourManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -24,7 +23,6 @@ public class ReloadCommand extends BaseCommand {
     @Subcommand("reload")
     @CommandPermission("parkour.command.reload")
     public void onCommand(CommandSender sender) {
-        PluginLogger logger = plugin.getPluginLogger();
         ParkourManager parkourManager = plugin.getParkourManager();
         plugin.reloadResources();
         parkourManager.clearAllParkourPlayers();

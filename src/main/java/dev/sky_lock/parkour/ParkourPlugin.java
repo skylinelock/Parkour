@@ -11,6 +11,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 /**
  * @author sky_lock
@@ -23,9 +24,6 @@ public class ParkourPlugin extends JavaPlugin {
     private ParkourManager parkourManager;
     @Getter
     private PluginManager pluginManager;
-
-    @Getter
-    private PluginLogger pluginLogger;
     @Getter
     private ParkourLoader parkourLoader;
 
@@ -38,8 +36,6 @@ public class ParkourPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         pluginManager = getServer().getPluginManager();
-        pluginLogger = new PluginLogger();
-
         reloadResources();
 
         parkourLoader = new ParkourLoader(new ParkourFile(getDataFolder()), parkourManager);
@@ -49,7 +45,7 @@ public class ParkourPlugin extends JavaPlugin {
         commandManager.register();
         registerListeners();
 
-        Metrics metrics = new Metrics(this);
+        new Metrics(this);
     }
     
     @Override
@@ -69,7 +65,7 @@ public class ParkourPlugin extends JavaPlugin {
     public void reloadResources() {
         File dataFolder = getDataFolder();
         if (dataFolder.mkdirs()) {
-            pluginLogger.out(ChatColor.GRAY + "プラグインのデータフォルダを作成しました");
+            this.getLogger().info("プラグインのデータフォルダを作成しました");
         }
         getConfig().options().copyDefaults(true); //Returning default value
         saveDefaultConfig(); //If config.yml does not exist
