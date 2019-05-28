@@ -1,5 +1,6 @@
 package dev.sky_lock.parkour.listener;
 
+import dev.sky_lock.parkour.Optionals;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.Parkour;
 import dev.sky_lock.parkour.api.ParkourManager;
@@ -61,22 +62,18 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        parkourManager.getParkourPlayer(player).map(runner -> {
+        Optionals.ifPresentOrElse(parkourManager.getParkourPlayer(player), runner -> {
             Parkour parkour = runner.getParkour();
-
             if (!callParkourEvent(new PlayerParkourFailEvent(player, parkour))) {
-                return runner;
+                return;
             }
-
             player.teleport(parkour.getPresetPoint());
             parkourManager.remove(runner);
             runner.sendFailContents();
-            return runner;
-        }).orElseGet(() -> {
+        }, () -> {
             if (config.getBoolean("respawn.toSpawn")) {
                 player.teleport(player.getWorld().getSpawnLocation());
             }
-            return null;
         });
     }
 

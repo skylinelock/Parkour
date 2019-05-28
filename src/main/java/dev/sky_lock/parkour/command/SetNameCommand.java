@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
+import dev.sky_lock.parkour.Optionals;
 import dev.sky_lock.parkour.message.ParkourMessage;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.ParkourManager;
@@ -24,13 +25,9 @@ class SetNameCommand extends BaseCommand {
     @CommandPermission("parkour.command.rename")
     public void onCommand(Player player, String id, String renameTo) {
         ParkourManager parkourManager = plugin.getParkourManager();
-        parkourManager.getParkour(id).map(parkour -> {
+        Optionals.ifPresentOrElse(parkourManager.getParkour(id), parkour -> {
             parkour.setName(renameTo);
             player.sendMessage(ChatColor.GREEN + "Set Parkour " + parkour.getId() + "'s name to " + parkour.getName());
-            return Optional.of(parkour);
-        }).orElseGet(() -> {
-            player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-            return Optional.empty();
-        });
+        }, () -> player.sendMessage(ParkourMessage.NOT_FOUND.getText()));
     }
 }

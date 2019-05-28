@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
+import dev.sky_lock.parkour.Optionals;
 import dev.sky_lock.parkour.message.ParkourMessage;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.Parkour;
@@ -27,14 +28,12 @@ class AddCommand extends BaseCommand {
     public void onCommand(Player player, String id) {
         ParkourManager parkourManager = plugin.getParkourManager();
 
-        parkourManager.getParkour(id).map(parkour -> {
+        Optionals.ifPresentOrElse(parkourManager.getParkour(id), parkour -> {
             player.sendMessage(ParkourMessage.ALREADY_EXISTS.getText());
-            return Optional.of(parkour);
-        }).orElseGet(() -> {
+        }, () -> {
             Parkour newParkour = new Parkour(id);
             parkourManager.add(newParkour);
             player.sendMessage(ChatColor.GREEN + "Parkour " + newParkour.getId() + " added");
-            return Optional.empty();
         });
     }
 }

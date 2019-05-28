@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
+import dev.sky_lock.parkour.Optionals;
 import dev.sky_lock.parkour.message.ParkourMessage;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.ParkourManager;
@@ -26,7 +27,7 @@ class TeleportCommand extends BaseCommand {
     public void onCommand(Player player, String id) {
         ParkourManager parkourManager = plugin.getParkourManager();
 
-        parkourManager.getParkour(id).map(parkour -> {
+        Optionals.ifPresentOrElse(parkourManager.getParkour(id), parkour -> {
             Location prePoint = parkour.getPresetPoint();
             if (prePoint == null) {
                 player.sendMessage(ParkourMessage.PRESET_NOT_FOUND.getText());
@@ -34,10 +35,6 @@ class TeleportCommand extends BaseCommand {
                 player.teleport(prePoint);
                 player.sendMessage(ChatColor.GREEN + "Teleported to " + parkour.getId() + " parkour");
             }
-            return Optional.of(parkour);
-        }).orElseGet(() -> {
-            player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-            return Optional.empty();
-        });
+        }, () -> player.sendMessage(ParkourMessage.NOT_FOUND.getText()));
     }
 }
