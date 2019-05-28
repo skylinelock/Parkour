@@ -20,7 +20,6 @@ public class ParkourEvent extends PlayerEvent implements Cancellable {
         this.parkour = parkour;
     }
 
-    @SuppressWarnings("unused")
     public static HandlerList getHandlerList() {
         return handlers;
     }

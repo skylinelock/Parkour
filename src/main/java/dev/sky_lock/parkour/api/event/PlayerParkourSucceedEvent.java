@@ -1,5 +1,6 @@
 package dev.sky_lock.parkour.api.event;
 
+import dev.sky_lock.parkour.Formats;
 import dev.sky_lock.parkour.api.Parkour;
 import org.bukkit.entity.Player;
 
@@ -16,7 +17,11 @@ public class PlayerParkourSucceedEvent extends ParkourEvent {
         this.timeMillis = timeMillis;
     }
 
-    public long getTimeMillis() {
+    public long getElapsedTimeMillis() {
         return timeMillis;
+    }
+
+    public String getElapsedTimeText() {
+        return Formats.durationFormat(timeMillis);
     }
 }

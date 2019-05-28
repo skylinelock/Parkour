@@ -79,10 +79,20 @@ public class Parkour {
         this.name = name;
     }
 
-    public boolean canSave() {
+    /**
+     * Parkourのレコードをデータベースに記録するかどうかを返します。
+     *
+     * @return 記録するかどうか
+     */
+    public boolean doSave() {
         return save;
     }
 
+    /**
+     * Parkourのレコードをデータベースに記録するかどうかを設定します。
+     *
+     * @param save 記録するかどうか
+     */
     public void setSave(boolean save) {
         this.save = save;
     }
