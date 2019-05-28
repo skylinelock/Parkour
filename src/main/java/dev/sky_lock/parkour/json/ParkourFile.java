@@ -36,7 +36,6 @@ public class ParkourFile {
      * @throws IOException IOException
      */
     public void saveParkours(List<Parkour> parkours) throws IOException {
-        Type type = new TypeToken<List<Parkour>>() {}.getType();
         GsonUtil.save(file, parkours, type);
     }
 
@@ -48,7 +47,6 @@ public class ParkourFile {
      * @throws IOException IOException
      */
     public List<Parkour> loadParkours() throws IOException {
-        Type type = new TypeToken<List<Parkour>>() {}.getType();
         List<Parkour> parkours = GsonUtil.load(file, type);
 
         if (parkours == null) {

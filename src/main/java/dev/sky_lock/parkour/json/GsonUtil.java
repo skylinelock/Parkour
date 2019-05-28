@@ -67,8 +67,4 @@ public class GsonUtil {
             file.createNewFile();
         }
     }
-
-    public static class Types {
-        public static Type PARKOURS = new TypeToken<List<Parkour>>() {}.getType();
-    }
 }
