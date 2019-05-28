@@ -6,12 +6,10 @@ import dev.sky_lock.parkour.json.ParkourFile;
 import dev.sky_lock.parkour.listener.EntityListener;
 import dev.sky_lock.parkour.listener.PlayerListener;
 import lombok.Getter;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.logging.Logger;
 
 /**
  * @author sky_lock

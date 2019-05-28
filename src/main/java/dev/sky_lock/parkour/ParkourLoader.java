@@ -2,7 +2,6 @@ package dev.sky_lock.parkour;
 
 import dev.sky_lock.parkour.api.ParkourManager;
 import dev.sky_lock.parkour.json.ParkourFile;
-import org.bukkit.ChatColor;
 
 import java.io.IOException;
 import java.util.logging.Logger;

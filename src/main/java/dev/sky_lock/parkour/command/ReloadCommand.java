@@ -4,10 +4,10 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
-import dev.sky_lock.parkour.message.FailureMessage;
 import dev.sky_lock.parkour.ParkourLoader;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.ParkourManager;
+import dev.sky_lock.parkour.message.FailureMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 

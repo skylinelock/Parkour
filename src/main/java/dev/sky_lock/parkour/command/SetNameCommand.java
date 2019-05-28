@@ -5,13 +5,11 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
 import dev.sky_lock.parkour.Optionals;
-import dev.sky_lock.parkour.message.ParkourMessage;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.ParkourManager;
+import dev.sky_lock.parkour.message.ParkourMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.util.Optional;
 
 /**
  * @author sky_lock

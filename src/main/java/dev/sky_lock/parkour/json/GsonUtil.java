@@ -2,15 +2,12 @@ package dev.sky_lock.parkour.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import dev.sky_lock.parkour.api.Parkour;
 import org.bukkit.Location;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  * @author sky_lock

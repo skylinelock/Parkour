@@ -4,18 +4,14 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
-import dev.sky_lock.parkour.Optionals;
-import dev.sky_lock.parkour.message.ParkourMessage;
 import dev.sky_lock.parkour.Formats;
+import dev.sky_lock.parkour.Optionals;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.ParkourManager;
-import org.apache.commons.lang.BooleanUtils;
+import dev.sky_lock.parkour.message.ParkourMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-
-import java.text.Format;
-import java.util.Optional;
 
 /**
  * @author sky_lock

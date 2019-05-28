@@ -2,6 +2,7 @@ package dev.sky_lock.parkour.listener;
 
 import dev.sky_lock.parkour.Optionals;
 import dev.sky_lock.parkour.ParkourPlugin;
+import dev.sky_lock.parkour.PressurePlate;
 import dev.sky_lock.parkour.api.Parkour;
 import dev.sky_lock.parkour.api.ParkourManager;
 import dev.sky_lock.parkour.api.Runner;
@@ -9,7 +10,6 @@ import dev.sky_lock.parkour.api.event.ParkourEvent;
 import dev.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import dev.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import dev.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
-import dev.sky_lock.parkour.PressurePlate;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
