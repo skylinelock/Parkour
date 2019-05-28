@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
  * @author sky_lock
  */
 
-public enum FailedMessage {
+public enum FailureMessage {
 
     DONT_HAVE_PERM(ChatColor.RED + "You don't enough have permissions to do this"),
     NOT_PLAYER(ChatColor.RED + "You must be a player to use this command"),
@@ -15,7 +15,7 @@ public enum FailedMessage {
 
     private final String text;
 
-    FailedMessage(String text) {
+    FailureMessage(String text) {
         this.text = text;
     }
 

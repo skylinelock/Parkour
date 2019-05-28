@@ -4,7 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
-import dev.sky_lock.parkour.message.FailedMessage;
+import dev.sky_lock.parkour.message.FailureMessage;
 import dev.sky_lock.parkour.ParkourLoader;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.ParkourManager;
@@ -29,11 +29,11 @@ public class ReloadCommand extends BaseCommand {
         ParkourLoader loader = ParkourPlugin.getInstance().getParkourLoader();
 
         if (!loader.save()) {
-            sender.sendMessage(FailedMessage.RELOAD.getText());
+            sender.sendMessage(FailureMessage.RELOAD.getText());
             return;
         }
         if (!loader.load()) {
-            sender.sendMessage(FailedMessage.RELOAD.getText());
+            sender.sendMessage(FailureMessage.RELOAD.getText());
             return;
         }
 
