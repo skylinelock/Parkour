@@ -26,7 +26,6 @@ import java.util.Arrays;
  * @author sky_lock
  */
 
-@SuppressWarnings("unused")
 public class PlayerListener implements Listener {
 
     private final ParkourPlugin plugin = ParkourPlugin.getInstance();
@@ -48,7 +47,7 @@ public class PlayerListener implements Listener {
     public void onPlayerFail(PlayerMoveEvent event) {
         Location toLoc = event.getTo();
         Location fromLoc = event.getFrom();
-        if (sameBlockCoordinate(fromLoc, toLoc)) {
+        if (isSameBlockCoordinate(fromLoc, toLoc)) {
             return;
         }
         Player player = event.getPlayer();
@@ -81,7 +80,7 @@ public class PlayerListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         Location toLoc = event.getTo();
         Location fromLoc = event.getFrom();
-        if (sameBlockCoordinate(fromLoc, toLoc)) {
+        if (isSameBlockCoordinate(fromLoc, toLoc)) {
             return;
         }
         Material plate = toLoc.getBlock().getType();
@@ -90,7 +89,7 @@ public class PlayerListener implements Listener {
                 Player player = event.getPlayer();
                 Location start = parkour.getStartPoint();
                 Location end = parkour.getEndPoint();
-                if (sameBlockCoordinate(toLoc, start)) {
+                if (isSameBlockCoordinate(toLoc, start)) {
                     if (!callParkourEvent(new PlayerParkourStartEvent(player, parkour))) {
                         return;
                     }
@@ -103,7 +102,7 @@ public class PlayerListener implements Listener {
                     Runner runner = new Runner(player, parkour);
                     parkourManager.add(runner);
                     runner.sendStartContents();
-                } else if (sameBlockCoordinate(toLoc, end)) {
+                } else if (isSameBlockCoordinate(toLoc, end)) {
                     parkourManager.getParkourPlayer(player).ifPresent(runner -> {
                         if (!runner.getParkour().equals(parkour)) {
                             return;
@@ -125,7 +124,7 @@ public class PlayerListener implements Listener {
         return !event.isCancelled();
     }
 
-    private boolean sameBlockCoordinate(Location location1, Location location2) {
+    private boolean isSameBlockCoordinate(Location location1, Location location2) {
         return location1.getBlockX() == location2.getBlockX() && location1.getBlockY() == location2.getBlockY() && location1.getBlockZ() == location2.getBlockZ();
     }
 

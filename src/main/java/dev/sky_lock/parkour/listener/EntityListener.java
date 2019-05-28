@@ -14,7 +14,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
  * @author sky_lock
  */
 
-@SuppressWarnings("unused")
 public class EntityListener implements Listener {
     private final ParkourPlugin plugin = ParkourPlugin.getInstance();
 

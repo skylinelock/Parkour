@@ -9,10 +9,7 @@ import dev.sky_lock.parkour.message.ParkourMessage;
 import dev.sky_lock.parkour.ParkourPlugin;
 import dev.sky_lock.parkour.api.Parkour;
 import dev.sky_lock.parkour.api.ParkourManager;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.util.Optional;
 
 /**
  * @author sky_lock
@@ -27,7 +24,7 @@ class ActiveCommand extends BaseCommand {
     public void onCommand(Player player, String id) {
         ParkourManager parkourManager = plugin.getParkourManager();
         Optionals.ifPresentOrElse(parkourManager.getParkour(id), parkour -> {
-            if (!checkParkour(parkour)) {
+            if (!checkAllElements(parkour)) {
                 player.sendMessage(ParkourMessage.NOT_ENOUGH_ELEMENTS.getText());
                 return;
             }
@@ -35,7 +32,7 @@ class ActiveCommand extends BaseCommand {
         }, () -> player.sendMessage(ParkourMessage.NOT_FOUND.getText()));
     }
 
-    private boolean checkParkour(Parkour parkour) {
+    private boolean checkAllElements(Parkour parkour) {
         return parkour.getStartPoint() != null && parkour.getEndPoint() != null && parkour.getPresetPoint() != null && parkour.getName() != null;
     }
 }

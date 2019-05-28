@@ -18,7 +18,6 @@ public class ParkourFile {
     private final File file;
     private static final Type type = new TypeToken<List<Parkour>>() {}.getType();
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public ParkourFile(File dir) {
         dir.mkdirs();
         this.file = new File(dir, "parkours.json");
