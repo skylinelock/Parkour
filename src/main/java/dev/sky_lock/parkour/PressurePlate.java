@@ -1,4 +1,4 @@
-package dev.sky_lock.parkour.util;
+package dev.sky_lock.parkour;
 
 import lombok.Getter;
 import org.bukkit.Material;

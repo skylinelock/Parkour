@@ -9,7 +9,7 @@ import dev.sky_lock.parkour.api.event.ParkourEvent;
 import dev.sky_lock.parkour.api.event.PlayerParkourFailEvent;
 import dev.sky_lock.parkour.api.event.PlayerParkourStartEvent;
 import dev.sky_lock.parkour.api.event.PlayerParkourSucceedEvent;
-import dev.sky_lock.parkour.util.PressurePlate;
+import dev.sky_lock.parkour.PressurePlate;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
