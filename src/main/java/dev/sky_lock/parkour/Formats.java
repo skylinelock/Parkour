@@ -22,13 +22,13 @@ public class Formats {
         if (location == null) {
             return "Null";
         }
-        BigDecimal x = new BigDecimal(location.getX());
-        BigDecimal y = new BigDecimal(location.getY());
-        BigDecimal z = new BigDecimal(location.getZ());
-
-        String scaledX = x.setScale(1, BigDecimal.ROUND_DOWN).toString();
-        String scaledY = y.setScale(1, BigDecimal.ROUND_DOWN).toString();
-        String scaledZ = z.setScale(1, BigDecimal.ROUND_DOWN).toString();
+        String scaledX = truncateToOneDecimalPlace(location.getX());
+        String scaledY = truncateToOneDecimalPlace(location.getY());
+        String scaledZ = truncateToOneDecimalPlace(location.getZ());
         return scaledX + " " + scaledY + " " + scaledZ;
+    }
+
+    private static String truncateToOneDecimalPlace(double decimal) {
+        return String.format("%.1f", decimal);
     }
 }
