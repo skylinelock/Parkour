@@ -14,6 +14,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.text.Format;
 import java.util.Optional;
 
 /**
@@ -39,15 +40,11 @@ class InfoCommand extends BaseCommand {
             player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + Formats.roundDownCoordinateSet(startLoc));
             player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + Formats.roundDownCoordinateSet(endLoc));
             player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + Formats.roundDownCoordinateSet(preLoc));
-            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + toYesOrNo(parkour.canSave()));
-            player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + toYesOrNo(parkour.isLocked()));
-            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + toYesOrNo(parkour.isActive()));
+            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + Formats.toCamelCase(parkour.canSave()));
+            player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + Formats.toCamelCase(parkour.isLocked()));
+            player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + Formats.toCamelCase(parkour.isActive()));
         }, () -> {
             player.sendMessage(ParkourMessage.NOT_FOUND.getText());
         });
-    }
-
-    private String toYesOrNo(boolean bool) {
-        return BooleanUtils.toString(bool, "Yes", "No");
     }
 }

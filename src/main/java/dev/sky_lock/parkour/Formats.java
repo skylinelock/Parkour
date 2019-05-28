@@ -31,4 +31,8 @@ public class Formats {
     private static String truncateToOneDecimalPlace(double decimal) {
         return String.format("%.1f", decimal);
     }
+
+    public static String toCamelCase(boolean bool) {
+        return bool ? "Yes" : "No";
+    }
 }
