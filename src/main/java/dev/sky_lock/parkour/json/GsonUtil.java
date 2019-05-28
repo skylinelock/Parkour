@@ -19,6 +19,7 @@ import java.util.List;
 public class GsonUtil {
 
     private static final Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
             .serializeNulls()
             .registerTypeAdapter(Location.class, new LocationAdapter())
             .create();
@@ -55,6 +56,7 @@ public class GsonUtil {
     public static <T> void save(File file, T obj, Type type) throws IOException {
         checkFile(file);
         try (JsonWriter writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))) {
+            writer.setIndent("  ");
             gson.toJson(obj, type, writer);
         }
     }
