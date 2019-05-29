@@ -11,7 +11,6 @@ import java.util.*;
 
 public class ParkourManager {
 
-    private final ParkourPlugin plugin = ParkourPlugin.getInstance();
     private final Set<Runner> runners = new HashSet<>();
     private final List<Parkour> parkours = new ArrayList<>();
 
@@ -39,7 +38,7 @@ public class ParkourManager {
         return Collections.unmodifiableSet(runners);
     }
 
-    public Optional<Runner> getParkourPlayer(Player player) {
+    public Optional<Runner> getRunner(Player player) {
         return runners.stream().filter(runner -> runner.getPlayer().equals(player)).findAny();
     }
 
@@ -47,7 +46,7 @@ public class ParkourManager {
         runners.remove(runner);
     }
 
-    public boolean isParkourPlayer(Player player) {
+    public boolean isRunner(Player player) {
         return runners.stream().anyMatch(runner -> runner.getPlayer().equals(player));
     }
 

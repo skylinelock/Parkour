@@ -29,7 +29,7 @@ public class EntityListener implements Listener {
         if (damageCause == DamageCause.VOID) {
             ParkourManager parkourManager = plugin.getParkourManager();
             Player player = (Player) entity;
-            if (parkourManager.isParkourPlayer(player)) {
+            if (parkourManager.isRunner(player)) {
                 boolean damage = config.getBoolean("cancelDamage.void", true);
                 event.setCancelled(damage);
             }
