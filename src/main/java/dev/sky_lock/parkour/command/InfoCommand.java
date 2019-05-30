@@ -36,11 +36,9 @@ class InfoCommand extends BaseCommand {
             player.sendMessage(ChatColor.GREEN + "Start Point: " + ChatColor.WHITE + Formats.roundDownCoordinateSet(startLoc));
             player.sendMessage(ChatColor.GREEN + "End Point: " + ChatColor.WHITE + Formats.roundDownCoordinateSet(endLoc));
             player.sendMessage(ChatColor.GREEN + "Pre Point: " + ChatColor.WHITE + Formats.roundDownCoordinateSet(preLoc));
-            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + Formats.toCamelCase(parkour.canSave()));
+            player.sendMessage(ChatColor.GREEN + "Save: " + ChatColor.WHITE + Formats.toCamelCase(parkour.doSave()));
             player.sendMessage(ChatColor.GREEN + "Locked: " + ChatColor.WHITE + Formats.toCamelCase(parkour.isLocked()));
             player.sendMessage(ChatColor.GREEN + "Active: " + ChatColor.WHITE + Formats.toCamelCase(parkour.isActive()));
-        }, () -> {
-            player.sendMessage(ParkourMessage.NOT_FOUND.getText());
-        });
+        }, () -> player.sendMessage(ParkourMessage.NOT_FOUND.getText()));
     }
 }
